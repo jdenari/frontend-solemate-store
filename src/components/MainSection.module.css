@@ -1,0 +1,20 @@
+.featuresBox {
+    color: var(--main-purple);
+    border-color: var(--main-purple);
+    border-style: solid; /* Add a border style to make the border visible */
+    border-width: 1px; /* Define the border width */
+    border-radius: 5px; /* Define the border radius */
+}
+
+.priceContainer {
+    transform: translate(-100%, -200%);
+}
+
+.price {
+    font-size: 2.5rem;
+}
+
+.currency {
+    font-size: 1.2rem;
+}
+  

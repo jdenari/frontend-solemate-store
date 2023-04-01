@@ -12,7 +12,8 @@
     --main-purple: #8024E4;
     --light-purple: #8124e49a;
     --light-gray: #8D99AE;
-    --strong-gray: #E5E5E5;
+    --medium-gray: #E5E5E5;
+    --strong-gray: #525252;
     --light-white: #FDFCFD;
 
     --primary-glow: conic-gradient(
@@ -111,3 +112,8 @@ a {
         color-scheme: dark;
     }
 }
+
+.bg-light-white{background-color: var(--light-white);}
+.bg-light-gray{background-color: var(--light-gray);}
+.bg-medium-gray{background-color: var(--medium-gray);}
+.bg-strong-gray{background-color: var(--strong-gray);}

@@ -1,0 +1,14 @@
+.grayButton {
+    color: var(--strong-gray);
+    background-color: var(--light-white);
+    border-color: var(--light-white);
+    transition: all 0.4s;
+    
+    margin: 0px 4px !important;
+}
+  
+.grayButton:hover {
+    color: var(--light-white);
+    background-color: var(--medium-gray);
+    border-color: var(--light-white);
+}

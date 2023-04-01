@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import Header from '../components/Header';
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import MainSection from '../components/MainSection'
+import SecondarySection from '../components/SecondarySection';
 
 export default function Home() {
   return (
@@ -14,9 +13,18 @@ export default function Home() {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />
-        <main>
-        
-        </main>
+        <div className='bg-light-white'>
+            <div className='container d-flex'>
+                <div className="row">
+                    <div className="col-8">
+                        <MainSection />
+                    </div>
+                    <div className="col-4 bg-medium-gray px-0">
+                        <SecondarySection />
+                    </div>
+                </div>
+            </div>
+        </div>
     </>
   )
 }

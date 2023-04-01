@@ -1,20 +1,20 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import styles from './Header.module.css';
+import styles from './MainButton.module.css';
 
-interface CustomButtonProps {
+interface MainButtonProps {
   buttonText: string;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ buttonText }) => {
+const MainButton: React.FC<MainButtonProps> = ({ buttonText }) => {
     return (
         <Button
             variant="outline-primary"
-            className={`ms-auto ${styles.purpleButton} px-5 p-2 rounded-4`}
+            className={`ms-auto ${styles.purpleButton} px-4 p-2 shadow-sm bg-body-tertiary rounded-4`}
         >
         {buttonText}
         </Button>
     );
 };
 
-export default CustomButton;
+export default MainButton;
