@@ -1,0 +1,13 @@
+.purpleButton {
+    color: var(--light-white);
+    background-color: var(--main-purple);
+    border-color: var(--light-white);
+    transition: all 0.4s;
+}
+  
+.purpleButton:hover {
+    color: var(--light-white);
+    background-color: var(--light-purple);
+    border-color: var(--light-white);
+}
+  
