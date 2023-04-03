@@ -3,8 +3,12 @@ import styles from './MainSection.module.css';
 import Counter from './Counter';
 import MainButton from './MainButton';
 import SecondaryButton from './SecondaryButton';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/types';
 
 const MainSection = () => {
+    const count = useSelector((state: RootState) => state.counter.count);
+
     return (
         <div className='p-3'>
             <h2 className='p-1'>Title Shoes</h2>
@@ -22,8 +26,11 @@ const MainSection = () => {
                 </div>
             </div>
             <div className='d-flex flex-row-reverse'>
-                <MainButton buttonText="Add (1) Cart" />
-                <SecondaryButton buttonText="Clean" />
+                <MainButton buttonText={`Add (${count})`}
+                    imageUrl='./icons/cart.png' />
+                <SecondaryButton buttonText="Clean" 
+                    imageUrl='./icons/eraser.png'
+                />
             </div>
         </div>
     );

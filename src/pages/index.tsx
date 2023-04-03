@@ -1,9 +1,12 @@
-import Head from 'next/head'
+import React from 'react';
+import { Provider } from 'react-redux';
+import Head from 'next/head';
 import Header from '../components/Header';
-import MainSection from '../components/MainSection'
+import MainSection from '../components/MainSection';
 import SecondarySection from '../components/SecondarySection';
+import store from '../store/store';
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <>
         <Head>
@@ -12,19 +15,24 @@ export default function Home() {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Header />
-        <div className='bg-light-white'>
-            <div className='container d-flex'>
-                <div className="row">
-                    <div className="col-8">
-                        <MainSection />
-                    </div>
-                    <div className="col-4 bg-medium-gray px-0">
-                        <SecondarySection />
+        <Provider store={store}>
+            <Header />
+            <div className="bg-light-white">
+                <div className="container d-flex">
+                    <div className="row">
+                        <div className="col-8">
+                            <MainSection />
+                        </div>
+                        <div className="col-4 bg-medium-gray px-0">
+                            <SecondarySection />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </Provider>
     </>
-  )
-}
+  );
+};
+
+export default Home;
+
