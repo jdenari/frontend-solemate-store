@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import MainSection from '../components/MainSection';
 import SecondarySection from '../components/SecondarySection';
+import Footer from '@/components/Footer';
 import store from '../store/store';
 
 const Home: React.FC = () => {
@@ -29,6 +30,7 @@ const Home: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </Provider>
     </>
   );

@@ -1,0 +1,11 @@
+.title{
+    color: var(--main-purple)
+}
+
+.row{
+    font-size: 14px;
+}
+
+.NavLink {
+    font-size: 8px !important;
+}

@@ -117,3 +117,5 @@ a {
 .bg-light-gray{background-color: var(--light-gray);}
 .bg-medium-gray{background-color: var(--medium-gray);}
 .bg-strong-gray{background-color: var(--strong-gray);}
+
+.color-strong-purple{color: var(--main-purple);}
