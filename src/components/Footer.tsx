@@ -19,12 +19,12 @@ const Footer = () => {
                     </li>
                     <li className={`nav-item ${styles.footerNavItem} text-left mx-5`}>
                         <a className={`${styles.title} font-weight-bold nav-link`} href="#">Cliente</a>
-                        <a href="#" className={`${styles.row} nav-link`}>Meus Pedidos</a>
-                        <a href="#" className={`${styles.row} nav-link`}>Meu Carrinho</a>
+                        <a href="/cliente/meuspedidos" className={`${styles.row} nav-link`}>Meus Pedidos</a>
+                        <a href="/cliente/meucarrinho" className={`${styles.row} nav-link`}>Meu Carrinho</a>
                     </li>
                     <li className={`nav-item text-left mx-5`}>
                         <a className={`${styles.title} font-weight-bold nav-link`} href="#">Sobre</a>
-                        <a href="#" className={`${styles.row} nav-link`}>Solemate Store</a>
+                        <a href="/cliente/solemate" className={`${styles.row} nav-link`}>Solemate Store</a>
                     </li>
                 </ul>
                 <div className="d-flex">
