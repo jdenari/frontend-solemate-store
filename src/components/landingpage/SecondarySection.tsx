@@ -1,5 +1,5 @@
 import React from 'react';
-import CardVertical from './VerticalCard';
+import CardVertical from '../client/VerticalCard';
 import './SecondarySection.module.css';
 
 const SecondarySection: React.FC = () => {

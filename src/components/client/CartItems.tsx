@@ -4,10 +4,10 @@ import styles from './CartItems.module.css';
 
 const CartItems = () => {
     return (
-        <div className={`${styles.bgLightWhite} container p-3 rounded`}>
+        <div className={`${styles.bgLightWhite} container p-3 rounded my-3`}>
             <div className='d-flex justify-content-between'>
                 <h5>13 de Fevereiro de 2022</h5>
-                <h6 className='d-flex justify-content-end'>Previsão de Entregas: 21/02/2022</h6>
+                <h6 className='d-flex justify-content-end'>Previsão de Entrega: 21/02/2022</h6>
             </div>
             <hr className="w-100 border-top border-secondary my-1" />
             <div className="row my-1 d-flex">
@@ -16,7 +16,7 @@ const CartItems = () => {
                     imgAlt="Image 1" 
                     title="Title 1" 
                     description='on autem velit et galisum voluptatum sit harum neque vel magnam nulla At incidunt accusantium est quia accusantium. '
-                    price="$10" 
+                    price="R$ 490,99" 
                 />
             </div>
             <div className="row my-1">
@@ -25,7 +25,7 @@ const CartItems = () => {
                     imgAlt="Image 1" 
                     title="Title 1" 
                     description='on autem velit et galisum voluptatum sit harum neque vel magnam nulla At incidunt accusantium est quia accusantium. '
-                    price="$10" 
+                    price="R$ 120,99" 
                 />
             </div>
         </div>

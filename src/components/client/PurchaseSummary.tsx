@@ -1,5 +1,5 @@
 import React from 'react';
-import MainButton from './MainButton'
+import MainButton from '../MainButton'
 import styles from './PurchaseSummary.module.css';
 
 type PurchaseSummaryProps = {
@@ -11,7 +11,7 @@ type PurchaseSummaryProps = {
 
 const PurchaseSummary: React.FC<PurchaseSummaryProps> = ({ title, items, prices, total}) => {
     return (
-        <div className={`${styles.bgLightWhite} container d-flex p-3 my-3`}>
+        <div className={`${styles.bgLightWhite} container d-flex justify-content-center p-3 my-3 m-auto`}>
             <div className="col-5 p-3">
                 <h5>{title}</h5>
                 <hr />
@@ -27,7 +27,7 @@ const PurchaseSummary: React.FC<PurchaseSummaryProps> = ({ title, items, prices,
                     <span>{total}</span>
                 </div>
             </div>
-            <div className="d-flex flex-row-reverse col-7">
+            <div className="d-flex flex-row-reverse col-4">
                 <div className='d-flex align-items-end'>
                     <MainButton buttonText="Finalizar" 
                     />

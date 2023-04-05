@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './MainSection.module.css';
-import Counter from './Counter';
-import MainButton from './MainButton';
-import SecondaryButton from './SecondaryButton';
+import Counter from '../Counter';
+import MainButton from '../MainButton';
+import SecondaryButton from '../SecondaryButton';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store/types';
+import { RootState } from '../../store/types';
 
 const MainSection = () => {
     const count = useSelector((state: RootState) => state.counter.count);

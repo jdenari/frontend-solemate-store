@@ -2,8 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import Head from 'next/head';
 import Header from '../components/Header';
-import MainSection from '../components/MainSection';
-import SecondarySection from '../components/SecondarySection';
+import MainSection from '../components/landingpage/MainSection';
+import SecondarySection from '../components/landingpage/SecondarySection';
 import Footer from '@/components/Footer';
 import store from '../store/store';
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '@/components/Header'
-import CartItems from '@/components/CartItems'
-import PurchaseSummary from '@/components/PurchaseSummary'
+import CartItems from '@/components/client/CartItems'
+import PurchaseSummary from '@/components/client/PurchaseSummary'
 import Footer from '@/components/Footer'
 import { Provider } from 'react-redux'
 import store from '../../store/store' // ou o caminho para o arquivo que cria e exporta a store

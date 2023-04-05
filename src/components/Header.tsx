@@ -1,11 +1,11 @@
 import React from 'react';
 import MainButton from './MainButton';
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav} from 'react-bootstrap';
 
 const Header = () => {
     return (
         <Navbar bg="light" expand="lg" className="w-100 shadow-sm p-3">
-            <Navbar.Brand href="#home" className='m-1 mx-3'>
+            <Navbar.Brand href="/" className='m-1 mx-3'>
                 <img src="/logo-small.png" alt="Logo" height="45" />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
