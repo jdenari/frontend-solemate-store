@@ -7,11 +7,11 @@
 }
 
 .priceContainer {
-    transform: translate(-100%, -200%);
+    transform: translate(-100%, -150%);
 }
 
 .price {
-    font-size: 2.5rem;
+    font-size: 2.0rem;
 }
 
 .currency {

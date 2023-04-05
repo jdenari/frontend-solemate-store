@@ -21,7 +21,7 @@ const CartItems = () => {
             </div>
             <div className="row my-1">
                 <HorizontalCard  
-                    imgSrc="/shoes/shoes-07.png" 
+                    imgSrc="/shoes/shoes-03.png" 
                     imgAlt="Image 1" 
                     title="Title 1" 
                     description='on autem velit et galisum voluptatum sit harum neque vel magnam nulla At incidunt accusantium est quia accusantium. '
