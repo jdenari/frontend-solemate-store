@@ -1,7 +1,6 @@
 .inputGroupAddon {
     display: flex;
     align-items: center;
-    background-image: url('/path/to/image.png');
     background-repeat: no-repeat;
     background-position: right center;
     padding: 0 10px;
