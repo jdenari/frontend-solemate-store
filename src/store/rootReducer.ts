@@ -2,7 +2,7 @@ import { combineReducers, createReducer, PayloadAction } from '@reduxjs/toolkit'
 import { CounterState, ProductState, Product } from './types';
 
 const initialCounterState: CounterState = {
-  count: 1,
+    count: 1,
 };
 
 const counterReducer = createReducer(initialCounterState, {

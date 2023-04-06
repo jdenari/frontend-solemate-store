@@ -4,9 +4,14 @@ export interface CounterState {
 
 export interface Product {
     id: number;
-    name: string;
-    price: number;
+    class: string;
+    productName: string;
     description: string;
+    price: number;
+    stock: {
+        size: string;
+        quantity: number;
+    };
 }
 
 export interface ProductState {
