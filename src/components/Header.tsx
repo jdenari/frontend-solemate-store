@@ -24,7 +24,7 @@ const Header = () => {
                         <Nav.Link href="/cliente/meucarrinho" className='mx-5'>Meu Carrinho</Nav.Link>
                         <Nav.Link href="/cliente/solemate" className='mx-5'>Solemate</Nav.Link>
                     </Nav>
-                    <MainButton buttonText="Login" />
+                    <MainButton buttonText="Login" href="/cliente/login" />
                 </Navbar.Collapse>
             </Navbar>
             <DropdownCategory show={showDropdown} onClose={handleCloseDropdown} />
