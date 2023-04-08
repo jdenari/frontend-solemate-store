@@ -14,6 +14,10 @@ export interface Product {
     };
 }
 
+export interface AuthenticateState {
+    authenticated: boolean
+}
+
 export interface ProductState {
     products: Product[];
     loading: boolean;

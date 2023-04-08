@@ -10,6 +10,9 @@ export const getProductStart = createAction('getProductStart');
 export const getProductSuccess = createAction<Product[]>('getProductSuccess');
 export const getProductFailure = createAction<string>('getProductFailure');
 
+export const authenticated = createAction('authenticated');
+export const deauthenticated = createAction('deauthenticated');
+
 export const getProduct = () => async (dispatch: Dispatch) => {
     dispatch(getProductStart());
     try {
