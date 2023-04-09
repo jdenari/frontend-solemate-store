@@ -1,0 +1,35 @@
+/* HeaderList styles */
+.headerList {
+position: relative;
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.dropdownMenu {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.dropdownItem {
+    display: block;
+    padding: 5px;
+    color: black;
+    text-decoration: none;
+}
+
+.dropdownItem:hover {
+    background-color: #f2f2f2 !important;
+    color: var(--main-purple);
+}
+  

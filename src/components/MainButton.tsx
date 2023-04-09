@@ -18,7 +18,7 @@ const MainButton: React.FC<MainButtonProps> = ({ buttonText, imageUrl, href, onC
             target="_self" 
             onClick={onClick} 
         >
-            {imageUrl && <img src={imageUrl} alt="Button Icon" className="me-2" />}
+            {imageUrl && <img src={imageUrl} alt="Button Icon" className="me-3" />}
             {buttonText}
         </Button>
     );

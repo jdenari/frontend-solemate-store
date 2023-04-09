@@ -14,7 +14,7 @@ export interface Product {
     };
 }
 
-export interface AuthenticateState {
+export interface AuthenticatedState {
     authenticated: boolean
 }
 
@@ -27,6 +27,7 @@ export interface ProductState {
 export interface RootState {
     counter: CounterState;
     product: ProductState;
+    authenticated: AuthenticatedState;
 }
     
   

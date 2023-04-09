@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/types';
 import MainButton from './MainButton';
 import DropdownCategory from './category/DropdownCategory';
+import HeaderList from './HeaderLogin';
 import { Navbar, Nav } from 'react-bootstrap';
 
 const Header = () => {
@@ -8,6 +11,8 @@ const Header = () => {
 
     const handleDropdown = () => {setShowDropdown(!showDropdown);};
     const handleCloseDropdown = () => {setShowDropdown(false);};
+
+    const authenticated = useSelector((state: RootState) => state.authenticated.authenticated);
 
     return (
         <div>
@@ -24,7 +29,13 @@ const Header = () => {
                         <Nav.Link href="/cliente/meucarrinho" className='mx-5'>Meu Carrinho</Nav.Link>
                         <Nav.Link href="/cliente/solemate" className='mx-5'>Solemate</Nav.Link>
                     </Nav>
-                    <MainButton buttonText="Login" href="/cliente/login" />
+                    <div className='d-block'>
+                        {authenticated ? (
+                            <HeaderList />
+                        ) : (
+                            <MainButton buttonText="Login" href="/cliente/login"/>
+                        )}
+                    </div>
                 </Navbar.Collapse>
             </Navbar>
             <DropdownCategory show={showDropdown} onClose={handleCloseDropdown} />
@@ -32,5 +43,5 @@ const Header = () => {
     );
 };
 
-
 export default Header;
+

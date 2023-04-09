@@ -1,5 +1,5 @@
 import { combineReducers, createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { CounterState, ProductState, AuthenticateState, Product } from './types';
+import { CounterState, ProductState, AuthenticatedState, Product } from './types';
 
 // counter products cart
 const initialCounterState: CounterState = {
@@ -43,16 +43,20 @@ const productReducer = createReducer(initialProductState, {
 });
 
 // 
-const initialAuthenticateState: AuthenticateState = {
+const initialAuthenticateState: AuthenticatedState = {
     authenticated: false,
 };
 
 const authenticateReducer = createReducer(initialAuthenticateState, {
     authenticated: (state) => {
+        console.log(state.authenticated)
         state.authenticated = true;
+        console.log(state.authenticated)
     },
     deauthenticated: (state) => {
+        console.log(state.authenticated)
         state.authenticated = false
+        console.log(state.authenticated)
     },
 });
 
