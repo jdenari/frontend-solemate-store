@@ -1,5 +1,5 @@
 import { combineReducers, createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { CounterState, ProductState, AuthenticatedState, Product } from './types';
+import { CounterState, ProductState, AuthenticatedState, Product, Order, OrderState } from './types';
 
 // counter products cart
 const initialCounterState: CounterState = {
@@ -49,23 +49,40 @@ const initialAuthenticateState: AuthenticatedState = {
 
 const authenticateReducer = createReducer(initialAuthenticateState, {
     authenticated: (state) => {
-        console.log(state.authenticated)
         state.authenticated = true;
-        console.log(state.authenticated)
     },
     deauthenticated: (state) => {
-        console.log(state.authenticated)
         state.authenticated = false
-        console.log(state.authenticated)
     },
 });
 
+// products list from database
+const initialOrderState: OrderState = {
+    orders: [],
+    loading: false,
+    error: null,
+};
 
+const orderReducer = createReducer(initialOrderState, {
+    getOrderStart: (state) => {
+        state.loading = true;
+        state.error = null;
+    },
+    getOrderSuccess: (state, action: PayloadAction<Order[]>) => {
+        state.loading = false;
+        state.orders = action.payload;
+    },
+    getOrderFailure: (state, action: PayloadAction<string>) => {
+        state.loading = false;
+        state.error = action.payload;
+    },
+});
 
 const rootReducer = combineReducers({
     counter: counterReducer,
     product: productReducer,
-    authenticated: authenticateReducer
+    authenticated: authenticateReducer,
+    order: orderReducer
 });
 
 export default rootReducer;

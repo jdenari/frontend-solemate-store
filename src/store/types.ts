@@ -14,6 +14,26 @@ export interface Product {
     };
 }
 
+export interface Order {
+    id: number;
+    idUser: number;
+    class: string;
+    productName: string;
+    description: string;
+    order: {
+        price: number;
+        priceUnit: number;
+        quantity: number;
+        size: string;
+    };
+}
+
+export interface OrderState {
+    orders: Order[];
+    loading: boolean;
+    error: string | null;
+}
+
 export interface AuthenticatedState {
     authenticated: boolean
 }
@@ -28,6 +48,7 @@ export interface RootState {
     counter: CounterState;
     product: ProductState;
     authenticated: AuthenticatedState;
+    order: OrderState;
 }
     
   
