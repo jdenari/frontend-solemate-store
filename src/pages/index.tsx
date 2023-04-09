@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import MainSection from '../components/landingpage/MainSection';
 import SecondarySection from '../components/landingpage/SecondarySection';
 import Footer from '@/components/Footer';
-import store from '../store/store';
+import store  from '../store/store';
 
 const Home: React.FC = () => {
     const dispatch = useDispatch<any>();

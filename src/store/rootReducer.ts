@@ -3,7 +3,7 @@ import { CounterState, ProductState, AuthenticateState, Product } from './types'
 
 // counter products cart
 const initialCounterState: CounterState = {
-    count: parseInt(localStorage.getItem('count') || '1'),
+    count: 1,
 };
 
 const counterReducer = createReducer(initialCounterState, {
@@ -17,7 +17,6 @@ const counterReducer = createReducer(initialCounterState, {
     },
     setCount: (state, action: PayloadAction<number>) => {
         state.count = action.payload;
-        localStorage.setItem('count', action.payload.toString());
     },
 });
 
