@@ -28,6 +28,7 @@ const Header = () => {
                         <Nav.Link href="/cliente/meuspedidos" className='mx-5'>Meus Pedidos</Nav.Link>
                         <Nav.Link href="/cliente/meucarrinho" className='mx-5'>Meu Carrinho</Nav.Link>
                         <Nav.Link href="/cliente/solemate" className='mx-5'>Solemate</Nav.Link>
+                        <Nav.Link href="/administracao/novosprodutos" className='mx-5'>Administração</Nav.Link>
                     </Nav>
                     <div className='d-block'>
                         {authenticated ? (
