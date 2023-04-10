@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MainButton from '../MainButton';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
+import MessageReturn from '../MessageReturn'; // Importação do componente de mensagem
 
 interface IFormData {
-    productClass: string;
-    productName: string;
-    description: string;
-    price: number;
-    stock: {
-        size: string;
-        quantity: number;
-    };
-    image?: File;
+  productClass: string;
+  productName: string;
+  description: string;
+  price: number;
+  stock: {
+    size: string;
+    quantity: number;
+  };
+  image?: File;
 }
-
 
 const NovosProdutos: React.FC = () => {
     const [formData, setFormData] = useState<IFormData>({
@@ -23,14 +23,18 @@ const NovosProdutos: React.FC = () => {
         description: '',
         price: 0,
         stock: {
-            size: '',
-            quantity: 1,
-        },
+        size: '',
+        quantity: 1,
+    },
 });
+
+const [selectedImage, setSelectedImage] = useState<File | undefined>(undefined);
+
+const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
         ...prevState,
         [name]: value,
     }));
@@ -38,7 +42,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 const handleStockChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
         ...prevState,
         stock: {
             ...prevState.stock,
@@ -47,20 +51,28 @@ const handleStockChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     }));
 };
 
-const [selectedImage, setSelectedImage] = useState<File | undefined>(undefined);
-
-async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post('http://localhost:5000/api/product/add-product', formData);
-      console.log('Dados enviados para o servidor:', response.data);
-    } catch (error) {
-      console.error('Erro ao enviar os dados:', error);
-    }
-}
+        const response = await axios.post('http://localhost:5000/api/product/add-product', formData);
+        setMessage({ text: response.data, variant: 'success' });
 
+    } catch (error) {setMessage({ text: 'Erro ao enviar os dados', variant: 'danger' });}
+  };
+
+useEffect(() => {
+    let timeoutId: NodeJS.Timeout | undefined;
+    if (message && message.text) {
+        timeoutId = setTimeout(() => {
+            setMessage(null);
+        }, 3000);
+    }
+    return () => {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+    };
+}, [message]);
 
     return (
         <>
@@ -149,10 +161,10 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                     />
                 </Form.Group>
 
-
                 <div className='d-flex flex-row-reverse my-3'>
                     <MainButton buttonText="Adicionar" onSubmit={handleSubmit} />
                 </div>
+                {message && <MessageReturn text={message.text} variant={message.variant} />}
             </Form>
         </>
     );
