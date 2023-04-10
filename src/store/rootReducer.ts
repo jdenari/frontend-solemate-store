@@ -1,5 +1,7 @@
 import { combineReducers, createReducer, PayloadAction } from '@reduxjs/toolkit';
 import { CounterState, ProductState, AuthenticatedState, Product, Order, OrderState } from './types';
+import _ from 'lodash';
+import { createSelector } from 'reselect';
 
 // counter products cart
 const initialCounterState: CounterState = {
@@ -85,9 +87,20 @@ const rootReducer = combineReducers({
     order: orderReducer
 });
 
+export const selectOrders = (state: RootState) => state.order.orders;
+
+export const selectDistinctDates = createSelector(
+    [selectOrders],
+    (orders) => {
+        const groupedOrders = _.groupBy(orders, (order) => order.date.split(' ')[0]);
+        return Object.keys(groupedOrders);
+    }
+);
+
 export default rootReducer;
 
 export type RootState = ReturnType<typeof rootReducer>;
+
 
 
 

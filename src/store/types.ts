@@ -26,6 +26,7 @@ export interface Order {
         quantity: number;
         size: string;
     };
+    date: string;
 }
 
 export interface OrderState {
