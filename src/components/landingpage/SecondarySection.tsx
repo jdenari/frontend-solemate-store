@@ -11,7 +11,7 @@ const SecondarySection: React.FC = () => {
         return products.map((product, index) => (
             <CardVertical
                 key={index}
-                imgSrc={`http://localhost:5000/api/product/${product.id}/photo`}
+                imgSrc={`http://localhost:5000/api/photos/${product.id}/photo`}
                 imgAlt={`Image ${index + 1}`}
                 title={product.productName}
                 price={`R$ ${product.price}`}

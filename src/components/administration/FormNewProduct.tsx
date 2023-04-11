@@ -29,12 +29,10 @@ const NovosProdutos: React.FC = () => {
     });
 
     const [photo, setPhoto] = useState<File | null>(null);
-    const [name, setName] = useState<string>('');
-
+    const [imageName, setImageName] = useState<string>('');
     const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {const selectedFile = e.target.files![0];setPhoto(selectedFile);}
-    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {setName(e.target.value);}
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -42,7 +40,11 @@ const NovosProdutos: React.FC = () => {
             ...prevState,
             [name]: value,
         }));
+        if (name === 'productName') {
+            setImageName(value);
+        }
     };
+    
 
     const handleStockChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -57,31 +59,42 @@ const NovosProdutos: React.FC = () => {
 
     const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        let uploadSuccess = false; // adiciona uma variável para indicar se o upload foi bem-sucedido ou não
         try {
-          await handleSubmitPhoto(e);
-          await handleSubmit(e);
+            await handleSubmitPhoto(e);
+            uploadSuccess = true; // define como verdadeiro caso não ocorra erro na função handleSubmitPhoto
         } catch (error) {
-          console.error(error);
+            console.error(error);
+        }
+    
+        if (uploadSuccess) {
+            try {
+                await handleSubmit(e);
+            } catch (error) {
+                setMessage({ text: 'Erro ao enviar os dados', variant: 'danger' });
+            }
         }
     };
+    
       
     const handleSubmitPhoto = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('file', photo!);
-        formData.append('name', name);
-
+        formData.append('name', imageName);
+    
         try {
             const response = await axios.post('http://localhost:5000/api/photos/add-photos', formData, {
                 headers: {'Content-Type': 'multipart/form-data'}
             });
             console.log(response.data);
             setPhoto(null);
-            setName('');
+            setImageName(''); // limpa o valor de imageName
         } catch (error) {
             console.error(error);
         }
-    }
+    }   
+    
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -175,14 +188,6 @@ const NovosProdutos: React.FC = () => {
                             name="image"
                             onChange={handleFileChange}
                             accept="image/*"
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="formName" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Nome da Imagem:</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={name}
-                            onChange={handleNameChange}
                         />
                     </Form.Group>
                 </Form>
