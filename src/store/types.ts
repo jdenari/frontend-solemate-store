@@ -12,6 +12,7 @@ export interface Product {
         size: string;
         quantity: number;
     };
+    photo: string;
 }
 
 export interface Order {

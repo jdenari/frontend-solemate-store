@@ -10,7 +10,7 @@ return (
             <p>Nosso objetivo é tornar a experiência de compra dos nossos clientes o mais agradável e conveniente possível. Por isso, oferecemos opções de entrega em domicílio, suporte ao cliente 24 horas por dia, 7 dias por semana, e um processo de devolução fácil e sem complicações. Queremos que você se sinta confiante em comprar conosco e que fique satisfeito com a sua compra.</p>
             <p>Estamos sempre buscando maneiras de melhorar e aprimorar nossos serviços, então se você tiver alguma sugestão ou comentário, não hesite em entrar em contato conosco. Agradecemos a sua confiança na ABC Company e esperamos atendê-lo em breve.</p>
         </div>
-        </div>
+    </div>
     )
 }
 
