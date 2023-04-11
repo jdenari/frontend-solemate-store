@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MainButton from '../MainButton';
+import FormPhoto from './FormPhoto';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
 import MessageReturn from '../MessageReturn'; // Importação do componente de mensagem
@@ -166,6 +167,7 @@ useEffect(() => {
                 </div>
                 {message && <MessageReturn text={message.text} variant={message.variant} />}
             </Form>
+            <FormPhoto />
         </>
     );
 };
