@@ -17,4 +17,9 @@
 .currency {
     font-size: 1.2rem;
 }
+
+.noWrap {
+    white-space: nowrap !important;
+}
+  
   

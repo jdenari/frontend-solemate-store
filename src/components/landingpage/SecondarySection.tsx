@@ -14,7 +14,7 @@ const SecondarySection: React.FC = () => {
                 imgSrc={`http://localhost:5000/api/photos/${product.id}/photo`}
                 imgAlt={`Image ${index + 1}`}
                 title={product.productName}
-                price={`R$ ${product.price}`}
+                price={`R$ ${product.price.toFixed(2)}`}
             />
         ));
     };
