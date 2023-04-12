@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import MainButton from '../MainButton';
+import MainButton from '../../MainButton';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
-import MessageReturn from '../MessageReturn';
+import MessageReturn from '../../MessageReturn';
 
 interface IFormData {
     productClass: string;

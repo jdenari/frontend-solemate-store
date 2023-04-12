@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '@/components/Header'
-import FormNewProduct from '@/components/administration/addproduct/FormNewProduct'
+import InventoryDatabase from '@/components/administration/inventory/InventoryDatabase'
 import Footer from '@/components/Footer'
 import { Provider } from 'react-redux'
 import store from '../../store/store'
@@ -12,7 +12,7 @@ const novosprodutos: React.FC = () => {
             <div>
                 <Header />
                     <div className='container'>
-                        <FormNewProduct />
+                        <InventoryDatabase />
                     </div>
                 <Footer />
             </div>
