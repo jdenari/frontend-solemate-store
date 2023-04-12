@@ -1,4 +1,4 @@
-import { createAction, PayloadAction } from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'redux';
 import { Product } from './types';
 import { Order } from './types';

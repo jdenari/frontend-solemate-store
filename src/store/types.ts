@@ -17,7 +17,8 @@ export interface Product {
 
 export interface Order {
     id: number;
-    idUser: number;
+    userId: number;
+    photoId: number;
     class: string;
     productName: string;
     description: string;
