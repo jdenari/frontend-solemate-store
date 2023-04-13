@@ -6,9 +6,16 @@
     border-radius: 5px; /* Define the border radius */
 }
 
-.priceContainer {
-    transform: translate(-100%, -150%);
+.counter {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    max-width: 100%;
+    width: 50%;
+    transform: translate(15%, -35%);
 }
+  
 
 .price {
     font-size: 2.0rem;
@@ -20,10 +27,6 @@
 
 .noWrap {
     white-space: nowrap !important;
-}
-
-.mainPhoto{
-    min-width: 500px;
 }
   
   
