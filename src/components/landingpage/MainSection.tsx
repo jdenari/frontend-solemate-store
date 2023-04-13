@@ -9,7 +9,8 @@ import { RootState } from '../../store/types';
 
 const MainSection = () => {
     const count = useSelector((state: RootState) => state.counter.count);
-    const product = useSelector((state: RootState) => state.product.products[0]);
+    const productShow = useSelector((state: RootState) => state.counter.productShow);
+    const product = useSelector((state: RootState) => state.product.products[productShow]);
 
     return (
         <div className='p-3'>
@@ -18,7 +19,7 @@ const MainSection = () => {
             <p className={`lead mb-3 p-1`}>{product ? product.description : ''}</p>
             <div className='col-12 d-flex align-items-end'>
                 <div className='position-relative'>
-                    <img src="http://localhost:5000/api/photos/1/photo" alt="" className={`${styles.mainPhoto} text-center col-7 shadow p-3 bg-body-tertiary rounded w-100`}/>
+                    <img src={`http://localhost:5000/api/photos/${product ? product.id : ''}/photo`} alt="" className={`${styles.mainPhoto} text-center col-7 shadow p-3 bg-body-tertiary rounded w-100`}/>
                     <Counter className={styles.counter} />
                 </div>
                 <div className={`col-5 h-100`}>

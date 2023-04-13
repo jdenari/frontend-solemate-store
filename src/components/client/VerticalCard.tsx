@@ -1,24 +1,36 @@
 import React from 'react';
+import styles from './VerticalCard.module.css';
+import { useDispatch } from 'react-redux';
+import { setProductShow } from '../../store/actions';
 
 interface CardProps {
-  imgSrc: string;
-  imgAlt: string;
-  title: string;
-  price: string;
+    imgSrc: string;
+    imgAlt: string;
+    title: string;
+    price: string;
+    productId: number;
 }
+  
 
-const Card: React.FC<CardProps> = ({ imgSrc, imgAlt, title, price }) => {
+const Card: React.FC<CardProps> = ({ imgSrc, imgAlt, title, price, productId }) => {
+    const dispatch = useDispatch();
+  
+    const handleClick = () => {
+        dispatch(setProductShow(productId));
+    };
+  
     return (
         <div className="col-sm-6 px-2 py-2">
-            <div className="card">
-                <img src={imgSrc} alt={imgAlt} className="card-img-top" />
-                <div className="card-body p-3">
-                    <h5 className="card-title m-0">{title}</h5>
-                    <p className="card-text">{price}</p>
-                </div>
+            <div className={`${styles.cardContainer} card`} onClick={handleClick}>
+            <img src={imgSrc} alt={imgAlt} className="card-img-top" />
+            <div className={`${styles.cardBody} card-body p-3`}>
+                <h6 className="card-title my-1">{title}</h6>
+                <p className="card-text my-1">{price}</p>
+            </div>
             </div>
         </div>
     );
-};
+  };
+  
 
 export default Card;

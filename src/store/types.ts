@@ -1,5 +1,6 @@
 export interface CounterState {
     count: number;
+    productShow: number;
 }
 
 export interface Product {

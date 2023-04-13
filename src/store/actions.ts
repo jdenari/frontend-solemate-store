@@ -6,6 +6,7 @@ import { Order } from './types';
 export const increment = createAction('increment');
 export const decrement = createAction('decrement');
 export const setCount = createAction<number>('setCount');
+export const setProductShow = createAction<number>('setProductShow');
 
 export const getProductStart = createAction('getProductStart');
 export const getProductSuccess = createAction<Product[]>('getProductSuccess');

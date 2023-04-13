@@ -6,21 +6,26 @@ import { createSelector } from 'reselect';
 // counter products cart
 const initialCounterState: CounterState = {
     count: 1,
+    productShow: 1,
 };
 
 const counterReducer = createReducer(initialCounterState, {
     increment: (state) => {
-        state.count += 1;
+      state.count += 1;
     },
     decrement: (state) => {
-        if (state.count > 1) {
+      if (state.count > 1) {
         state.count -= 1;
-        }
+      }
     },
     setCount: (state, action: PayloadAction<number>) => {
-        state.count = action.payload;
+      state.count = action.payload - 1;
+    },
+    setProductShow: (state, action: PayloadAction<number>) => {
+        state.productShow = action.payload -1;
     },
 });
+  
 
 // products list from database
 const initialProductState: ProductState = {

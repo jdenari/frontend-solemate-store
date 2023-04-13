@@ -15,7 +15,9 @@ const SecondarySection: React.FC = () => {
                 imgAlt={`Image ${index + 1}`}
                 title={product.productName}
                 price={`R$ ${product.price.toFixed(2)}`}
+                productId={product.id}
             />
+
         ));
     };
 
