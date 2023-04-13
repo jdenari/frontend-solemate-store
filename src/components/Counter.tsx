@@ -21,7 +21,7 @@ const Counter: React.FC<CounterProps> = ({ className, showExtraButton = false })
 
     return (
         <div className={`${className} p-1`}>
-            <div className="d-inline-flex align-items-center border shadow-sm p-1 bg-body-tertiary rounded">
+            <div className="d-inline-flex align-items-center border shadow-sm p-1 bg-body-tertiary rounded bg-light">
                 <div className="mx-3">{count}</div>
                     <button
                         type="button"

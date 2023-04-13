@@ -21,5 +21,9 @@
 .noWrap {
     white-space: nowrap !important;
 }
+
+.mainPhoto{
+    min-width: 500px;
+}
   
   

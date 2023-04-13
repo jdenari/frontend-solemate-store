@@ -22,7 +22,7 @@ const MainSection = () => {
             </div>
             <div className="position-relative text-center">
                 <Counter className="position-absolute top-0 start-0" />
-                <img src="./shoes/shoes-00.png" alt="" className='text-center'/>
+                <img src="./shoes/shoes-00.png" alt="" className={`${styles.mainPhoto} text-center`}/>
                 <div className={`position-absolute top-100 start-100 ${styles.priceContainer}`}>
                     <div className='d-flex flex-row-reverse align-items-center'>
                         <p className={`${styles.price} m-1 mb-0`}>{product ? product.price.toFixed(2) : 0}</p>

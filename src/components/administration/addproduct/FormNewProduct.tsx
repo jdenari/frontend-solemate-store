@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import MainButton from '../../MainButton';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
 import MessageReturn from '../../MessageReturn';
+import Cropper from 'cropperjs';
+import 'cropperjs/dist/cropper.min.css';
+
 
 interface IFormData {
     productClass: string;
@@ -33,6 +36,10 @@ const NovosProdutos: React.FC = () => {
 
     const classOptions = ['Blusas', 'Calças', 'Sapatos'];
     const [selectedClass, setSelectedClass] = useState(classOptions[0]);
+
+    const imgRef = useRef<any>(null);
+    const [cropper, setCropper] = useState<Cropper | null>(null);
+    const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {const selectedFile = e.target.files![0];setPhoto(selectedFile);}
 
@@ -81,10 +88,13 @@ const NovosProdutos: React.FC = () => {
       
     const handleSubmitPhoto = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!croppedImage) {
+            console.error("Imagem não cortada!");
+            return;
+        }
         const formData = new FormData();
-        formData.append('file', photo!);
+        formData.append('file', croppedImage);
         formData.append('name', imageName);
-    
         try {
             const response = await axios.post('http://localhost:5000/api/photos/add-photos', formData, {
                 headers: {'Content-Type': 'multipart/form-data'}
@@ -92,10 +102,12 @@ const NovosProdutos: React.FC = () => {
             console.log(response.data);
             setPhoto(null);
             setImageName('');
+            setCroppedImage(null);
         } catch (error) {
             console.error(error);
         }
-    }   
+    }
+    
     
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -112,6 +124,19 @@ const NovosProdutos: React.FC = () => {
         }
     };
 
+    const handleCropImage = () => {
+        const cropper = imgRef.current?.cropper;
+        if (cropper) {
+            cropper.getCroppedCanvas().toBlob((blob: Blob | null) => {
+                if (blob) {
+                    setCroppedImage(blob);
+                }
+            }, "image/jpeg");
+        }
+    };
+    
+    
+
     useEffect(() => {
         let timeoutId: NodeJS.Timeout | undefined;
         if (message && message.text) {
@@ -125,6 +150,33 @@ const NovosProdutos: React.FC = () => {
             }
         };
     }, [message]);
+
+    useEffect(() => {
+        if (photo && imgRef.current) {
+            if (cropper) {
+                cropper.destroy();
+            }
+            const newCropper = new Cropper(imgRef.current, {
+                aspectRatio: 1,
+                viewMode: 1,
+                dragMode: 'move',
+                autoCropArea: 1,
+                cropBoxResizable: false,
+                cropBoxMovable: false,
+                minCropBoxWidth: 202,
+                minCropBoxHeight: 202,
+                ready: function() {
+                newCropper.setCropBoxData({
+                    width: 202,
+                    height: 202,
+                    left: (newCropper.getContainerData().width - 202) / 2,
+                    top: (newCropper.getContainerData().height - 202) / 2
+                });
+                }
+            });
+            setCropper(newCropper);
+        }
+    }, [photo]);
 
     return (
         <>
@@ -196,8 +248,17 @@ const NovosProdutos: React.FC = () => {
                             accept="image/*"
                         />
                     </Form.Group>
+                    {photo && (
+                        <div className='d-flex my-2 align-items-center'>
+                            <Form.Label className='col-3 text-end px-2 m-0'>Imagem selecionada:</Form.Label>
+                            <img ref={imgRef} src={URL.createObjectURL(photo)} alt={imageName} className="col-3"/>
+                        </div>
+                    )}
                     <div className='d-flex flex-row-reverse my-3'>
                         <MainButton buttonText="Adicionar" onSubmit={handleAddProduct} />
+                        <button type="button" className="btn btn-secondary" onClick={handleCropImage}>
+                            Cortar Imagem
+                        </button>
                     </div>
                     {message && <MessageReturn text={message.text} variant={message.variant} />}
                 </Form>
