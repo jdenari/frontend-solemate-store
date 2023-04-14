@@ -6,7 +6,6 @@ import MessageReturn from '../../MessageReturn';
 import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.min.css';
 
-
 interface IFormData {
     productClass: string;
     productName: string;

@@ -18,9 +18,9 @@ const LoginForm = () => {
         });
 
         if (response.ok) {
-        const data = await response.json();
-        window.location.href = '/';
-        dispatch(authenticated());
+            const data = await response.json();
+            window.location.href = '/';
+            dispatch(authenticated());
         } else {console.error(response.statusText);}
     };
 
@@ -52,9 +52,9 @@ const LoginForm = () => {
                     </div>
                     <div className="text-center mt-3">
                         <span className="mx-1">
-                        Não possui conta?
-                        <a href="#" className="mx-1">
-                            Preencha o formulário.
+                            Não possui conta?
+                        <a href="/cliente/registre" className="mx-1">
+                            Faça seu registro.
                         </a>
                         </span>
                     </div>

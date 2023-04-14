@@ -30,6 +30,7 @@ const Header = () => {
                         <Nav.Link href="/cliente/solemate" className='mx-5'>Solemate</Nav.Link>
                         <Nav.Link href="/administracao/novosprodutos" className='mx-5'>Administração</Nav.Link>
                         <Nav.Link href="/administracao/controledeestoque" className='mx-5'>Controle de Estoque</Nav.Link>
+                        <Nav.Link href="/cliente/registre" className='mx-5'>Registre</Nav.Link>
                     </Nav>
                     <div className='d-block'>
                         {authenticated ? (

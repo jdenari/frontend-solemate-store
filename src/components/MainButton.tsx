@@ -8,9 +8,10 @@ interface MainButtonProps {
     href?: string;
     onClick?: () => void;
     onSubmit?: React.FormEventHandler<HTMLFormElement>;
+    disabled?: boolean; // Adicionar a prop disabled como opcional
 }
 
-const MainButton: React.FC<MainButtonProps> = ({ buttonText, imageUrl, href, onClick, onSubmit }) => {
+const MainButton: React.FC<MainButtonProps> = ({ buttonText, imageUrl, href, onClick, onSubmit, disabled }) => {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         if (onSubmit) {onSubmit(e as unknown as React.FormEvent<HTMLFormElement>);}
         if (onClick) {onClick();}
@@ -23,6 +24,7 @@ const MainButton: React.FC<MainButtonProps> = ({ buttonText, imageUrl, href, onC
             href={href}
             target="_self" 
             onClick={handleClick} // Utiliza a nova função handleClick aqui
+            disabled={disabled}
         >
             {imageUrl && <img src={imageUrl} alt="Button Icon" className="me-3" />}
             {buttonText}
