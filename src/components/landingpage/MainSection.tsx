@@ -19,10 +19,10 @@ const MainSection = () => {
             <p className={`lead mb-3 p-1`}>{product ? product.description : ''}</p>
             <div className='col-12 d-flex align-items-end'>
                 <div className='position-relative'>
-                    <img src={`http://localhost:5000/api/photos/${product ? product.id : ''}/photo`} alt="" className={`${styles.mainPhoto} text-center col-7 shadow p-3 bg-body-tertiary rounded w-100`}/>
+                    <img src={`http://localhost:5000/api/photos/${product ? product.id : ''}/photo`} alt="" className={`${styles.mainPhoto} text-center col-8 shadow p-3 bg-body-tertiary rounded w-100`}/>
                     <Counter className={styles.counter} />
                 </div>
-                <div className={`col-5 h-100`}>
+                <div className={`col-4 h-100`}>
                     <div className='d-flex flex-row-reverse align-items-center'>
                         <p className={`${styles.price} m-1 mb-0`}>{product ? product.price.toFixed(2) : 0}</p>
                         <p className={`${styles.currency} m-1 mb-0`}>R$</p>

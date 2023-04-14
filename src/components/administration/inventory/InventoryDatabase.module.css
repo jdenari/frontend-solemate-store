@@ -1,3 +1,13 @@
 .buttonQuantity{
     min-width: 30px;
 }
+
+.imageTable{
+    width: 80px;
+}
+
+.tableWrapper{
+    max-height: 1300px !important;
+    overflow-y: auto !important;
+}
+  
