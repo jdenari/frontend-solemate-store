@@ -134,8 +134,6 @@ const NovosProdutos: React.FC = () => {
         }
     };
     
-    
-
     useEffect(() => {
         let timeoutId: NodeJS.Timeout | undefined;
         if (message && message.text) {

@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { authenticated } from '../../store/actions';
 import MainButton from '../MainButton';
+import MessageReturn from '../../components/MessageReturn';
 import styles from './LoginForm.module.css';
 
 const LoginForm = () => {
+
     const dispatch = useDispatch();
+    const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
 
     const makeLogin = async () => {
         const email = document.getElementById('email') as HTMLInputElement;
@@ -21,8 +24,25 @@ const LoginForm = () => {
             const data = await response.json();
             window.location.href = '/';
             dispatch(authenticated());
-        } else {console.error(response.statusText);}
+        } else {
+            const data = await response.json();
+            setMessage({ text: data.error, variant: 'danger' });
+        }
     };
+
+    useEffect(() => {
+        let timeoutId: NodeJS.Timeout | undefined;
+        if (message && message.text) {
+            timeoutId = setTimeout(() => {
+                setMessage(null);
+            }, 3000);
+        }
+        return () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+        };
+    }, [message]);
 
     return (
         <div>
@@ -57,6 +77,9 @@ const LoginForm = () => {
                             Faça seu registro.
                         </a>
                         </span>
+                    </div>
+                    <div className='m-3 mt-5'>
+                        {message && <MessageReturn text={message.text} variant={message.variant} />}
                     </div>
                 </form>
             </div>
