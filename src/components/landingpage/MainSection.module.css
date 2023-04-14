@@ -28,5 +28,9 @@
 .noWrap {
     white-space: nowrap !important;
 }
+
+.titleProduct{
+    color: var(--main-purple);
+}
   
   

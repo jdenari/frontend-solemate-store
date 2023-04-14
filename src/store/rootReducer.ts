@@ -10,20 +10,13 @@ const initialCounterState: CounterState = {
 };
 
 const counterReducer = createReducer(initialCounterState, {
-    increment: (state) => {
-      state.count += 1;
-    },
-    decrement: (state) => {
-      if (state.count > 1) {
-        state.count -= 1;
-      }
-    },
-    setCount: (state, action: PayloadAction<number>) => {
-      state.count = action.payload - 1;
-    },
-    setProductShow: (state, action: PayloadAction<number>) => {
-        state.productShow = action.payload -1;
-    },
+    increment: (state) => {state.count += 1;},
+    decrement: (state) => {if (state.count > 1) {state.count -= 1;}},
+    setCount: (state, action: PayloadAction<number>) => {state.count = action.payload - 1;},
+
+    setProductShow: (state, action: PayloadAction<number>) => {state.productShow = action.payload -1;},
+    incrementProductShow: (state, action: PayloadAction<number>) => {state.productShow += action.payload;},
+    decrementProductShow: (state, action: PayloadAction<number>) => {if (state.productShow > 0) {state.productShow -= action.payload;}},
 });
   
 
