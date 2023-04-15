@@ -1,5 +1,5 @@
 import { combineReducers, createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { CounterState, ProductState, AuthenticatedState, Product, Order, OrderState } from './types';
+import { CounterState, ProductState, AuthenticatedState, CartState, Product, Order, OrderState, Cart } from './types';
 import _ from 'lodash';
 import { createSelector } from 'reselect';
 
@@ -78,11 +78,26 @@ const orderReducer = createReducer(initialOrderState, {
     },
 });
 
+// products list from database
+const cartState: CartState = {
+    carts: [],
+    loading: false,
+    error: null,
+};
+
+const cartReducer = createReducer(cartState, {
+    addProductToCart: (state, action) => {
+        console.log(action.payload);
+    },
+});
+
+
 const rootReducer = combineReducers({
     counter: counterReducer,
     product: productReducer,
     authenticated: authenticateReducer,
-    order: orderReducer
+    order: orderReducer,
+    cart: cartReducer,
 });
 
 export const selectOrders = (state: RootState) => state.order.orders;

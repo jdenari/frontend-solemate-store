@@ -32,5 +32,15 @@
 .titleProduct{
     color: var(--main-purple);
 }
+
+.arrow{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    max-width: 100%;
+    width: 50%;
+    transform: translate(35%, 100%);
+}
   
   

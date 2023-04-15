@@ -21,6 +21,8 @@ export const getOrderStart = createAction('getOrderStart');
 export const getOrderSuccess = createAction<Order[]>('getOrderSuccess');
 export const getOrderFailure = createAction<string>('getOrderFailure');
 
+export const addProductToCart = createAction<number>('addProductToCart');
+
 export const getProduct = () => async (dispatch: Dispatch) => {
     dispatch(getProductStart());
     try {

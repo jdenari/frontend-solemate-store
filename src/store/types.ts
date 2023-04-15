@@ -32,6 +32,19 @@ export interface Order {
     date: string;
 }
 
+export interface Cart {
+    id: number;
+    class: string;
+    productName: string;
+    productClass: string;
+    description: string;
+    price: number;
+    stock: {
+        size: string;
+        quantity: number;
+    };
+}
+
 export interface OrderState {
     orders: Order[];
     loading: boolean;
@@ -48,11 +61,18 @@ export interface ProductState {
     error: string | null;
 }
 
+export interface CartState {
+    carts: Cart[];
+    loading: boolean;
+    error: string | null;
+}
+
 export interface RootState {
     counter: CounterState;
     product: ProductState;
     authenticated: AuthenticatedState;
     order: OrderState;
+    cart: CartState;
 }
     
   
