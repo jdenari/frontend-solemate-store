@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '@/components/Header'
-import CartItems from '@/components/client/CartItems'
+import CartItems from '@/components/client/cart/CartItems'
 import PurchaseSummary from '@/components/client/PurchaseSummary'
 import Footer from '@/components/Footer'
 import { Provider } from 'react-redux'

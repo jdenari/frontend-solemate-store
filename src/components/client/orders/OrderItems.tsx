@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import HorizontalCard from './HorizontalCard';
-import styles from './CartItems.module.css';
-import { selectDistinctDates } from '../../store/rootReducer';
-import { RootState } from '../../store/types';
+import HorizontalCard from '../HorizontalCard';
+import styles from './OrderItems.module.css';
+import { selectDistinctDates } from '../../../store/rootReducer';
+import { RootState } from '../../../store/types';
 
-const CartItems = () => {
+const OrderItems = () => {
     const distinctDates = useSelector(selectDistinctDates);
     const orders = useSelector((state: RootState) => state.order.orders);
 
@@ -33,5 +33,5 @@ const CartItems = () => {
     );
 };
 
-export default CartItems;
+export default OrderItems;
 

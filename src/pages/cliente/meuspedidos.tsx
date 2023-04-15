@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Header from '@/components/Header'
-import CartItems from '@/components/client/CartItems'
+import OrderItems from '@/components/client/orders/OrderItems'
 import Footer from '@/components/Footer'
 import { getOrder } from '../../store/actions';
 import { Provider } from 'react-redux'
@@ -17,7 +17,7 @@ const meuspedidos = () => {
         <Provider store={store}>
             <div>
                 <Header />
-                <CartItems />
+                <OrderItems />
                 <Footer />
             </div>
         </Provider>
