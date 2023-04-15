@@ -15,7 +15,7 @@ const counterReducer = createReducer(initialCounterState, {
     setCount: (state, action: PayloadAction<number>) => {state.count = action.payload - 1;},
 
     setProductShow: (state, action: PayloadAction<number>) => {state.productShow = action.payload -1;},
-    incrementProductShow: (state, action: PayloadAction<number>) => {state.productShow += action.payload;},
+    incrementProductShow: (state, action: PayloadAction<number>) => {if (state.productShow < action.payload -1){state.productShow += 1;}},
     decrementProductShow: (state, action: PayloadAction<number>) => {if (state.productShow > 0) {state.productShow -= action.payload;}},
 });
   
@@ -87,7 +87,6 @@ const cartState: CartState = {
 
 const cartReducer = createReducer(cartState, {
     addProductToCart: (state, action) => {
-        console.log(action.payload)
         const newCart = {
             id: state.carts.length + 1,
             product: action.payload

@@ -15,6 +15,7 @@ const MainSection = () => {
     const count = useSelector((state: RootState) => state.counter.count);
     const productShow = useSelector((state: RootState) => state.counter.productShow);
     const product = useSelector((state: RootState) => state.product.products[productShow]);
+    const products = useSelector((state: RootState) => state.product.products);
 
     const [showModal, setShowModal] = useState(false);
     const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
@@ -65,7 +66,7 @@ const MainSection = () => {
                             />
                             <SecondaryButton
                                 imageUrl='./icons/arrow-right-short.svg'
-                                onClick={() => dispatch(incrementProductShow(1))} // adicionado aqui
+                                onClick={() => dispatch(incrementProductShow(products.length))}
                             />
                     </div>
                 </div>
