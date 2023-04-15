@@ -87,10 +87,25 @@ const cartState: CartState = {
 
 const cartReducer = createReducer(cartState, {
     addProductToCart: (state, action) => {
-        console.log(action.payload);
+        console.log(action.payload)
+        const newCart = {
+            id: state.carts.length + 1,
+            product: action.payload
+        };
+        return {
+            ...state,
+            carts: [...state.carts, newCart]
+        };
     },
+    clearCart: (state) => {
+        return {
+            ...state,
+            carts: []
+        };
+    }
 });
 
+  
 
 const rootReducer = combineReducers({
     counter: counterReducer,

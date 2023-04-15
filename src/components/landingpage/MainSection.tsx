@@ -6,7 +6,7 @@ import MainButton from '../MainButton';
 import SecondaryButton from '../SecondaryButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/types';
-import { decrementProductShow, incrementProductShow, addProductToCart} from '../../store/actions';
+import { decrementProductShow, incrementProductShow, addProductToCart, clearCart} from '../../store/actions';
 
 
 const MainSection = () => {
@@ -14,10 +14,10 @@ const MainSection = () => {
     const productShow = useSelector((state: RootState) => state.counter.productShow);
     const product = useSelector((state: RootState) => state.product.products[productShow]);
 
-    const handleAddProductToCart = () => {dispatch(addProductToCart(productShow));};
-    
-
     const dispatch = useDispatch();
+
+    const handleAddProductToCart = () => {dispatch(addProductToCart(product));};
+    const handleCleanCart = () => {dispatch(clearCart());};
 
     return (
         <div className='p-3'>
@@ -60,6 +60,7 @@ const MainSection = () => {
                                 />
                             <SecondaryButton buttonText="Clean" 
                                 imageUrl='./icons/eraser.png'
+                                onClick={handleCleanCart}
                             />
                         </div>
                     </div>

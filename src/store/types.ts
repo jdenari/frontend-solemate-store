@@ -34,16 +34,9 @@ export interface Order {
 
 export interface Cart {
     id: number;
-    class: string;
-    productName: string;
-    productClass: string;
-    description: string;
-    price: number;
-    stock: {
-        size: string;
-        quantity: number;
-    };
+    product: Product;
 }
+  
 
 export interface OrderState {
     orders: Order[];
