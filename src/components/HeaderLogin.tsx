@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import MainButton from './MainButton';
 import CustomModal from './CustomModal';
 import styles from './HeaderLogin.module.css';
+import { deauthenticated } from '../store/actions';
 
 const HeaderLogin = () => {
+    const dispatch = useDispatch();
+
     const [showDropdown, setShowDropdown] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
     const handleDropdown = () => {setShowDropdown(!showDropdown);};
     const handleCloseDropdown = () => {setShowDropdown(false);};
 
-    const handleLogout = () => {setShowModal(true);handleCloseDropdown();};
+    const handleOpenModal = () => {setShowModal(true);handleCloseDropdown();};
     const handleCloseModal = () => {setShowModal(false);};
+
+    const handleLogout = () => {dispatch(deauthenticated());handleCloseModal();};
 
     return (
         <>
@@ -28,13 +34,14 @@ const HeaderLogin = () => {
                         <li><a className={`${styles.dropdownItem} my-1`} href="/cliente/meuspedidos">Meus Pedidos</a></li>
                         <li><a className={`${styles.dropdownItem} my-1`} href="/cliente/meucarrinho">Meu Carrinho</a></li>
                         <li><a className={`${styles.dropdownItem} my-1`} href="#">Perfil</a></li>
-                        <li><a className={`${styles.dropdownItem} my-1`} href="#" onClick={handleLogout}>Sair</a></li>
+                        <li><a className={`${styles.dropdownItem} my-1`} href="#" onClick={handleOpenModal}>Sair</a></li>
                         </ul>
                     </div>
                 ) : null}
             </div>
             <CustomModal 
                 show={showModal} 
+                handleYes={handleLogout}
                 handleClose={handleCloseModal} 
                 text='Você tem certeza que quer sair da sua conta?'
                 title='Sair da Conta'

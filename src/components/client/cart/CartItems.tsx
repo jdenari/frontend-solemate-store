@@ -25,11 +25,11 @@ const CartItems = () => {
 
     return (
         <div className={`${styles.bgLightWhite} container p-3 rounded my-3`}>
-        <div className="row my-1 d-flex">
-            {horizontalCards.map((card, index) => (
-            <HorizontalCard key={index} {...card} />
-            ))}
-        </div>
+            <div className="row my-1 d-flex">
+                {horizontalCards.map((card, index) => (
+                <HorizontalCard key={index} {...card} />
+                ))}
+            </div>
         </div>
     )
 }

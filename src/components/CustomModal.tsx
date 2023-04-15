@@ -1,22 +1,15 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { deauthenticated } from '../store/actions';
 
 type ModalProps = {
     show: boolean;
     handleClose: () => void;
+    handleYes: () => void;
     title: string;
     text: string;
 };
 
-const CustomModal = ({ show, handleClose, title, text }: ModalProps) => {
-    const dispatch = useDispatch();
-
-    const handleLogout = () => {
-        dispatch(deauthenticated());
-        handleClose();
-    };
+const CustomModal = ({ show, handleClose, handleYes, title, text }: ModalProps) => {
 
     return (
         <Modal show={show} onHide={handleClose}>
@@ -28,7 +21,7 @@ const CustomModal = ({ show, handleClose, title, text }: ModalProps) => {
                 <Button variant="secondary" onClick={handleClose}>
                 Voltar
                 </Button>
-                <Button variant="primary" onClick={handleLogout}>
+                <Button variant="primary" onClick={handleYes}>
                 Sim
                 </Button>
             </Modal.Footer>

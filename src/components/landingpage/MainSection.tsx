@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './MainSection.module.css';
 import SearchBar from './SearchBar';
 import Counter from '../Counter';
+import CustomModal from '../CustomModal';
 import MainButton from '../MainButton';
+import MessageReturn from '../MessageReturn';
 import SecondaryButton from '../SecondaryButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/types';
@@ -14,10 +16,34 @@ const MainSection = () => {
     const productShow = useSelector((state: RootState) => state.counter.productShow);
     const product = useSelector((state: RootState) => state.product.products[productShow]);
 
+    const [showModal, setShowModal] = useState(false);
+    const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
+
     const dispatch = useDispatch();
 
-    const handleAddProductToCart = () => {dispatch(addProductToCart(product));};
-    const handleCleanCart = () => {dispatch(clearCart());};
+    const handleAddProductToCart = () => {
+        dispatch(addProductToCart(product));
+        setMessage({ text: `${product.productName} foi adicionado ao carrinho.`, variant: 'success' });
+    };
+    
+    const handleCleanCart = () => {dispatch(clearCart());setShowModal(false);};
+
+    const handleOpenModal = () => {setShowModal(true);};
+    const handleCloseModal = () => {setShowModal(false);};
+
+    useEffect(() => {
+        let timeoutId: NodeJS.Timeout | undefined;
+        if (message && message.text) {
+            timeoutId = setTimeout(() => {
+                setMessage(null);
+            }, 3000);
+        }
+        return () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+        };
+    }, [message]);
 
     return (
         <div className='p-3'>
@@ -30,7 +56,7 @@ const MainSection = () => {
             </div>
             <div className='col-12 d-flex'>
                 <div className='position-relative'>
-                    <img src={`http://localhost:5000/api/photos/${product ? product.id : ''}/photo`} alt="" className={`${styles.mainPhoto} text-center col-8 shadow p-3 bg-body-tertiary rounded w-100`}/>
+                    <img src={`http://localhost:5000/api/photos/${product ? product.id : ''}/photo`} alt="" className={`${styles.mainPhoto} text-center shadow p-3 bg-body-tertiary rounded w-100`}/>
                     <Counter className={styles.counter} />
                     <div className={`${styles.arrow} d-flex position-absolute`}>
                             <SecondaryButton
@@ -44,9 +70,7 @@ const MainSection = () => {
                     </div>
                 </div>
                 <div className={`col-4 d-flex align-items-end flex-column`}>
-                    <div className='mb-auto p-2'>
-                        
-                    </div>
+                    <div className='mb-auto p-2'></div>
                     <div className=''>
                         <div className='d-flex flex-row-reverse align-items-center'>
                             <p className={`${styles.price} m-1 mb-0`}>{product ? product.price.toFixed(2) : 0}</p>
@@ -60,12 +84,22 @@ const MainSection = () => {
                                 />
                             <SecondaryButton buttonText="Clean" 
                                 imageUrl='./icons/eraser.png'
-                                onClick={handleCleanCart}
+                                onClick={handleOpenModal}
                             />
                         </div>
                     </div>
                 </div>
             </div>
+            <div className='m-3 mt-5'>
+                {message && <MessageReturn text={message.text} variant={message.variant} />}
+            </div>
+            <CustomModal 
+                show={showModal} 
+                handleClose={handleCloseModal} 
+                handleYes={handleCleanCart}
+                text='Você tem certeza que quer limpar seu carrinho?'
+                title='Limpar Carrinho'
+            />
         </div>
     );
 };
