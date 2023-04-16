@@ -11,6 +11,7 @@ const OrderItems = () => {
 
     return (
         <div className={`${styles.bgLightWhite} container p-3 rounded my-3`}>
+            <h2 className="mb-5">Compras</h2>
             {distinctDates.map((date) => (
                 <div key={date}>
                     <h5>{date}</h5>

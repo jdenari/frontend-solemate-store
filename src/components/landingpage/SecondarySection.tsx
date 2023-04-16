@@ -17,7 +17,6 @@ const SecondarySection: React.FC = () => {
                 price={`R$ ${product.price.toFixed(2)}`}
                 productId={product.id}
             />
-
         ));
     };
 

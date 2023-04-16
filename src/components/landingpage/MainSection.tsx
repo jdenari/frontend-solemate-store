@@ -23,7 +23,7 @@ const MainSection = () => {
     const dispatch = useDispatch();
 
     const handleAddProductToCart = () => {
-        dispatch(addProductToCart(product));
+        dispatch(addProductToCart({ product, count }));
         setMessage({ text: `${product.productName} foi adicionado ao carrinho.`, variant: 'success' });
     };
     

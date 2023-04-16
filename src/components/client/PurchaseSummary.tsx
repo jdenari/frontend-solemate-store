@@ -11,8 +11,8 @@ type PurchaseSummaryProps = {
 
 const PurchaseSummary: React.FC<PurchaseSummaryProps> = ({ title, items, prices, total}) => {
     return (
-        <div className={`${styles.bgLightWhite} container d-flex justify-content-center p-3 my-3 m-auto`}>
-            <div className="col-5 p-3">
+        <div className={`${styles.bgLightWhite} container d-flex justify-content-center my-3 m-auto`}>
+            <div className="col-5 p-5">
                 <h5>{title}</h5>
                 <hr />
                 {items.map((item, index) => (
