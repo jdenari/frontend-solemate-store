@@ -1,7 +1,4 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { decrement, increment } from '../../store/actions';
-import { RootState } from '../../store/types';
 import styles from './HorizontalCard.module.css';
 
 interface CardProps {
@@ -13,19 +10,14 @@ interface CardProps {
     onDelete?: () => void;
     className?: string;
     showExtraButton?: boolean;
+    count: number;
+    onIncrement?: () => void;
+    onDecrement?: () => void;
 }
 
-const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description, price, onDelete, className, showExtraButton = false}) => {
+const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description, price,  onIncrement, onDecrement,  onDelete, count, className, showExtraButton = false}) => {
     const formattedPrice = parseFloat(price.replace('R$', '')).toFixed(2);
 
-    const count = useSelector((state: RootState) => state.counter.count);
-    const dispatch = useDispatch();
-
-    const handleIncrement = () => {dispatch(increment());};
-    const handleDecrement = () => {dispatch(decrement());};
-    const handleExtraButtonClick = () => {
-        // Handle extra button click event
-    };
 
     return (
         <div className="col-sm-12 p-3 my-2 d-flex bg-light">
@@ -57,26 +49,17 @@ const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description
                         <button
                             type="button"
                             className={`${styles.buttonIncr} btn btn-outline-secondary btn-sm px-3 py-2 border-0 ms-1 fs-5`}
-                            onClick={handleDecrement}
+                            onClick={onDecrement}
                             >
                             <img src="/icons/dash-lg.svg" alt="Decrement" />
                         </button>
                             <button
                             type="button"
                             className={`${styles.buttonIncr} btn btn-outline-secondary btn-sm px-3 py-2 border-0 mx-1 fs-5`}
-                            onClick={handleIncrement}
+                            onClick={onIncrement}
                             >
                             <img src="/icons/plus-lg.svg" alt="Increment" />
                         </button>
-                        {showExtraButton && (
-                        <button
-                            type="button"
-                            className={`${styles.buttonIncr} btn btn-outline-danger btn-sm px-3 py-2 border-0 mx-1 fs-5`}
-                            onClick={handleExtraButtonClick}
-                        >
-                            <img src="/icons/x-lg.svg" alt="remove" />
-                        </button>
-                        )}
                     </div>
                 </div>
             </div>

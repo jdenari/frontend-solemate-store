@@ -18,13 +18,13 @@ const PurchaseSummary: React.FC<PurchaseSummaryProps> = ({ title, items, prices,
                 {items.map((item, index) => (
                     <div key={index} className="d-flex justify-content-between">
                         <span>{item}</span>
-                        <span className=''>{prices[index]}</span>
+                        <span className=''>{prices[index].toFixed(2)}</span>
                     </div>
                 ))}
                 <hr />
                 <div className="d-flex justify-content-between">
                     <span>Total:</span>
-                    <span>{total}</span>
+                    <span>{total.toFixed(2)}</span>
                 </div>
             </div>
             <div className="d-flex flex-row-reverse col-4">

@@ -83,28 +83,59 @@ const cartState: CartState = {
     carts: [],
     loading: false,
     error: null,
+    id: 0,
 };
+
 
 const cartReducer = createReducer(cartState, {
     addProductToCart: (state, action: PayloadAction<{ product: Product, count: number }>) => {
         const { product, count } = action.payload;
+        console.log(state.id)
         const newCart = {
-            id: state.carts.length + 1,
+            id: state.id + 1,
             product: product,
-            count: count
+            count: count,
         };
         return {
             ...state,
-            carts: [...state.carts, newCart]
+            carts: [...state.carts, newCart],
+            id: state.id + 1,
         };
     },
     clearCart: (state) => {
         return {
             ...state,
-            carts: []
+            carts: [],
+            id: 0,
         };
-    }
+    },
+    removeProductFromCart: (state, action: PayloadAction<number>) => {
+        const cartIdToRemove = action.payload;
+        console.log(cartIdToRemove)
+        const newCarts = state.carts.filter(cart => cart.id !== cartIdToRemove);
+        return {
+            ...state,
+            carts: newCarts,
+        };
+    },
+    incrementProductInCart: (state, action: PayloadAction<number>) => {
+        const cartIdToIncrement = action.payload;
+        console.log(cartIdToIncrement)
+        const cart = state.carts.find((cart) => cart.id === cartIdToIncrement);
+        if (cart) {
+            cart.count += 1;
+        }
+    },
+    decrementProductInCart: (state, action: PayloadAction<number>) => {
+        const cartIdToDecrement = action.payload;
+        const cart = state.carts.find((cart) => cart.id === cartIdToDecrement);
+        if (cart && cart.count > 1) {
+            cart.count -= 1;
+        }
+    },
 });
+  
+  
 
 const rootReducer = combineReducers({
     counter: counterReducer,

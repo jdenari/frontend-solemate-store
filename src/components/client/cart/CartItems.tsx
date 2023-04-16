@@ -3,12 +3,28 @@ import styles from './CartItems.module.css';
 import { RootState } from '../../../store/types';
 import { useSelector } from 'react-redux';
 import HorizontalCard from '../HorizontalCard';
+import MainButton from '@/components/MainButton';
+import { useDispatch } from 'react-redux';
+import { removeProductFromCart } from '../../../store/actions';
+import { incrementProductInCart, decrementProductInCart } from '../../../store/actions';
 
 const CartItems = () => {
-    const carts = useSelector((state: RootState) => state.cart.carts);
 
-    const handleDelete = (productId: number) => {
-        console.log('oi');
+    const carts = useSelector((state: RootState) => state.cart.carts);
+    const dispatch = useDispatch();
+
+    const handleDelete = (cartId: number) => {
+        console.log(cartId)
+        dispatch(removeProductFromCart(cartId));
+    };
+
+    const handleIncrement = (cartId: number) => {
+        console.log(cartId)
+        dispatch(incrementProductInCart(cartId));
+    };
+    
+    const handleDecrement = (cartId: number) => {
+        dispatch(decrementProductInCart(cartId));
     };
 
     const currentDate = new Date().toLocaleDateString('pt-BR', {
@@ -22,6 +38,9 @@ const CartItems = () => {
         return (
         <div className={`${styles.bgLightWhite} container p-5 rounded my-3 text-center`}>
             <h4>Você não possui nenhum produto no carrinho! </h4>
+            <div className='col-3 m-auto p-3 mt-5'>
+                <MainButton buttonText="Verifique nossas ofertas" href="/"/>
+            </div>
         </div>
         )
     }
@@ -32,7 +51,10 @@ const CartItems = () => {
         title: cart.product.productName,
         description: cart.product.description,
         price: `R$ ${cart.product.price}`,
-        onDelete: () => handleDelete(cart.product.id),
+        onDelete: () => handleDelete(cart.id),
+        count: cart.count,
+        onIncrement: () => handleIncrement(cart.id),
+        onDecrement: () => handleDecrement(cart.id),
     }));
 
     return (

@@ -35,6 +35,7 @@ export interface Order {
 export interface Cart {
     id: number;
     product: Product;
+    count: number;
 }
   
 
@@ -58,6 +59,7 @@ export interface CartState {
     carts: Cart[];
     loading: boolean;
     error: string | null;
+    id: number;
 }
 
 export interface RootState {

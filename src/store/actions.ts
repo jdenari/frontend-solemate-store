@@ -22,7 +22,11 @@ export const getOrderSuccess = createAction<Order[]>('getOrderSuccess');
 export const getOrderFailure = createAction<string>('getOrderFailure');
 
 export const addProductToCart = createAction<{ product: Product, count: number }>('addProductToCart');
+export const removeProductFromCart = createAction<number>('removeProductFromCart');
 export const clearCart = createAction('clearCart');
+export const incrementProductInCart = createAction<number>('incrementProductInCart');
+export const decrementProductInCart = createAction<number>('decrementProductInCart');
+
 
 export const getProduct = () => async (dispatch: Dispatch) => {
     dispatch(getProductStart());

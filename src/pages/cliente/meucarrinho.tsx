@@ -4,24 +4,29 @@ import CartItems from '@/components/client/cart/CartItems'
 import PurchaseSummary from '@/components/client/PurchaseSummary'
 import Footer from '@/components/Footer'
 import { Provider } from 'react-redux'
+import { useSelector } from 'react-redux'
 import store from '../../store/store' // ou o caminho para o arquivo que cria e exporta a store
+import { RootState } from '../../store/types'
 
 const MeuCarrinho: React.FC = () => {
-    const items: string[] = ['Item 1', 'Item 2', 'Item 3'];
-    const prices: number[] = [10, 20, 30];
-    const total: number = prices.reduce((acc, curr) => acc + curr, 0);
+    const cart = useSelector((state: RootState) => state.cart);
+    const items: string[] = cart.carts.map((cartItem) => `${cartItem.product.productName} (${cartItem.count})`);
+    const prices: number[] = cart.carts.map((cartItem) => parseFloat((cartItem.product.price * cartItem.count).toFixed(2)));
+    const total: number = parseFloat(prices.reduce((acc, curr) => acc + curr, 0).toFixed(2));
   
     return (
         <Provider store={store}>
             <div>
                 <Header />
                 <CartItems />
-                <PurchaseSummary
-                    title="Resumo de Compras"
-                    items={items}
-                    prices={prices}
-                    total={total}
-                />
+                {items.length > 0 && (
+                    <PurchaseSummary
+                        title="Resumo de Compras"
+                        items={items}
+                        prices={prices}
+                        total={total}
+                    />
+                )}
                 <Footer />
             </div>
         </Provider>
@@ -29,3 +34,5 @@ const MeuCarrinho: React.FC = () => {
 };
 
 export default MeuCarrinho;
+
+
