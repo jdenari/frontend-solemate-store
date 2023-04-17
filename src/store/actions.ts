@@ -14,8 +14,8 @@ export const getProductStart = createAction('getProductStart');
 export const getProductSuccess = createAction<Product[]>('getProductSuccess');
 export const getProductFailure = createAction<string>('getProductFailure');
 
-export const authenticated = createAction('authenticated');
-export const deauthenticated = createAction('deauthenticated');
+export const authenticate = createAction<{ id: number; firstName: string; lastName: string; email: string; access: string }>('authenticate');
+export const deauthenticate = createAction('deauthenticate');
 
 export const getOrderStart = createAction('getOrderStart');
 export const getOrderSuccess = createAction<Order[]>('getOrderSuccess');

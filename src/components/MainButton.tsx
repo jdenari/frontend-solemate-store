@@ -26,7 +26,7 @@ const MainButton: React.FC<MainButtonProps> = ({ buttonText, imageUrl, href, onC
             onClick={handleClick} // Utiliza a nova função handleClick aqui
             disabled={disabled}
         >
-            {imageUrl && <img src={imageUrl} alt="Button Icon" className="mx-2" />}
+            {imageUrl && <img src={imageUrl} alt="Button Icon" className="me-3" />}
             {buttonText}
         </Button>
     );

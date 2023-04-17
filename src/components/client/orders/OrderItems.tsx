@@ -26,25 +26,35 @@ const OrderItems = () => {
             <div className="row my-1 d-flex col-11 m-auto">
                 <h2 className="mb-3 m-0">Compras</h2>
                 {distinctDates.map((date) => (
-                    <div key={date}>
-                        <p className='m-0'>{new Date(date).toLocaleDateString('pt-BR', {
+                <div key={date}>
+                    <p className='m-0'>{new Date(date).toLocaleDateString('pt-BR', {
                         day: '2-digit',
                         month: 'long',
                         year: 'numeric'
-                        })}</p>
-                        <hr className="w-100 border-top border-secondary my-1" />
-                        {orders.map((order) => (
-                        <HorizontalCard
-                            key={order.id}
-                            imgSrc={`http://localhost:5000/api/photos/${order.photoId}/photo`}
-                            imgAlt={order.productName}
-                            title={order.productName}
-                            description={order.description}
-                            price={`R$ ${order.order.price}`}
-                        />
+                    })}</p>
+                    <hr className="w-100 border-top border-secondary my-1" />
+                    {orders
+                        .filter((order) => order.date.split('T')[0] === date)
+                        .map((order) => (
+                            <HorizontalCard
+                                key={order.id}
+                                imgSrc={`http://localhost:5000/api/photos/${order.photoId}/photo`}
+                                imgAlt={order.productName}
+                                title={order.productName}
+                                description={order.description}
+                                quantity={`Quantidade: ${order.order.quantity}`}
+                                price={`R$ ${order.order.price}`}
+                                deliveryStatus={`${order.delivery.status}`}
+                                deliveryDate={`${new Date(order.delivery.date).toLocaleDateString('pt-BR', {
+                                    day: '2-digit',
+                                    month: 'long',
+                                    year: 'numeric'
+                                })}`}
+                                onDelivery={true}
+                            />
                         ))}
-                    </div>
-                ))}
+                </div>
+            ))}
             </div>
         </div>
     );

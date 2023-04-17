@@ -1,5 +1,5 @@
 import { combineReducers, createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { CounterState, ProductState, AuthenticatedState, CartState, Product, Order, OrderState, Cart } from './types';
+import { CounterState, ProductState, AuthState, CartState, Product, Order, OrderState, User } from './types';
 import _ from 'lodash';
 import { createSelector } from 'reselect';
 
@@ -43,16 +43,19 @@ const productReducer = createReducer(initialProductState, {
 });
 
 // 
-const initialAuthenticateState: AuthenticatedState = {
+const initialAuthState: AuthState = {
     authenticated: false,
+    user: null,
 };
 
-const authenticateReducer = createReducer(initialAuthenticateState, {
-    authenticated: (state) => {
+const authReducer = createReducer(initialAuthState, {
+    authenticate: (state, action: PayloadAction<User>) => {
         state.authenticated = true;
+        state.user = action.payload;
     },
-    deauthenticated: (state) => {
-        state.authenticated = false
+    deauthenticate: (state) => {
+        state.authenticated = false;
+        state.user = null;
     },
 });
 
@@ -135,12 +138,11 @@ const cartReducer = createReducer(cartState, {
     },
 });
   
-  
 
 const rootReducer = combineReducers({
     counter: counterReducer,
     product: productReducer,
-    authenticated: authenticateReducer,
+    authenticated: authReducer,
     order: orderReducer,
     cart: cartReducer,
 });
@@ -150,7 +152,7 @@ export const selectOrders = (state: RootState) => state.order.orders;
 export const selectDistinctDates = createSelector(
     [selectOrders],
     (orders) => {
-        const groupedOrders = _.groupBy(orders, (order) => order.date.split(' ')[0]);
+        const groupedOrders = _.groupBy(orders, (order) => order.date.split('T')[0]);
         return Object.keys(groupedOrders);
     }
 );

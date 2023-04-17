@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { authenticated } from '../../store/actions';
+import { authenticate } from '../../store/actions';
 import MainButton from '../MainButton';
 import MessageReturn from '../../components/MessageReturn';
 import styles from './RegisterForm.module.css';
@@ -21,13 +21,13 @@ const RegisterForm = () => {
         const response = await fetch('http://localhost:5000/api/user/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ firstName: firstName.value, lastName: lastName.value, email: email.value, password: password.value, confirmPassword: confirmPassword.value }),
+            body: JSON.stringify({ firstName: firstName.value, lastName: lastName.value, access: 'client', email: email.value, password: password.value, confirmPassword: confirmPassword.value }),
         });
 
         if (response.ok) {
             const data = await response.json();
             window.location.href = '/';
-            dispatch(authenticated());
+            dispatch(authenticate({ id: data.id, firstName: data.firstName, lastName: data.lastName, email: data.email, access: data.access }));
         } else {
             const data = await response.json();
             setMessage({ text: data.error, variant: 'danger' });

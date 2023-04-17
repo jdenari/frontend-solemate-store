@@ -8,14 +8,18 @@ interface CardProps {
     price: string;
     description: string;
     onDelete?: () => void;
+    onDelivery?: boolean;
     className?: string;
+    deliveryDate?: string;
+    deliveryStatus?: string;
+    quantity?: string;
     showButton?: boolean;
     count?: number;
     onIncrement?: () => void;
     onDecrement?: () => void;
 }
 
-const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description, price,  onIncrement, onDecrement,  onDelete, count, className, showButton = false}) => {
+const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description, price, onDelivery, deliveryDate, deliveryStatus, quantity, onIncrement, onDecrement,  onDelete, count, showButton = false}) => {
     const formattedPrice = parseFloat(price.replace('R$', '')).toFixed(2);
 
     return (
@@ -27,18 +31,25 @@ const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description
                 className="card-img-top border border-1 border m-1 p-3"
                 />
             </div>
-            <div className="col-md-8 d-flex flex-column p-3">
+            <div className=" w-100 d-flex flex-column p-3">
                 <div className="card-body p-2 flex-grow-1 d-flex flex-column">
-                <h5 className="card-title mb-2">{title}</h5>
-                <p className="card-text my-1 lead fs-6">{description}</p>
-                <div className="d-flex w-100 mt-auto justify-content-between align-items-center">
-                    <p className="card-text my-1 fs-5">R$ {formattedPrice}</p>
-                    {onDelete && (
-                    <button className="btn btn-link p-0 text-dark" onClick={onDelete}>
-                        Excluir
-                    </button>
-                    )}
-                </div>
+                    <h5 className="card-title mb-2">{title}</h5>
+                    <p className="card-text my-1 lead fs-6">{description}</p>
+                    <p className="card-text lead fs-6">{quantity}</p>
+                    <div className="d-flex w-100 mt-auto justify-content-between align-items-center">
+                        <p className="card-text my-1 fs-5">R$ {formattedPrice}</p>
+                        {onDelete && (
+                            <button className="btn btn-link p-0 text-dark" onClick={onDelete}>
+                                Excluir
+                            </button>
+                        )}
+                        {onDelivery && (
+                            <div>
+                                <p className="card-text my-1 lead fs-6 text-end fw-bold">{deliveryStatus}</p>
+                                <p className="card-text my-1 lead fs-6">{deliveryDate}</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
             {showButton ? (

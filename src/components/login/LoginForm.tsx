@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { authenticated } from '../../store/actions';
+import { authenticate } from '../../store/actions';
 import MainButton from '../MainButton';
 import MessageReturn from '../../components/MessageReturn';
 import styles from './LoginForm.module.css';
@@ -13,17 +13,17 @@ const LoginForm = () => {
     const makeLogin = async () => {
         const email = document.getElementById('email') as HTMLInputElement;
         const password = document.getElementById('password') as HTMLInputElement;
-
+    
         const response = await fetch('http://localhost:5000/api/user/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: email.value, password: password.value }),
         });
-
+    
         if (response.ok) {
             const data = await response.json();
             window.location.href = '/';
-            dispatch(authenticated());
+            dispatch(authenticate({ id: data.id, firstName: data.firstName, lastName: data.lastName, email: data.email, access: data.access }));
         } else {
             const data = await response.json();
             setMessage({ text: data.error, variant: 'danger' });

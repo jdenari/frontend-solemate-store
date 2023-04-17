@@ -29,6 +29,10 @@ export interface Order {
         quantity: number;
         size: string;
     };
+    delivery: {
+        status: string;
+        date: string;
+    };
     date: string;
 }
 
@@ -45,9 +49,25 @@ export interface OrderState {
     error: string | null;
 }
 
-export interface AuthenticatedState {
-    authenticated: boolean
+export interface User {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    access: 'admin' | 'client';
 }
+  
+export interface AuthState {
+    authenticated: boolean;
+    user: User | null;
+}
+  
+
+export interface AuthenticatedState {
+    authenticated: boolean;
+    user: User | null; 
+  }
+  
 
 export interface ProductState {
     products: Product[];
@@ -68,6 +88,7 @@ export interface RootState {
     authenticated: AuthenticatedState;
     order: OrderState;
     cart: CartState;
+    auth: AuthState;
 }
     
   
