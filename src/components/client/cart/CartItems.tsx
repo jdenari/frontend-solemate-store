@@ -13,19 +13,9 @@ const CartItems = () => {
     const carts = useSelector((state: RootState) => state.cart.carts);
     const dispatch = useDispatch();
 
-    const handleDelete = (cartId: number) => {
-        console.log(cartId)
-        dispatch(removeProductFromCart(cartId));
-    };
-
-    const handleIncrement = (cartId: number) => {
-        console.log(cartId)
-        dispatch(incrementProductInCart(cartId));
-    };
-    
-    const handleDecrement = (cartId: number) => {
-        dispatch(decrementProductInCart(cartId));
-    };
+    const handleDelete = (cartId: number) => {dispatch(removeProductFromCart(cartId));};
+    const handleIncrement = (cartId: number) => {dispatch(incrementProductInCart(cartId));};
+    const handleDecrement = (cartId: number) => {dispatch(decrementProductInCart(cartId));};
 
     const currentDate = new Date().toLocaleDateString('pt-BR', {
         day: '2-digit',
@@ -55,10 +45,11 @@ const CartItems = () => {
         count: cart.count,
         onIncrement: () => handleIncrement(cart.id),
         onDecrement: () => handleDecrement(cart.id),
+        showButton: true
     }));
 
     return (
-        <div className={`${styles.bgLightWhite} container p-3 rounded my-3 d-flex`}>
+        <div className={`${styles.bgLightWhite} container ${styles.containerOrder} p-3 rounded my-3 d-flex`}>
             <div className="row my-1 d-flex col-11 m-auto">
                 <div className="w-100 mb-3 d-flex justify-content-between align-items-center">
                     <p className="m-0">{currentDate}</p>

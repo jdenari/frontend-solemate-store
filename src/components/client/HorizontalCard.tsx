@@ -9,15 +9,14 @@ interface CardProps {
     description: string;
     onDelete?: () => void;
     className?: string;
-    showExtraButton?: boolean;
-    count: number;
+    showButton?: boolean;
+    count?: number;
     onIncrement?: () => void;
     onDecrement?: () => void;
 }
 
-const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description, price,  onIncrement, onDecrement,  onDelete, count, className, showExtraButton = false}) => {
+const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description, price,  onIncrement, onDecrement,  onDelete, count, className, showButton = false}) => {
     const formattedPrice = parseFloat(price.replace('R$', '')).toFixed(2);
-
 
     return (
         <div className="col-sm-12 p-3 my-2 d-flex bg-light">
@@ -42,27 +41,29 @@ const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description
                 </div>
                 </div>
             </div>
-            <div className="col-md-2 d-flex align-items-end p-3">
-                <div className={`text-end m-aut p-1`}>
-                    <div className="d-inline-flex align-items-center border shadow-sm p-1 bg-body-tertiary rounded-5 bg-light">
-                        <div className="mx-3">{count}</div>
-                        <button
-                            type="button"
-                            className={`${styles.buttonIncr} btn btn-outline-secondary btn-sm px-3 py-2 border-0 ms-1 fs-5`}
-                            onClick={onDecrement}
-                            >
-                            <img src="/icons/dash-lg.svg" alt="Decrement" />
-                        </button>
-                            <button
-                            type="button"
-                            className={`${styles.buttonIncr} btn btn-outline-secondary btn-sm px-3 py-2 border-0 mx-1 fs-5`}
-                            onClick={onIncrement}
-                            >
-                            <img src="/icons/plus-lg.svg" alt="Increment" />
-                        </button>
+            {showButton ? (
+                <div className="col-md-2 d-flex align-items-end p-3">
+                    <div className={`text-end m-aut p-1`}>
+                        <div className="d-inline-flex align-items-center border shadow-sm p-1 bg-body-tertiary rounded-5 bg-light">
+                            <div className="mx-3">{count}</div>
+                                <button
+                                    type="button"
+                                    className={`${styles.buttonIncr} btn btn-outline-secondary btn-sm px-3 py-2 border-0 ms-1 fs-5`}
+                                    onClick={onDecrement}
+                                    >
+                                    <img src="/icons/dash-lg.svg" alt="Decrement" />
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`${styles.buttonIncr} btn btn-outline-secondary btn-sm px-3 py-2 border-0 mx-1 fs-5`}
+                                    onClick={onIncrement}
+                                    >
+                                    <img src="/icons/plus-lg.svg" alt="Increment" />
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                ) : null}
         </div>
     );
 };
