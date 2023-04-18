@@ -1,15 +1,22 @@
+// patterns imports
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { authenticate } from '../../store/actions';
+import styles from './RegisterForm.module.css';
+
+// child components imports
 import MainButton from '../MainButton';
 import MessageReturn from '../../components/MessageReturn';
-import styles from './RegisterForm.module.css';
+
+// actions imports
+import { useDispatch } from 'react-redux';
+import { authenticate } from '../../store/actions';
 
 const RegisterForm = () => {
     
+    // message alert
     const dispatch = useDispatch();
     const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
 
+    // regist function
     const makeRegister = async () => {
 
         const firstName = document.getElementById('firstName') as HTMLInputElement;
@@ -35,6 +42,7 @@ const RegisterForm = () => {
         
     };
 
+    // sets a timeout to remove the message from the screen after 3 seconds
     useEffect(() => {
         let timeoutId: NodeJS.Timeout | undefined;
         if (message && message.text) {

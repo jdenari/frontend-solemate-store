@@ -1,14 +1,20 @@
+// patterns imports
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store/types';
+import { Navbar, Nav } from 'react-bootstrap';
+
+// child components imports
 import MainButton from './MainButton';
 import DropdownCategory from './category/DropdownCategory';
 import HeaderList from './HeaderLogin';
-import { Navbar, Nav } from 'react-bootstrap';
+
+// actions function
+import { RootState } from '../store/types';
 
 const Header = () => {
-    const [showDropdown, setShowDropdown] = useState(false);
 
+    // dropdown
+    const [showDropdown, setShowDropdown] = useState(false);
     const handleDropdown = () => {setShowDropdown(!showDropdown);};
     const handleCloseDropdown = () => {setShowDropdown(false);};
 

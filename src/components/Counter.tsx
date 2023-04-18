@@ -1,8 +1,11 @@
+// patterns imports
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styles from './Counter.module.css';
+
+// actions imports
 import { decrement, increment } from '../store/actions';
 import { RootState } from '../store/types';
-import styles from './Counter.module.css';
 
 interface CounterProps {
     className?: string;
@@ -15,8 +18,7 @@ const Counter: React.FC<CounterProps> = ({ className, showExtraButton = false })
 
     const handleIncrement = () => {dispatch(increment());};
     const handleDecrement = () => {dispatch(decrement());};
-    const handleExtraButtonClick = () => {
-        // Handle extra button click event
+    const handleExtraButtonClick = () => {// handle extra button click event
     };
 
     return (

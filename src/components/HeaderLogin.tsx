@@ -9,17 +9,18 @@ import { deauthenticate } from '../store/actions';
 const HeaderLogin = () => {
     const dispatch = useDispatch();
 
+    // dropdown
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-
     const handleDropdown = () => {setShowDropdown(!showDropdown);};
     const handleCloseDropdown = () => {setShowDropdown(false);};
 
+    // modal
+    const [showModal, setShowModal] = useState(false);
     const handleOpenModal = () => {setShowModal(true);handleCloseDropdown();};
     const handleCloseModal = () => {setShowModal(false);};
 
+    // functions to logout
     const handleLogout = () => {dispatch(deauthenticate());handleCloseModal();};
-
     const authenticated = useSelector((state: RootState) => state.authenticated);
 
     return (

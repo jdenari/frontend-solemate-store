@@ -1,37 +1,52 @@
+// patterns imports
 import React, { useState, useEffect } from 'react';
 import styles from './MainSection.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+
+// child components imports
 import SearchBar from './SearchBar';
 import Counter from '../Counter';
 import CustomModal from '../CustomModal';
 import MainButton from '../MainButton';
 import MessageReturn from '../MessageReturn';
 import SecondaryButton from '../SecondaryButton';
-import { useSelector, useDispatch } from 'react-redux';
+
+// actions imports
 import { RootState } from '../../store/types';
 import { decrementProductShow, incrementProductShow, addProductToCart, clearCart} from '../../store/actions';
 
 
 const MainSection = () => {
+
+    // data constants
+    const dispatch = useDispatch();
+
+        // count
     const count = useSelector((state: RootState) => state.counter.count);
+
+        // products
     const productShow = useSelector((state: RootState) => state.counter.productShow);
     const product = useSelector((state: RootState) => state.product.products[productShow]);
     const products = useSelector((state: RootState) => state.product.products);
 
+        // modals
     const [showModal, setShowModal] = useState(false);
+
+        // message
     const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
 
-    const dispatch = useDispatch();
-
+    // functions to deal to cart
     const handleAddProductToCart = () => {
         dispatch(addProductToCart({ product, count }));
         setMessage({ text: `${product.productName} foi adicionado ao carrinho.`, variant: 'success' });
     };
-    
     const handleCleanCart = () => {dispatch(clearCart());setShowModal(false);};
 
+    // functions to activate and deactivate modal
     const handleOpenModal = () => {setShowModal(true);};
     const handleCloseModal = () => {setShowModal(false);};
 
+    // sets a timeout to remove the message from the screen after 3 seconds
     useEffect(() => {
         let timeoutId: NodeJS.Timeout | undefined;
         if (message && message.text) {

@@ -1,11 +1,17 @@
+// patterns imports
 import React, { useState, useEffect, useRef } from 'react';
-import MainButton from '../../MainButton';
 import { Form } from 'react-bootstrap';
-import axios from 'axios';
+
+// child components imports
+import MainButton from '../../MainButton';
 import MessageReturn from '../../MessageReturn';
+
+// external imports
+import axios from 'axios';
 import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.min.css';
 
+// props
 interface IFormData {
     productClass: string;
     productName: string;
@@ -17,7 +23,10 @@ interface IFormData {
     };
 }
 
-const NovosProdutos: React.FC = () => {
+const FormNewProduct: React.FC = () => {
+
+    // data constants
+        // form variables
     const [formData, setFormData] = useState<IFormData>({
         productClass: '',
         productName: '',
@@ -28,20 +37,22 @@ const NovosProdutos: React.FC = () => {
             quantity: 1,
         },
     });
-
-    const [photo, setPhoto] = useState<File | null>(null);
-    const [imageName, setImageName] = useState<string>('');
-    const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
-
     const classOptions = ['Blusas', 'Calças', 'Sapatos'];
     const [selectedClass, setSelectedClass] = useState(classOptions[0]);
 
+        // form image
+    const [photo, setPhoto] = useState<File | null>(null);
+    const [imageName, setImageName] = useState<string>('');
     const imgRef = useRef<any>(null);
+
+        // cropper image
     const [cropper, setCropper] = useState<Cropper | null>(null);
     const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {const selectedFile = e.target.files![0];setPhoto(selectedFile);}
+        // message alert
+    const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
 
+    // update the text input to variables
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({
@@ -52,8 +63,10 @@ const NovosProdutos: React.FC = () => {
             setImageName(value);
         }
     };
-    
 
+    // update the image
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {const selectedFile = e.target.files![0];setPhoto(selectedFile);}
+    
     const handleStockChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({
@@ -65,35 +78,47 @@ const NovosProdutos: React.FC = () => {
         }));
     };
 
+    // cuts the image using Cropper.js library and sets the cropped image as state
+    const handleCropImage = () => {
+        const cropper = imgRef.current?.cropper;
+        if (cropper) {
+            cropper.getCroppedCanvas().toBlob((blob: Blob | null) => {
+            if (blob) {setCroppedImage(blob);}
+        }, "image/jpeg");
+        }
+    };
+        
+    // handles the form submission to add a product
     const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let uploadSuccess = false;
+    
         try {
             await handleSubmitPhoto(e);
             uploadSuccess = true;
         } catch (error) {
-            setMessage({ text: 'Erro ao enviar os dados', variant: 'danger' });
+            setMessage({ text: 'Error while uploading the photo', variant: 'danger' });
         }
     
         if (uploadSuccess) {
             try {
                 await handleSubmit(e);
             } catch (error) {
-                setMessage({ text: 'Erro ao enviar os dados', variant: 'danger' });
+                setMessage({ text: 'Error while submitting the product', variant: 'danger' });
             }
         }
     };
-    
-      
+        
+    // handles the form submission to upload the photo to the server
     const handleSubmitPhoto = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!croppedImage) {
-            console.error("Imagem não cortada!");
+            console.error("Image not cropped!");
             return;
         }
         const formData = new FormData();
-        formData.append('file', croppedImage);
-        formData.append('name', imageName);
+            formData.append('file', croppedImage);
+            formData.append('name', imageName);
         try {
             const response = await axios.post('http://localhost:5000/api/photos/add-photos', formData, {
                 headers: {'Content-Type': 'multipart/form-data'}
@@ -105,35 +130,24 @@ const NovosProdutos: React.FC = () => {
         } catch (error) {
             console.error(error);
         }
-    }
-    
-    
-
+    };
+        
+    // handles the form submission to add the product to the database
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        try {
+            e.preventDefault();
+            try {
             const response = await axios.post('http://localhost:5000/api/product/add-product', {
                 ...formData,
                 productClass: selectedClass,
-        });
+            });
             setMessage({ text: response.data, variant: 'success' });
             window.location.reload();
         } catch (error) {
-            setMessage({ text: 'Erro ao enviar os dados', variant: 'danger' });
+            setMessage({ text: 'Error while submitting the product', variant: 'danger' });
         }
     };
-
-    const handleCropImage = () => {
-        const cropper = imgRef.current?.cropper;
-        if (cropper) {
-            cropper.getCroppedCanvas().toBlob((blob: Blob | null) => {
-                if (blob) {
-                    setCroppedImage(blob);
-                }
-            }, "image/jpeg");
-        }
-    };
-    
+        
+    // sets a timeout to remove the message from the screen after 3 seconds
     useEffect(() => {
         let timeoutId: NodeJS.Timeout | undefined;
         if (message && message.text) {
@@ -147,7 +161,8 @@ const NovosProdutos: React.FC = () => {
             }
         };
     }, [message]);
-
+        
+    // initializes Cropper.js on the photo once it is loaded
     useEffect(() => {
         if (photo && imgRef.current) {
             if (cropper) {
@@ -169,9 +184,9 @@ const NovosProdutos: React.FC = () => {
                     left: (newCropper.getContainerData().width - 202) / 2,
                     top: (newCropper.getContainerData().height - 202) / 2
                 });
-                }
-            });
-            setCropper(newCropper);
+            }
+        });
+        setCropper(newCropper);
         }
     }, [photo]);
 
@@ -264,4 +279,4 @@ const NovosProdutos: React.FC = () => {
     );
 };
 
-export default NovosProdutos;
+export default FormNewProduct;

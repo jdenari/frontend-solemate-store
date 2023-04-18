@@ -1,8 +1,9 @@
 import React from 'react';
-import CardVertical from '../client/VerticalCard';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/types';
 import './SecondarySection.module.css';
+
+import CardVertical from '../client/VerticalCard';
+import { RootState } from '../../store/types';
 
 const SecondarySection: React.FC = () => {
     const products = useSelector((state: RootState) => state.product.products);
