@@ -11,7 +11,7 @@ const novosprodutos: React.FC = () => {
         <Provider store={store}>
             <div>
                 <Header />
-                    <div className='container'>
+                    <div className='m-auto container'>
                         <InventoryDatabase />
                     </div>
                 <Footer />

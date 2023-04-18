@@ -3,9 +3,9 @@ import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import styles from './Footer.module.css';
 
 const Footer = () => {
-  return (
-    <div>
-        <hr className="w-100 border-top border-secondary my-3 container" />
+    return (
+        <div>
+            <hr className="w-100 border-top border-secondary my-3 container" />
             <nav className="navbar navbar-expand-lg navbar-light bg-light container p-3">
                 <div className="d-flex justify-content-between w-100">
                     <ul className="navbar-nav">

@@ -2,12 +2,14 @@ import React from 'react';
 import styles from './HorizontalCard.module.css';
 
 interface CardProps {
+    // require props
     imgSrc: string;
     imgAlt: string;
     title: string;
     price: string;
     description: string;
-    onDelete?: () => void;
+
+    // optional props
     onDelivery?: boolean;
     className?: string;
     deliveryDate?: string;
@@ -15,20 +17,25 @@ interface CardProps {
     quantity?: string;
     showButton?: boolean;
     count?: number;
+
+    // functions
     onIncrement?: () => void;
     onDecrement?: () => void;
+    onDelete?: () => void;
 }
 
 const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description, price, onDelivery, deliveryDate, deliveryStatus, quantity, onIncrement, onDecrement,  onDelete, count, showButton = false}) => {
+    
+    // data constants
     const formattedPrice = parseFloat(price.replace('R$', '')).toFixed(2);
 
     return (
         <div className="col-sm-12 p-3 my-2 d-flex bg-light">
             <div className="col-md-2">
                 <img
-                src={imgSrc}
-                alt={imgAlt}
-                className="card-img-top border border-1 border m-1 p-3"
+                    src={imgSrc}
+                    alt={imgAlt}
+                    className="card-img-top border border-1 border m-1 p-3"
                 />
             </div>
             <div className=" w-100 d-flex flex-column p-3">
@@ -52,6 +59,7 @@ const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description
                     </div>
                 </div>
             </div>
+            {/* if the component import needs to have the right side buttons */}
             {showButton ? (
                 <div className="col-md-2 d-flex align-items-end p-3">
                     <div className={`text-end m-aut p-1`}>
