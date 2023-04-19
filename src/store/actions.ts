@@ -1,54 +1,39 @@
-import { createAction } from '@reduxjs/toolkit';
-import { Dispatch } from 'redux';
-import { Product } from './types';
-import { Order } from './types';
+import { getProduct, GET_PRODUCT_START, GET_PRODUCT_SUCCESS, GET_PRODUCT_FAILURE } from './actions/productAction';
+import { getOrder, GET_ORDER_START, GET_ORDER_SUCCESS, GET_ORDER_FAILURE } from './actions/orderAction';
+import { INCREMENT, DECREMENT, SET_COUNT, SET_PRODUCT_SHOW, INCREMENT_PRODUCT_SHOW, DECREMENT_PRODUCT_SHOW } from './actions/counterReducer';
+import { AUTHENTICATE, DEAUTHENTICATE } from './actions/authAction';
+import { ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART, CLEAN_CART, INCREMENT_PRODUCT_IN_CART, DECREMENT_PRODUCT_IN_CART } from './actions/cartAction';
 
-export const increment = createAction('increment');
-export const decrement = createAction('decrement');
-export const setCount = createAction<number>('setCount');
-export const setProductShow = createAction<number>('setProductShow');
-export const incrementProductShow = createAction<number>('incrementProductShow');
-export const decrementProductShow = createAction<number>('decrementProductShow');
+// product reducers
+export { getProduct };
+export { GET_PRODUCT_START };
+export { GET_PRODUCT_SUCCESS };
+export { GET_PRODUCT_FAILURE  };
 
-export const getProductStart = createAction('getProductStart');
-export const getProductSuccess = createAction<Product[]>('getProductSuccess');
-export const getProductFailure = createAction<string>('getProductFailure');
+// order reducers
+export { getOrder };
+export { GET_ORDER_START };
+export { GET_ORDER_SUCCESS };
+export { GET_ORDER_FAILURE  };
 
-export const authenticate = createAction<{ id: number; firstName: string; lastName: string; email: string; access: string }>('authenticate');
-export const deauthenticate = createAction('deauthenticate');
+// counter reducers
+export { DECREMENT };
+export { INCREMENT };
+export { SET_COUNT };
+export { SET_PRODUCT_SHOW };
+export { INCREMENT_PRODUCT_SHOW };
+export { DECREMENT_PRODUCT_SHOW };
 
-export const getOrderStart = createAction('getOrderStart');
-export const getOrderSuccess = createAction<Order[]>('getOrderSuccess');
-export const getOrderFailure = createAction<string>('getOrderFailure');
+// auth reducers
+export { AUTHENTICATE };
+export { DEAUTHENTICATE };
 
-export const addProductToCart = createAction<{ product: Product, count: number }>('addProductToCart');
-export const removeProductFromCart = createAction<number>('removeProductFromCart');
-export const clearCart = createAction('clearCart');
-export const incrementProductInCart = createAction<number>('incrementProductInCart');
-export const decrementProductInCart = createAction<number>('decrementProductInCart');
-
-
-export const getProduct = () => async (dispatch: Dispatch) => {
-    dispatch(getProductStart());
-    try {
-        const response = await fetch('http://localhost:5000/api/product/');
-        const data = await response.json();
-        dispatch(getProductSuccess(data));
-    } catch (error: any) {
-        dispatch(getProductFailure(error.message));
-    }
-};
-
-export const getOrder = () => async (dispatch: Dispatch) => {
-    dispatch(getOrderStart());
-    try {
-        const response = await fetch('http://localhost:5000/api/order/');
-        const data = await response.json();
-        dispatch(getOrderSuccess(data));
-    } catch (error: any) {
-        dispatch(getOrderFailure(error.message));
-    }
-};
+// cart reducers
+export { ADD_PRODUCT_TO_CART };
+export { REMOVE_PRODUCT_FROM_CART };
+export { CLEAN_CART };
+export { INCREMENT_PRODUCT_IN_CART };
+export { DECREMENT_PRODUCT_IN_CART };
 
 
 

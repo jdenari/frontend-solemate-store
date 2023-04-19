@@ -8,7 +8,7 @@ import MessageReturn from '../../components/MessageReturn';
 
 // actions imports
 import { useDispatch } from 'react-redux';
-import { authenticate } from '../../store/actions';
+import { AUTHENTICATE } from '../../store/actions';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const LoginForm = () => {
         if (response.ok) {
             const data = await response.json();
             window.location.href = '/';
-            dispatch(authenticate({ id: data.id, firstName: data.firstName, lastName: data.lastName, email: data.email, access: data.access }));
+            dispatch(AUTHENTICATE({ id: data.id, firstName: data.firstName, lastName: data.lastName, email: data.email, access: data.access }));
         } else {
             const data = await response.json();
             setMessage({ text: data.error, variant: 'danger' });

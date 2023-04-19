@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './Counter.module.css';
 
 // actions imports
-import { decrement, increment } from '../store/actions';
+import { DECREMENT, INCREMENT } from '../store/actions';
 import { RootState } from '../store/types';
 
 interface CounterProps {
@@ -16,8 +16,8 @@ const Counter: React.FC<CounterProps> = ({ className, showExtraButton = false })
     const count = useSelector((state: RootState) => state.counter.count);
     const dispatch = useDispatch();
 
-    const handleIncrement = () => {dispatch(increment());};
-    const handleDecrement = () => {dispatch(decrement());};
+    const handleIncrement = () => {dispatch(INCREMENT());};
+    const handleDecrement = () => {dispatch(DECREMENT());};
     const handleExtraButtonClick = () => {// handle extra button click event
     };
 

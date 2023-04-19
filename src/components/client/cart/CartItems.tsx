@@ -9,8 +9,8 @@ import HorizontalCard from '../HorizontalCard';
 import MainButton from '@/components/MainButton';
 
 // actions imports
-import { removeProductFromCart } from '../../../store/actions';
-import { incrementProductInCart, decrementProductInCart } from '../../../store/actions';
+import { REMOVE_PRODUCT_FROM_CART } from '../../../store/actions';
+import { INCREMENT_PRODUCT_IN_CART, DECREMENT_PRODUCT_IN_CART } from '../../../store/actions';
 
 const CartItems = () => {
 
@@ -38,9 +38,9 @@ const CartItems = () => {
     }));
 
     // functions handle
-    const handleDelete = (cartId: number) => {dispatch(removeProductFromCart(cartId));};
-    const handleIncrement = (cartId: number) => {dispatch(incrementProductInCart(cartId));};
-    const handleDecrement = (cartId: number) => {dispatch(decrementProductInCart(cartId));};
+    const handleDelete = (cartId: number) => {dispatch(REMOVE_PRODUCT_FROM_CART(cartId));};
+    const handleIncrement = (cartId: number) => {dispatch(INCREMENT_PRODUCT_IN_CART(cartId));};
+    const handleDecrement = (cartId: number) => {dispatch(DECREMENT_PRODUCT_IN_CART(cartId));};
       
     // return the html if the cart is empty
     if (carts.length === 0) {

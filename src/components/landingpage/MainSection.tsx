@@ -13,7 +13,7 @@ import SecondaryButton from '../SecondaryButton';
 
 // actions imports
 import { RootState } from '../../store/types';
-import { decrementProductShow, incrementProductShow, addProductToCart, clearCart} from '../../store/actions';
+import { DECREMENT_PRODUCT_SHOW, INCREMENT_PRODUCT_SHOW, ADD_PRODUCT_TO_CART, CLEAN_CART} from '../../store/actions';
 
 
 const MainSection = () => {
@@ -37,10 +37,10 @@ const MainSection = () => {
 
     // functions to deal to cart
     const handleAddProductToCart = () => {
-        dispatch(addProductToCart({ product, count }));
+        dispatch(ADD_PRODUCT_TO_CART({ product, count }));
         setMessage({ text: `${product.productName} foi adicionado ao carrinho.`, variant: 'success' });
     };
-    const handleCleanCart = () => {dispatch(clearCart());setShowModal(false);};
+    const handleCleanCart = () => {dispatch(CLEAN_CART());setShowModal(false);};
 
     // functions to activate and deactivate modal
     const handleOpenModal = () => {setShowModal(true);};
@@ -77,11 +77,11 @@ const MainSection = () => {
                     <div className={`${styles.arrow} d-flex position-absolute`}>
                             <SecondaryButton
                                 imageUrl='./icons/arrow-left-short.svg'
-                                onClick={() => dispatch(decrementProductShow(1))}
+                                onClick={() => dispatch(DECREMENT_PRODUCT_SHOW(1))}
                             />
                             <SecondaryButton
                                 imageUrl='./icons/arrow-right-short.svg'
-                                onClick={() => dispatch(incrementProductShow(products.length))}
+                                onClick={() => dispatch(INCREMENT_PRODUCT_SHOW(products.length))}
                             />
                     </div>
                 </div>

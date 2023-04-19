@@ -4,7 +4,7 @@ import styles from './VerticalCard.module.css';
 import { useDispatch } from 'react-redux';
 
 // actions functions
-import { setProductShow } from '../../store/actions';
+import { SET_PRODUCT_SHOW } from '../../store/actions';
 
 // props
 interface CardProps {
@@ -14,7 +14,6 @@ interface CardProps {
     price: string;
     productId: number;
 }
-  
 
 const Card: React.FC<CardProps> = ({ imgSrc, imgAlt, title, price, productId }) => {
     // data constants
@@ -22,7 +21,7 @@ const Card: React.FC<CardProps> = ({ imgSrc, imgAlt, title, price, productId }) 
   
     // handle functions
         // this changes the main content showed in landing page
-    const handleClick = () => {dispatch(setProductShow(productId));};
+    const handleClick = () => {dispatch(SET_PRODUCT_SHOW(productId));};
   
     return (
         <div className="col-sm-6 px-2 py-2">

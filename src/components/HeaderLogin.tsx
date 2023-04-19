@@ -4,7 +4,7 @@ import MainButton from './MainButton';
 import CustomModal from './CustomModal';
 import styles from './HeaderLogin.module.css';
 import { RootState } from '../store/types';
-import { deauthenticate } from '../store/actions';
+import { DEAUTHENTICATE } from '../store/actions';
 
 const HeaderLogin = () => {
     const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const HeaderLogin = () => {
     const handleCloseModal = () => {setShowModal(false);};
 
     // functions to logout
-    const handleLogout = () => {dispatch(deauthenticate());handleCloseModal();};
+    const handleLogout = () => {dispatch(DEAUTHENTICATE());handleCloseModal();};
     const authenticated = useSelector((state: RootState) => state.authenticated);
 
     return (
