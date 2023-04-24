@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getProduct } from '../store/actions';
+import { getProduct, getStock} from '../store/actions';
 import Head from 'next/head';
 import Header from '../components/Header';
 import MainSection from '../components/landingpage/MainSection';
@@ -14,6 +14,7 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         dispatch(getProduct());
+        dispatch(getStock());
     }, []);
 
     return (

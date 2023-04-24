@@ -6,6 +6,11 @@ import { Form } from 'react-bootstrap';
 import MainButton from '../../MainButton';
 import MessageReturn from '../../MessageReturn';
 
+// actions import 
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_MESSAGE, CLEAR_MESSAGE } from '../../../store/actions';
+import { RootState } from '../../../store/types';
+
 // external imports
 import axios from 'axios';
 import Cropper from 'cropperjs';
@@ -17,13 +22,15 @@ interface IFormData {
     productName: string;
     description: string;
     price: number;
-    stock: {
-        size: string;
-        quantity: number;
-    };
+    quantity: number;
+    size: string;
+    statusProduct: string;
 }
 
 const FormNewProduct: React.FC = () => {
+
+    const dispatch = useDispatch();
+    const messageReturn = useSelector((state: RootState) => state.returnMessage);
 
     // data constants
         // form variables
@@ -32,11 +39,11 @@ const FormNewProduct: React.FC = () => {
         productName: '',
         description: '',
         price: 0,
-        stock: {
-            size: '',
-            quantity: 1,
-        },
+        quantity: 0,
+        size: '',
+        statusProduct: 'ATIVO',
     });
+    
     const classOptions = ['Blusas', 'Calças', 'Sapatos'];
     const [selectedClass, setSelectedClass] = useState(classOptions[0]);
 
@@ -48,9 +55,6 @@ const FormNewProduct: React.FC = () => {
         // cropper image
     const [cropper, setCropper] = useState<Cropper | null>(null);
     const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
-
-        // message alert
-    const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
 
     // update the text input to variables
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,17 +70,6 @@ const FormNewProduct: React.FC = () => {
 
     // update the image
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {const selectedFile = e.target.files![0];setPhoto(selectedFile);}
-    
-    const handleStockChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prevState) => ({
-            ...prevState,
-            stock: {
-                ...prevState.stock,
-                [name]: value,
-            },
-        }));
-    };
 
     // cuts the image using Cropper.js library and sets the cropped image as state
     const handleCropImage = () => {
@@ -91,76 +84,44 @@ const FormNewProduct: React.FC = () => {
     // handles the form submission to add a product
     const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let uploadSuccess = false;
-    
         try {
-            await handleSubmitPhoto(e);
-            uploadSuccess = true;
+            const productResponse = await submitProductAndPhoto();
+            dispatch(SET_MESSAGE({ text: productResponse.data, variant: 'success' }));
+            setTimeout(() => { dispatch(CLEAR_MESSAGE()); window.location.reload(); }, 3000);
         } catch (error) {
-            setMessage({ text: 'Error while uploading the photo', variant: 'danger' });
-        }
-    
-        if (uploadSuccess) {
-            try {
-                await handleSubmit(e);
-            } catch (error) {
-                setMessage({ text: 'Error while submitting the product', variant: 'danger' });
-            }
+            dispatch(SET_MESSAGE({ text: 'Erro ao adicionar o produto!', variant: 'danger' }));
+            setTimeout(() => { dispatch(CLEAR_MESSAGE()); }, 3000);
         }
     };
-        
-    // handles the form submission to upload the photo to the server
-    const handleSubmitPhoto = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    
+    const submitProductAndPhoto = async () => {
         if (!croppedImage) {
             console.error("Image not cropped!");
-            return;
+            throw new Error("Image not cropped!");
         }
-        const formData = new FormData();
-            formData.append('file', croppedImage);
-            formData.append('name', imageName);
+        const formDataToSend = new FormData();
+        formDataToSend.append('file', croppedImage);
+        formDataToSend.append('name', imageName);
+        formDataToSend.append('src', JSON.stringify({
+            ...formData,
+            productClass: selectedClass,
+        }));
         try {
-            const response = await axios.post('http://localhost:5000/api/photos/add-photos', formData, {
-                headers: {'Content-Type': 'multipart/form-data'}
+            const response = await axios.post('http://localhost:5000/api/product/add-product', formDataToSend, {
+                headers: { 'Content-Type': 'multipart/form-data' }
             });
-            console.log(response.data);
             setPhoto(null);
             setImageName('');
             setCroppedImage(null);
+            return response;
         } catch (error) {
-            console.error(error);
+            dispatch(SET_MESSAGE({ text: 'Erro ao submeter o produto e a foto!', variant: 'danger' }));
+            setTimeout(() => { dispatch(CLEAR_MESSAGE()); }, 3000);
+            throw error;
         }
-    };
-        
-    // handles the form submission to add the product to the database
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-            try {
-            const response = await axios.post('http://localhost:5000/api/product/add-product', {
-                ...formData,
-                productClass: selectedClass,
-            });
-            setMessage({ text: response.data, variant: 'success' });
-            window.location.reload();
-        } catch (error) {
-            setMessage({ text: 'Error while submitting the product', variant: 'danger' });
-        }
-    };
-        
-    // sets a timeout to remove the message from the screen after 3 seconds
-    useEffect(() => {
-        let timeoutId: NodeJS.Timeout | undefined;
-        if (message && message.text) {
-            timeoutId = setTimeout(() => {
-                setMessage(null);
-            }, 3000);
-        }
-        return () => {
-            if (timeoutId) {
-                clearTimeout(timeoutId);
-            }
-        };
-    }, [message]);
+    };    
+    
+
         
     // initializes Cropper.js on the photo once it is loaded
     useEffect(() => {
@@ -193,7 +154,7 @@ const FormNewProduct: React.FC = () => {
     return (
         <>
             <div>
-                <Form onSubmit={handleSubmit} className="w-50 m-auto border shadow-sm my-5 px-3 py-4 mb-5 bg-body-tertiary rounded">
+                <Form onSubmit={handleAddProduct} className="w-50 m-auto border shadow-sm my-5 px-3 py-4 mb-5 bg-body-tertiary rounded">
                     <h2 className="text-center mb-5">Adicionar Produto</h2>
                     <Form.Group controlId="formProductName" className='d-flex my-2 align-items-center'>
                         <Form.Label className='col-3 text-end px-2 m-0'>Nome do Produto</Form.Label>
@@ -232,13 +193,11 @@ const FormNewProduct: React.FC = () => {
                     <Form.Group controlId="formPrice" className='d-flex my-2 align-items-center'>
                         <Form.Label className='col-3 text-end px-2 m-0'>Preço</Form.Label>
                         <Form.Control
-                            type="number"
                             step="0.01"
                             min="0"
                             name="price"
                             value={formData.price}
                             onChange={handleChange}
-                            placeholder="Digite o preço"
                         />
                     </Form.Group>
                     <Form.Group controlId="formStockSize" className='d-flex my-2 align-items-center'>
@@ -246,9 +205,18 @@ const FormNewProduct: React.FC = () => {
                         <Form.Control
                             type="text"
                             name="size"
-                            value={formData.stock.size}
-                            onChange={handleStockChange}
+                            value={formData.size}
+                            onChange={handleChange}
                             placeholder="P, M, G, GG, XG..."
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formQuantity" className='d-flex my-2 align-items-center'>
+                        <Form.Label className='col-3 text-end px-2 m-0'>Quantidade</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="quantity"
+                            value={formData.quantity}
+                            onChange={handleChange}
                         />
                     </Form.Group>
                     <Form.Group controlId="formImage" className='d-flex my-2 align-items-center'>
@@ -272,7 +240,7 @@ const FormNewProduct: React.FC = () => {
                             Cortar Imagem
                         </button>
                     </div>
-                    {message && <MessageReturn text={message.text} variant={message.variant} />}
+                        {messageReturn.message && <MessageReturn text={messageReturn.message.text} variant={messageReturn.message.variant} />}
                 </Form>
             </div>
         </>

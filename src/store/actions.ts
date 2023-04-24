@@ -4,6 +4,7 @@ import { INCREMENT, DECREMENT, SET_COUNT, SET_PRODUCT_SHOW, INCREMENT_PRODUCT_SH
 import { AUTHENTICATE, DEAUTHENTICATE } from './actions/authAction';
 import { ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART, CLEAN_CART, INCREMENT_PRODUCT_IN_CART, DECREMENT_PRODUCT_IN_CART } from './actions/cartAction';
 import { SET_MESSAGE, CLEAR_MESSAGE } from './actions/returnMessageAction'
+import { GET_STOCK_FAILURE, GET_STOCK_START, GET_STOCK_SUCCESS, getStock } from './actions/stockAction';
 
 // product reducers
 export { getProduct };
@@ -39,6 +40,12 @@ export { DECREMENT_PRODUCT_IN_CART };
 // message
 export { SET_MESSAGE }
 export { CLEAR_MESSAGE }
+
+// stock reducers
+export { getStock };
+export { GET_STOCK_START };
+export { GET_STOCK_SUCCESS };
+export { GET_STOCK_FAILURE  };
 
 
 

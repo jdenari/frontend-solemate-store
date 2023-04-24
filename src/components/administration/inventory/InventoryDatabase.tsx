@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store/rootReducer';
 import { Table } from 'react-bootstrap';
-import { Product } from '../../../store/types';
+import { Product, Stock} from '../../../store/types';
 import styles from './InventoryDatabase.module.css';
+import { SET_MESSAGE, CLEAR_MESSAGE } from '../../../store/actions';
 import MessageReturn from '../../MessageReturn';
 import axios from 'axios';
 
@@ -30,8 +31,12 @@ const EditableCell = ({ value, onUpdate }: { value: string | number; onUpdate: (
 
 const ProductTable = () => {
     const products = useSelector((state: RootState) => state.product.products);
+    const stocks = useSelector((state: RootState) => state.stock.stocks);
     const [updatedProducts, setUpdatedProducts] = useState<Product[]>(products);
-    const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
+    const [updatedStocks, setUpdatedStocks] = useState<Stock[]>(stocks);
+
+    const dispatch = useDispatch();
+    const message = useSelector((state: RootState) => state.returnMessage);
 
   
     // function to handle updating the product properties in the state
@@ -42,48 +47,61 @@ const ProductTable = () => {
         setUpdatedProducts(newUpdatedProducts);
     };
 
-    // function to handle updating the stock quantity of the product in the state
     const handleStockQuantityUpdate = (index: number, newValue: number) => {
-        const updatedProduct = {
-          ...updatedProducts[index],
-          stock: { ...updatedProducts[index].stock, quantity: newValue },
-        };
-        const newUpdatedProducts = [...updatedProducts];
-        newUpdatedProducts[index] = updatedProduct;
-        setUpdatedProducts(newUpdatedProducts);
+        // Encontre o índice do objeto Stock que corresponde ao productId do produto sendo atualizado
+        const stockIndex = updatedStocks.findIndex(stock => stock.productId === updatedProducts[index].id);
+    
+        // Verifique se o objeto Stock foi encontrado
+        if (stockIndex !== -1) {
+            // Atualize a quantidade do objeto Stock encontrado
+            const updatedStock = { ...updatedStocks[stockIndex], quantity: newValue };
+    
+            // Atualize o estado de updatedStocks com o novo objeto Stock atualizado
+            const newUpdatedStocks = [...updatedStocks];
+            newUpdatedStocks[stockIndex] = updatedStock;
+            setUpdatedStocks(newUpdatedStocks);
+        }
     };
 
-
-    
-    // function to send the updated product to the server
     const updateProduct = async (product: Product) => {
         try {
             const response = await axios.put(`http://localhost:5000/api/product/edit-product/${product.id}`, product);
-            if (response.status === 200) {setMessage({ text: 'Produto atualizado com sucesso!', variant: 'success' });
-            } else {setMessage({text: `Erro ao atualizar o produto: ${response.status} ${response.statusText}`,variant: 'danger',});}
-        } catch (error) {setMessage({ text: 'Erro ao atualizar o produto: ' + error, variant: 'danger' });}
-    };
     
-    // effect to clear the message after a certain time
-    useEffect(() => {
-        let timeoutId: NodeJS.Timeout | undefined;
-        if (message && message.text) {
-            timeoutId = setTimeout(() => {
-                setMessage(null);
-            }, 3000);
-        }
-        return () => {
-            if (timeoutId) {
-                clearTimeout(timeoutId);
+            // Encontre o objeto Stock correspondente no estado updatedStocks
+            const updatedStock = updatedStocks.find(stock => stock.productId === product.id);
+    
+            if (updatedStock) {
+                // Atualize a quantidade do objeto Stock no servidor
+                const stockResponse = await axios.put(`http://localhost:5000/api/stock/update-stock/${product.id}`, {
+                    quantity: updatedStock.quantity,
+                });
+    
+                if (response.status === 200 && stockResponse.status === 200) {
+                    dispatch(SET_MESSAGE({ text: 'Produto e estoque atualizados com sucesso!', variant: 'success'}));
+                    setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
+                } else if (response.status !== 200) {
+                    dispatch(SET_MESSAGE({ text: `Erro ao atualizar o produto: ${response.status} ${response.statusText}`, variant: 'danger'}));
+                    setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
+                } else {
+                    dispatch(SET_MESSAGE({ text: `Erro ao atualizar o estoque: ${stockResponse.status} ${stockResponse.statusText}`, variant: 'danger'}));
+                    setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
+                }
+            } else {
+                dispatch(SET_MESSAGE({ text: 'Erro ao atualizar o estoque: Stock not found', variant: 'danger'}));
+                setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
             }
-        };
-    }, [message]);
+    
+        } catch (error) {
+            dispatch(SET_MESSAGE({ text: 'Erro ao atualizar o produto: ' + error, variant: 'danger'}));
+            setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
+        }
+    };
 
     return (
         <div className={`${styles.tableWrapper}`}>
             <h2 className='m-3 p-3 text-center'>Controle de Estoque</h2>
             <div className='m-3'>
-                {message && <MessageReturn text={message.text} variant={message.variant} />}
+                {message.message && <MessageReturn text={message.message.text} variant={message.message.variant} />}
             </div>
             <Table striped bordered hover className={`m-3 p-3 border bg-white border-bottom shadow-sm bg-body-tertiary text-center`}>
                 <thead>
@@ -134,10 +152,11 @@ const ProductTable = () => {
 
                         <td className="align-middle text-center">
                             <EditableCell
-                                value={product.stock.quantity}
+                                value={updatedStocks.find(stock => stock.productId === product.id)?.quantity || 0}
                                 onUpdate={(newValue) => handleStockQuantityUpdate(index, parseInt(newValue))}
                             />
                         </td>
+
                         <td className="align-middle px-4">
                             <button
                                 className={`${styles.buttonQuantity} btn btn-sm btn-outline-success`}

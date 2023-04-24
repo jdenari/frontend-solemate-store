@@ -7,6 +7,7 @@ import counterReducer from './reducers/counterReducer';
 import productReducer from './reducers/productReducer';
 import orderReducer from './reducers/orderReducer';
 import returnMessageReducer from './reducers/returnMessageReducer';
+import stockReducer from './reducers/stockReducer';
 
 const rootReducer = combineReducers({
     counter: counterReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     authenticated: authReducer,
     order: orderReducer,
     cart: cartReducer,
-    returnMessage: returnMessageReducer
+    returnMessage: returnMessageReducer,
+    stock: stockReducer
 });
 
 export default rootReducer;

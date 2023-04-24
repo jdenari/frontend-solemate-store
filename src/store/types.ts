@@ -39,6 +39,20 @@ export interface OrderState {
     error: string | null;
 }
 
+export interface Stock {
+    id: number;
+    size: string;
+    quantity: number;
+    productId: number; 
+}
+
+
+export interface StockState {
+    stocks: Stock[];
+    loading: boolean;
+    error: string | null;
+}
+
 export interface User {
     id: number;
     firstName: string;
@@ -84,6 +98,7 @@ export interface RootState {
     cart: CartState;
     auth: AuthState;
     returnMessage: returnMessageState;
+    stock: StockState;
 }
 
     
