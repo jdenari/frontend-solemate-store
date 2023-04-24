@@ -7,14 +7,15 @@ import MainButton from '../MainButton';
 import MessageReturn from '../../components/MessageReturn';
 
 // actions imports
-import { useDispatch } from 'react-redux';
-import { AUTHENTICATE } from '../../store/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { AUTHENTICATE, SET_MESSAGE, CLEAR_MESSAGE } from '../../store/actions';
+import { RootState } from '../../store/types';
 
 const RegisterForm = () => {
     
     // message alert
     const dispatch = useDispatch();
-    const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
+    const message = useSelector((state: RootState) => state.returnMessage);
 
     // regist function
     const makeRegister = async () => {
@@ -37,25 +38,11 @@ const RegisterForm = () => {
             dispatch(AUTHENTICATE({ id: data.id, firstName: data.firstName, lastName: data.lastName, email: data.email, access: data.access }));
         } else {
             const data = await response.json();
-            setMessage({ text: data.error, variant: 'danger' });
+            dispatch(SET_MESSAGE({ text: data.error, variant: 'danger'}));
+            setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
         }
         
     };
-
-    // sets a timeout to remove the message from the screen after 3 seconds
-    useEffect(() => {
-        let timeoutId: NodeJS.Timeout | undefined;
-        if (message && message.text) {
-            timeoutId = setTimeout(() => {
-                setMessage(null);
-            }, 3000);
-        }
-        return () => {
-            if (timeoutId) {
-                clearTimeout(timeoutId);
-            }
-        };
-    }, [message]);
 
     return (
         <div>
@@ -128,7 +115,7 @@ const RegisterForm = () => {
                         </a>
                     </div>
                     <div className='m-3 mt-5'>
-                        {message && <MessageReturn text={message.text} variant={message.variant} />}
+                        {message.message && <MessageReturn text={message.message.text} variant={message.message.variant} />}
                     </div>
                 </form>
             </div>

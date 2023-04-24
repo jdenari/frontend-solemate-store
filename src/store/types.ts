@@ -5,35 +5,25 @@ export interface CounterState {
 
 export interface Product {
     id: number;
-    class: string;
     productName: string;
     productClass: string;
     description: string;
     price: number;
-    stock: {
-        size: string;
-        quantity: number;
-    };
+    statusProduct: string;
+    photoId: number;
 }
 
 export interface Order {
     id: number;
+    size: string;
+    quantity: string;
+    priceUnit: number;
+    dateOrder: string;
+    statusDelivery: string;
+    dateDelivery: string;
     userId: number;
     photoId: number;
-    class: string;
-    productName: string;
-    description: string;
-    order: {
-        price: number;
-        priceUnit: number;
-        quantity: number;
-        size: string;
-    };
-    delivery: {
-        status: string;
-        date: string;
-    };
-    date: string;
+    productId: number;
 }
 
 export interface Cart {
@@ -82,6 +72,10 @@ export interface CartState {
     id: number;
 }
 
+export interface returnMessageState {
+    message: { text: string; variant: string } | null;
+}
+
 export interface RootState {
     counter: CounterState;
     product: ProductState;
@@ -89,6 +83,8 @@ export interface RootState {
     order: OrderState;
     cart: CartState;
     auth: AuthState;
+    returnMessage: returnMessageState;
 }
+
     
   

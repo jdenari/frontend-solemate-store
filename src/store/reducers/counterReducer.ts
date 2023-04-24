@@ -4,7 +4,7 @@ import { CounterState } from '../types';
 // counter products cart
 const initialCounterState: CounterState = {
     count: 1,
-    productShow: 1,
+    productShow: 0,
 };
 
 const counterReducer = createReducer(initialCounterState, {

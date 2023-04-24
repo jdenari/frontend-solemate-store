@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Header from '@/components/Header'
 import OrderItems from '@/components/client/orders/OrderItems'
 import Footer from '@/components/Footer'
-import { getOrder } from '../../store/actions';
+import { getOrder } from '../../store/actions/orderAction';
 import { Provider } from 'react-redux'
 import store from '../../store/store'
 

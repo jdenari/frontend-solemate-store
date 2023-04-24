@@ -3,6 +3,7 @@ import { getOrder, GET_ORDER_START, GET_ORDER_SUCCESS, GET_ORDER_FAILURE } from 
 import { INCREMENT, DECREMENT, SET_COUNT, SET_PRODUCT_SHOW, INCREMENT_PRODUCT_SHOW, DECREMENT_PRODUCT_SHOW } from './actions/counterReducer';
 import { AUTHENTICATE, DEAUTHENTICATE } from './actions/authAction';
 import { ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART, CLEAN_CART, INCREMENT_PRODUCT_IN_CART, DECREMENT_PRODUCT_IN_CART } from './actions/cartAction';
+import { SET_MESSAGE, CLEAR_MESSAGE } from './actions/returnMessageAction'
 
 // product reducers
 export { getProduct };
@@ -34,6 +35,10 @@ export { REMOVE_PRODUCT_FROM_CART };
 export { CLEAN_CART };
 export { INCREMENT_PRODUCT_IN_CART };
 export { DECREMENT_PRODUCT_IN_CART };
+
+// message
+export { SET_MESSAGE }
+export { CLEAR_MESSAGE }
 
 
 

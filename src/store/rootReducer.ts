@@ -1,6 +1,4 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { createSelector } from 'reselect';
-import _ from 'lodash';
 
 // reducers imports
 import authReducer from './reducers/authReducer';
@@ -8,6 +6,7 @@ import cartReducer from './reducers/cartReducer';
 import counterReducer from './reducers/counterReducer';
 import productReducer from './reducers/productReducer';
 import orderReducer from './reducers/orderReducer';
+import returnMessageReducer from './reducers/returnMessageReducer';
 
 const rootReducer = combineReducers({
     counter: counterReducer,
@@ -15,17 +14,8 @@ const rootReducer = combineReducers({
     authenticated: authReducer,
     order: orderReducer,
     cart: cartReducer,
+    returnMessage: returnMessageReducer
 });
-
-export const selectOrders = (state: RootState) => state.order.orders;
-
-export const selectDistinctDates = createSelector(
-    [selectOrders],
-    (orders) => {
-        const groupedOrders = _.groupBy(orders, (order) => order.date.split('T')[0]);
-        return Object.keys(groupedOrders);
-    }
-);
 
 export default rootReducer;
 

@@ -8,7 +8,7 @@ import HorizontalCard from '../HorizontalCard';
 import MainButton from '@/components/MainButton';
 
 // actions imports
-import { selectDistinctDates } from '../../../store/rootReducer';
+import { selectDistinctDates } from '../../../store/reducers/orderReducer';
 import { RootState } from '../../../store/types';
 
 const OrderItems = () => {
@@ -16,6 +16,8 @@ const OrderItems = () => {
     // data constants
     const distinctDates = useSelector(selectDistinctDates);
     const orders = useSelector((state: RootState) => state.order.orders);
+
+    const products = useSelector((state: RootState) => state.product.products);
 
     // return the html if the order is empty
     if (orders.length === 0) {
@@ -43,25 +45,29 @@ const OrderItems = () => {
                         })}</p>
                         <hr className="w-100 border-top border-secondary my-1" />
                         {orders
-                            .filter((order) => order.date.split('T')[0] === date)
-                            .map((order) => (
-                                <HorizontalCard
-                                    key={order.id}
-                                    imgSrc={`http://localhost:5000/api/photos/${order.photoId}/photo`}
-                                    imgAlt={order.productName}
-                                    title={order.productName}
-                                    description={order.description}
-                                    quantity={`Quantidade: ${order.order.quantity}`}
-                                    price={`R$ ${order.order.price}`}
-                                    deliveryStatus={`${order.delivery.status}`}
-                                    deliveryDate={`${new Date(order.delivery.date).toLocaleDateString('pt-BR', {
-                                        day: '2-digit',
-                                        month: 'long',
-                                        year: 'numeric'
-                                    })}`}
-                                    onDelivery={true}
-                                />
-                            ))
+                            .filter((order) => order.dateOrder.split('T')[0] === date)
+                            .map((order) => {
+                                const product = products.find((prod) => prod.id === order.id);
+                                
+                                return (
+                                    <HorizontalCard
+                                        key={order.id}
+                                        imgSrc={`http://localhost:5000/api/photos/${order.photoId}/photo`}
+                                        imgAlt={product?.productName || 'Produto não encontrado'}
+                                        title={product?.productName || 'Produto não encontrado'}
+                                        description={product?.description || 'Produto não encontrado'}
+                                        quantity={`Quantidade: ${order.quantity}`}
+                                        price={`R$ ${order.priceUnit}`}
+                                        deliveryStatus={`${order.statusDelivery}`}
+                                        deliveryDate={`${new Date(order.dateDelivery).toLocaleDateString('pt-BR', {
+                                            day: '2-digit',
+                                            month: 'long',
+                                            year: 'numeric'
+                                        })}`}
+                                        onDelivery={true}
+                                    />
+                                )
+                            })
                         }
                     </div>
                 ))}

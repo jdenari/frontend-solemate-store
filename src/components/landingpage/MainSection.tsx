@@ -13,13 +13,13 @@ import SecondaryButton from '../SecondaryButton';
 
 // actions imports
 import { RootState } from '../../store/types';
-import { DECREMENT_PRODUCT_SHOW, INCREMENT_PRODUCT_SHOW, ADD_PRODUCT_TO_CART, CLEAN_CART} from '../../store/actions';
+import { DECREMENT_PRODUCT_SHOW, INCREMENT_PRODUCT_SHOW, ADD_PRODUCT_TO_CART, CLEAN_CART, SET_MESSAGE, CLEAR_MESSAGE } from '../../store/actions';
 
 
 const MainSection = () => {
-
     // data constants
     const dispatch = useDispatch();
+    const message = useSelector((state: RootState) => state.returnMessage);
 
         // count
     const count = useSelector((state: RootState) => state.counter.count);
@@ -32,34 +32,18 @@ const MainSection = () => {
         // modals
     const [showModal, setShowModal] = useState(false);
 
-        // message
-    const [message, setMessage] = useState<{ text: string; variant: string } | null>(null);
 
     // functions to deal to cart
     const handleAddProductToCart = () => {
         dispatch(ADD_PRODUCT_TO_CART({ product, count }));
-        setMessage({ text: `${product.productName} foi adicionado ao carrinho.`, variant: 'success' });
+        dispatch(SET_MESSAGE({ text: `${product.productName} foi adicionado ao carrinho.`, variant: 'success'}));
+        setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
     };
     const handleCleanCart = () => {dispatch(CLEAN_CART());setShowModal(false);};
 
     // functions to activate and deactivate modal
     const handleOpenModal = () => {setShowModal(true);};
     const handleCloseModal = () => {setShowModal(false);};
-
-    // sets a timeout to remove the message from the screen after 3 seconds
-    useEffect(() => {
-        let timeoutId: NodeJS.Timeout | undefined;
-        if (message && message.text) {
-            timeoutId = setTimeout(() => {
-                setMessage(null);
-            }, 3000);
-        }
-        return () => {
-            if (timeoutId) {
-                clearTimeout(timeoutId);
-            }
-        };
-    }, [message]);
 
     return (
         <div className='p-3'>
@@ -107,7 +91,7 @@ const MainSection = () => {
                 </div>
             </div>
             <div className='m-3 mt-5'>
-                {message && <MessageReturn text={message.text} variant={message.variant} />}
+                {message.message && <MessageReturn text={message.message.text} variant={message.message.variant} />}
             </div>
             <CustomModal 
                 show={showModal} 
