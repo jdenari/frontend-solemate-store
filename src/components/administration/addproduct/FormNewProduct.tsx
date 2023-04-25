@@ -68,6 +68,15 @@ const FormNewProduct: React.FC = () => {
         }
     };
 
+    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        const formattedValue = value.replace(/,/g, '.');
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: parseFloat(formattedValue),
+        }));
+    };
+
     // update the image
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {const selectedFile = e.target.files![0];setPhoto(selectedFile);}
 
@@ -120,8 +129,6 @@ const FormNewProduct: React.FC = () => {
             throw error;
         }
     };    
-    
-
         
     // initializes Cropper.js on the photo once it is loaded
     useEffect(() => {
@@ -193,11 +200,12 @@ const FormNewProduct: React.FC = () => {
                     <Form.Group controlId="formPrice" className='d-flex my-2 align-items-center'>
                         <Form.Label className='col-3 text-end px-2 m-0'>Preço</Form.Label>
                         <Form.Control
+                            type="number"
                             step="0.01"
                             min="0"
                             name="price"
                             value={formData.price}
-                            onChange={handleChange}
+                            onChange={handlePriceChange}
                         />
                     </Form.Group>
                     <Form.Group controlId="formStockSize" className='d-flex my-2 align-items-center'>

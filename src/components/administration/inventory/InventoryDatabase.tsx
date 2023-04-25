@@ -63,6 +63,18 @@ const ProductTable = () => {
         }
     };
 
+    const handleStockSizeUpdate = (index: number, newValue: string) => {
+        const stockIndex = updatedStocks.findIndex(stock => stock.productId === updatedProducts[index].id);
+    
+        if (stockIndex !== -1) {
+            const updatedStock = { ...updatedStocks[stockIndex], size: newValue };
+    
+            const newUpdatedStocks = [...updatedStocks];
+            newUpdatedStocks[stockIndex] = updatedStock;
+            setUpdatedStocks(newUpdatedStocks);
+        }
+    };
+
     const updateProduct = async (product: Product) => {
         try {
             const response = await axios.put(`http://localhost:5000/api/product/edit-product/${product.id}`, product);
@@ -71,9 +83,10 @@ const ProductTable = () => {
             const updatedStock = updatedStocks.find(stock => stock.productId === product.id);
     
             if (updatedStock) {
-                // Atualize a quantidade do objeto Stock no servidor
+                // Atualize a quantidade e o tamanho do objeto Stock no servidor
                 const stockResponse = await axios.put(`http://localhost:5000/api/stock/update-stock/${product.id}`, {
                     quantity: updatedStock.quantity,
+                    size: updatedStock.size,
                 });
     
                 if (response.status === 200 && stockResponse.status === 200) {
@@ -95,7 +108,7 @@ const ProductTable = () => {
             dispatch(SET_MESSAGE({ text: 'Erro ao atualizar o produto: ' + error, variant: 'danger'}));
             setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
         }
-    };
+    };    
 
     return (
         <div className={`${styles.tableWrapper}`}>
@@ -113,6 +126,7 @@ const ProductTable = () => {
                         <th>Descrição</th>
                         <th>Preço</th>
                         <th>Quantidade</th>
+                        <th>Tamanho</th>
                         <th>Ação</th>
                     </tr>
                 </thead>
@@ -154,6 +168,13 @@ const ProductTable = () => {
                             <EditableCell
                                 value={updatedStocks.find(stock => stock.productId === product.id)?.quantity || 0}
                                 onUpdate={(newValue) => handleStockQuantityUpdate(index, parseInt(newValue))}
+                            />
+                        </td>
+
+                        <td className="align-middle text-center">
+                            <EditableCell
+                                value={updatedStocks.find(stock => stock.productId === product.id)?.size || ''}
+                                onUpdate={(newValue) => handleStockSizeUpdate(index, newValue)}
                             />
                         </td>
 
