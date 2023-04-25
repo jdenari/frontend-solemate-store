@@ -119,3 +119,5 @@ a {
 .bg-strong-gray{background-color: var(--strong-gray);}
 
 .color-strong-purple{color: var(--main-purple);}
+
+.containerInventory{width:95%}
