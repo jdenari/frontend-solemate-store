@@ -101,5 +101,15 @@ export interface RootState {
     stock: StockState;
 }
 
+export interface ClassProductState {
+    classProducts: ClassProduct[];
+    loading: boolean;
+    error: string | null;
+}
+
+export interface ClassProduct {
+    id: number;
+    classProduct: string;
+}
     
   
