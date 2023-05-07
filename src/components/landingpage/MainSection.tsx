@@ -48,14 +48,35 @@ const MainSection = () => {
     return (
         <div className='p-3'>
             <SearchBar placeholder='O que você está procurando?' />
-            <div className='d-flex mb-3'>
+            <div className='d-flex'>
                 <div className='col-12'>
                     <h2 className={`${styles.titleProduct} p-1 m-0`}>{product ? product.productName : ''}</h2>
                     <p className={`lead p-1 m-0`}>{product ? product.description : ''}</p>
                 </div>
             </div>
+            <div className={`col-12 d-flex flex-column`}>
+                <div className='d-flex'>
+                    <div className='d-flex my-3 col-9'>
+                        <SecondaryButton buttonText="Clean" 
+                            imageUrl='./icons/eraser.png'
+                            onClick={handleOpenModal}
+                        />
+                        <MainButton buttonText={`Add (${count})`}
+                            imageUrl='./icons/cart.png' 
+                            onClick={handleAddProductToCart}
+                        />
+                    </div>
+                    <div className='col-3 px-5'>
+                        <div className='d-flex flex-row-reverse align-items-center col-12'>
+                            <p className={`${styles.price} m-1 mb-0`}>{product ? product.price.toFixed(2) : 0}</p>
+                            <p className={`${styles.currency} m-1 mb-0`}>R$</p>
+                        </div>
+                        <div className={`d-flex flex-row-reverse mx-1 ${styles.noWrap}`}>{product ? product.productName : ''}</div>
+                    </div>
+                </div>
+            </div>
             <div className='col-12 d-flex'>
-                <div className='position-relative'>
+                <div className='position-relative col-8 my-3'>
                     <img src={`http://localhost:5000/api/photos/${product ? product.id : ''}/photo`} alt="" className={`${styles.mainPhoto} text-center shadow p-3 bg-body-tertiary rounded w-100`}/>
                     <Counter className={styles.counter} />
                     <div className={`${styles.arrow} d-flex position-absolute`}>
@@ -67,26 +88,6 @@ const MainSection = () => {
                                 imageUrl='./icons/arrow-right-short.svg'
                                 onClick={() => dispatch(INCREMENT_PRODUCT_SHOW(products.length))}
                             />
-                    </div>
-                </div>
-                <div className={`col-4 d-flex align-items-end flex-column`}>
-                    <div className='mb-auto p-2'></div>
-                    <div className=''>
-                        <div className='d-flex flex-row-reverse align-items-center'>
-                            <p className={`${styles.price} m-1 mb-0`}>{product ? product.price.toFixed(2) : 0}</p>
-                            <p className={`${styles.currency} m-1 mb-0`}>R$</p>
-                        </div>
-                        <div className={`d-flex flex-row-reverse mx-1 ${styles.noWrap}`}>{product ? product.productName : ''}</div>
-                        <div className='d-flex flex-row-reverse my-3 mx-1'>
-                            <MainButton buttonText={`Add (${count})`}
-                                imageUrl='./icons/cart.png' 
-                                onClick={handleAddProductToCart}
-                                />
-                            <SecondaryButton buttonText="Clean" 
-                                imageUrl='./icons/eraser.png'
-                                onClick={handleOpenModal}
-                            />
-                        </div>
                     </div>
                 </div>
             </div>

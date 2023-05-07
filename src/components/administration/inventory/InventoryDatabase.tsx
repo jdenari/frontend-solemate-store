@@ -51,6 +51,27 @@ const ProductTable = () => {
         setUpdatedProducts(newUpdatedProducts);
     };
 
+    const SelectCell = ({
+        value,
+        options,
+        onUpdate
+    }: {
+        value: string;
+        options: string[];
+        onUpdate: (newValue: string) => void;
+    }) => {
+        return (
+            <select value={value} onChange={(e) => onUpdate(e.target.value)}>
+                {options.map((option) => (
+                    <option key={option} value={option}>
+                        {option}
+                    </option>
+                ))}
+            </select>
+        );
+    };
+    
+
     const handleStockQuantityUpdate = (index: number, newValue: number) => {
         // Encontre o índice do objeto Stock que corresponde ao productId do produto sendo atualizado
         const stockIndex = updatedStocks.findIndex(stock => stock.productId === updatedProducts[index].id);
@@ -93,7 +114,7 @@ const ProductTable = () => {
                 }));
                 if (selectedFile) {
                     formData.append('file', selectedFile);
-                }
+                }             
     
                 const response = await axios.put(`http://localhost:5000/api/product/edit-product/${product.id}`, formData, {
                     headers: {
@@ -193,14 +214,16 @@ const ProductTable = () => {
                                 />
                             </td>
                             <td className="align-middle text-center">
-                                <EditableCell
+                                <SelectCell
                                     value={product.statusProduct}
+                                    options={['ATIVO', 'DESATIVADO']}
                                     onUpdate={(newValue) => handleUpdate(index, 'statusProduct', newValue)}
                                 />
                             </td>
                             <td className="align-middle text-center">
-                                <EditableCell
+                                <SelectCell
                                     value={product.productClass}
+                                    options={['Corrida', 'Casual', 'Futebol', 'Skate', 'Treinamento']}
                                     onUpdate={(newValue) => handleUpdate(index, 'productClass', newValue)}
                                 />
                             </td>

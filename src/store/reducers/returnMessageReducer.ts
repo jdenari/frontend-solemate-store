@@ -11,7 +11,7 @@ const returnMessageReducer = (state: returnMessageState = returnMessageState, ac
             ...state,
             message: action.payload,
         };
-        case 'CLEAR_MESSAGE': // Add this case
+        case 'CLEAR_MESSAGE':
             return {
             ...state,
             message: null,

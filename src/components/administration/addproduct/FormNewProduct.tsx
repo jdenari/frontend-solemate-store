@@ -31,7 +31,6 @@ const FormNewProduct: React.FC = () => {
 
     const dispatch = useDispatch();
     const messageReturn = useSelector((state: RootState) => state.returnMessage);
-    const classProduct = useSelector((state: RootState) => state.classProduct);
     
     // data constants
         // form variables
