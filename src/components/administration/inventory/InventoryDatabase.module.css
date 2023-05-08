@@ -39,6 +39,17 @@
     font-size: 14px;
 }
 
+.fileInputWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.fileInputLabel {
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+
 
 
   

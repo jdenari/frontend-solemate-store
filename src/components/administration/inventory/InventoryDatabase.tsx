@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store/rootReducer';
 import { Table } from 'react-bootstrap';
@@ -7,6 +7,9 @@ import styles from './InventoryDatabase.module.css';
 import { SET_MESSAGE, CLEAR_MESSAGE } from '../../../store/actions';
 import MessageReturn from '../../MessageReturn';
 import axios from 'axios';
+
+import Cropper from 'cropperjs';
+import 'cropperjs/dist/cropper.min.css';
 
 // component for rendering an editable table cell
 const EditableCell = ({ value, onUpdate }: { value: string | number; onUpdate: (newValue: string) => void }) => {
@@ -35,13 +38,38 @@ const ProductTable = () => {
     const [updatedProducts, setUpdatedProducts] = useState<Product[]>(products);
     const [updatedStocks, setUpdatedStocks] = useState<Stock[]>(stocks);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [selectedFileNames, setSelectedFileNames] = useState<Record<string, string>>({});
 
     const [previewImageUrls, setPreviewImageUrls] = useState<Record<string, string>>({});
+    const [editingProductIndex, setEditingProductIndex] = useState<number | null>(null);
 
     const dispatch = useDispatch();
     const message = useSelector((state: RootState) => state.returnMessage);
 
+    // cropper image
+    const [cropper, setCropper] = useState<Cropper | null>(null);
+    const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
+    const imgRef = useRef<any>(null);
+    const [photo, setPhoto] = useState<File | null>(null);
+    const [imageName, setImageName] = useState<string>('');
+    const [showCropper, setShowCropper] = useState(false);
+
+    // cuts the image using Cropper.js library and sets the cropped image as state
+    const handleCropImage = () => {
+        const cropper = imgRef.current?.cropper;
+        if (cropper && editingProductIndex !== null) {
+            cropper.getCroppedCanvas().toBlob((blob: Blob | null) => {
+                if (blob) {
+                    setCroppedImage(blob);
+                    const newPreviewImageUrls = { ...previewImageUrls };
+                    newPreviewImageUrls[updatedProducts[editingProductIndex].id] = URL.createObjectURL(blob);
+                    setPreviewImageUrls(newPreviewImageUrls);
+                    setShowCropper(false);
+                }
+            }, "image/jpeg");
+        }
+        setPhoto(null)
+    };
+    
   
     // function to handle updating the product properties in the state
     const handleUpdate = (index: number, key: keyof Product, newValue: string | number) => {
@@ -70,8 +98,16 @@ const ProductTable = () => {
             </select>
         );
     };
-    
 
+    // update the image
+    const handleFileChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = e.target.files![0];
+        setPhoto(selectedFile);
+        setShowCropper(true);
+        setEditingProductIndex(index);
+        setImageName(selectedFile.name); // Adicione esta linha
+    };
+        
     const handleStockQuantityUpdate = (index: number, newValue: number) => {
         // Encontre o índice do objeto Stock que corresponde ao productId do produto sendo atualizado
         const stockIndex = updatedStocks.findIndex(stock => stock.productId === updatedProducts[index].id);
@@ -112,9 +148,10 @@ const ProductTable = () => {
                     quantity: updatedStock.quantity,
                     size: updatedStock.size,
                 }));
-                if (selectedFile) {
-                    formData.append('file', selectedFile);
-                }             
+
+                if (croppedImage) {
+                    formData.append('file', croppedImage, imageName);
+                }
     
                 const response = await axios.put(`http://localhost:5000/api/product/edit-product/${product.id}`, formData, {
                     headers: {
@@ -139,10 +176,48 @@ const ProductTable = () => {
         }
     };
     
+    // initializes Cropper.js on the photo once it is loaded
+    useEffect(() => {
+        if (photo && imgRef.current) {
+            if (cropper) {
+                cropper.destroy();
+            }
+            const newCropper = new Cropper(imgRef.current, {
+                aspectRatio: 1,
+                viewMode: 1,
+                dragMode: 'move',
+                autoCropArea: 1,
+                cropBoxResizable: false,
+                cropBoxMovable: false,
+                minCropBoxWidth: 202,
+                minCropBoxHeight: 202,
+                ready: function() {
+                newCropper.setCropBoxData({
+                    width: 202,
+                    height: 202,
+                    left: (newCropper.getContainerData().width - 202) / 2,
+                    top: (newCropper.getContainerData().height - 202) / 2
+                });
+            }
+        });
+        setCropper(newCropper);
+        }
+    }, [photo]);
+    
     
     return (
         <div>
             <h2 className='m-3 p-3 text-center'>Controle de Estoque</h2>
+            {photo && (
+                <div>
+                    <div className='d-flex my-2 align-items-center'>
+                        <img ref={imgRef} src={URL.createObjectURL(photo)} alt={imageName} className="col-3"/>
+                    </div>
+                    <button type="button" className="btn btn-secondary" onClick={handleCropImage}>
+                        Cortar Imagem
+                    </button>
+                </div>
+            )}
             <div className={`${styles.tableWrapper}`}>
                 <div className='m-3'>
                     {message.message && <MessageReturn text={message.message.text} variant={message.message.variant} />}
@@ -179,32 +254,19 @@ const ProductTable = () => {
                                         alt=""
                                         className={`${styles.imageTable} shadow p-1 bg-body-tertiary rounded`}
                                     />
-                                    <div className="align-items-center">
-                                        <label className={`${styles.customFileUpload} ${styles.imageTable} align-items-center border m-2 shadow-sm p-1 bg-body-tertiary rounded`}>
+                                        <div className={`${styles.fileInputWrapper}`}>
+                                            <label htmlFor={`formImage-${index}`} className={`${styles.fileInputLabel} ${styles.customFileUpload} ${styles.imageTable} align-items-center border m-2 shadow-sm p-1 bg-body-tertiary rounded`}>
+                                                Trocar arquivo
+                                            </label>
                                             <input
                                                 type="file"
+                                                id={`formImage-${index}`}
                                                 name="image"
-                                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                    if (e.target.files) {
-                                                        const file = e.target.files[0];
-                                                        setSelectedFile(file);
-                                                        setSelectedFileNames((prev) => ({
-                                                            ...prev,
-                                                            [product.id]: file.name,
-                                                        }));
-                                                        setPreviewImageUrls((prev) => ({
-                                                            ...prev,
-                                                            [product.id]: URL.createObjectURL(file),
-                                                        }));
-                                                    }
-                                                }}
+                                                onChange={(e) => handleFileChange(index, e)}
                                                 accept="image/*"
-                                                className="p-0"
-                                                style={{ display: "none" }}
+                                                style={{ display: 'none' }}
                                             />
-                                            {selectedFileNames[product.id] || "Trocar Foto"}
-                                        </label>
-                                    </div>
+                                        </div>
                                 </div>
                             </td>
                             <td className="align-middle text-center">
