@@ -26,7 +26,6 @@ const PurchaseSummary: React.FC<PurchaseSummaryProps> = ({ title, items, prices,
 
         // function to buy the product
     const handleBuyProduct = () => {
-        console.log('Comprou')
         handleCloseModal()
     }
     
@@ -43,14 +42,14 @@ const PurchaseSummary: React.FC<PurchaseSummaryProps> = ({ title, items, prices,
                 ))}
                 <hr />
                 <div className="d-flex justify-content-between">
-                    <span>Você pagará: </span>
+                    <span>You will pay: </span>
                     <span>{total.toFixed(2)}</span>
                 </div>
             </div>
             <div className="col-6 m-auto px-5 pb-5 d-flex flex-row-reverse">
                 <div className='d-flex align-items-end'>
                     <SolemateButton 
-                        buttonText="Finalizar Compra" 
+                        buttonText="Checkout" 
                         onClick={handleOpenModal}
                         variant='purple'
                     />
@@ -60,8 +59,8 @@ const PurchaseSummary: React.FC<PurchaseSummaryProps> = ({ title, items, prices,
                 show={showModal}
                 handleYes={handleBuyProduct}
                 handleClose={handleCloseModal}
-                text="Você tem certeza que quer sair da sua conta?"
-                title="Sair da Conta"
+                text="Are you sure you want to log out of your account?"
+                title="Log Out"
             />
         </div>
     );

@@ -46,10 +46,10 @@ const CartItems = () => {
     if (carts.length === 0) {
         return (
         <div className={`${styles.bgLightWhite} container p-5 rounded my-3 text-center`}>
-            <h4>Você não possui nenhum produto no carrinho! </h4>
+            <h4>You don't have any products in your cart!</h4>
             <div className='col-3 m-auto p-3 mt-5'>
                 <SolemateButton 
-                    buttonText="Verifique nossas ofertas" 
+                    buttonText="Check our offers" 
                     href="/"
                     variant='purple'
                 />
@@ -62,10 +62,10 @@ const CartItems = () => {
     return (
         <div className={`${styles.bgLightWhite} container ${styles.containerOrder} p-3 rounded my-3 d-flex`}>
             <div className="row my-1 d-flex col-11 m-auto">
-                <h2 className="mb-3 m-0">Meu Carrinho</h2>
+                <h2 className="mb-3 m-0">Cart</h2>
                 <div className="w-100 mb-3 d-flex justify-content-between align-items-center">
                     <p className="m-0">{currentDate}</p>
-                    <p className="m-0">ENTREGA: {new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
+                    <p className="m-0">DELIVERY: {new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
                 </div>
                 <hr />
                 {horizontalCards.map((card, index) => (

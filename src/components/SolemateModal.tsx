@@ -19,10 +19,10 @@ const SolemateModal = ({ show, handleClose, handleYes, title, text }: ModalProps
             <Modal.Body>{text}</Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                Voltar
+                Cancel
                 </Button>
                 <Button variant="primary" onClick={handleYes}>
-                Sim
+                Yes
                 </Button>
             </Modal.Footer>
         </Modal>

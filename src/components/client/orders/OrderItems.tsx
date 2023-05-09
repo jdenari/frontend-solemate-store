@@ -23,9 +23,13 @@ const OrderItems = () => {
     if (orders.length === 0) {
         return (
         <div className={`${styles.bgLightWhite} container p-5 rounded my-3 text-center`}>
-            <h4>Você não possui nenhum histórico de compras!</h4>
+            <h4>You have no purchase history!</h4>
             <div className='col-3 m-auto p-3 mt-5'>
-                <SolemateButton buttonText="Verifique nossas ofertas" href="/"/>
+                <SolemateButton 
+                    buttonText="Check our offers" 
+                    href="/"
+                    variant='purple'
+                />
             </div>
         </div>
         )
@@ -35,7 +39,7 @@ const OrderItems = () => {
     return (
         <div className={`${styles.bgLightWhite} container ${styles.containerOrder} p-3 rounded my-3`}>
             <div className="row my-1 d-flex col-11 m-auto">
-                <h2 className="mb-3 m-0">Compras</h2>
+                <h2 className="mb-3 m-0">Orders</h2>
                 {distinctDates.map((date) => (
                     <div key={date}>
                         <p className='m-0'>{new Date(date).toLocaleDateString('pt-BR', {
@@ -53,10 +57,10 @@ const OrderItems = () => {
                                     <HorizontalCard
                                         key={order.id}
                                         imgSrc={`http://localhost:5000/api/photos/${order.photoId}/photo`}
-                                        imgAlt={product?.productName || 'Produto não encontrado'}
-                                        title={product?.productName || 'Produto não encontrado'}
-                                        description={product?.description || 'Produto não encontrado'}
-                                        quantity={`Quantidade: ${order.quantity}`}
+                                        imgAlt={product?.productName || 'Product not found'}
+                                        title={product?.productName || 'Product not found'}
+                                        description={product?.description || 'Product not found'}
+                                        quantity={`Quantity: ${order.quantity}`}
                                         price={`R$ ${order.priceUnit}`}
                                         deliveryStatus={`${order.statusDelivery}`}
                                         deliveryDate={`${new Date(order.dateDelivery).toLocaleDateString('pt-BR', {

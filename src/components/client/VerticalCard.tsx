@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({ imgSrc, imgAlt, title, price, productId }) 
     const handleClick = () => {dispatch(SET_PRODUCT_SHOW(productId));};
   
     return (
-        <div className="col-sm-6 px-2 py-2">
+        <div className="col-sm-6 px-2 py-1">
             <div className={`${styles.cardContainer} card`} onClick={handleClick}>
                 <img src={imgSrc} alt={imgAlt} className="card-img-top" />
                 <div className={`${styles.cardBody} card-body p-3`}>

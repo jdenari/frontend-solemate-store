@@ -41,11 +41,11 @@ const LoginForm = () => {
     return (
         <div>
             <div className={`${styles.containerForm} m-auto my-5 w-50 border p-3`}>
-                <h2 className="text-center mb-5">Iniciar Sessão</h2>
+                <h2 className="text-center mb-5">Begin Session</h2>
                 <form>
                     <div className="mb-3">
                         <label htmlFor="email" className="form-label">
-                        E-mail
+                        Email
                         </label>
                         <input
                             type="email"
@@ -57,22 +57,22 @@ const LoginForm = () => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">
-                        Senha
+                        Password
                         </label>
                         <input type="password" className="form-control" id="password" placeholder="**********" />
                     </div>
                     <div className="d-md-flex justify-content-md-end">
                         <SolemateButton 
-                            buttonText="Acessar" 
+                            buttonText="Access" 
                             onClick={makeLogin} 
                             variant='purple'
                         />
                     </div>
                     <div className="text-center mt-3">
                         <span className="mx-1">
-                            Não possui conta?
+                            Don't have an account?
                         <a href="/cliente/registre" className="mx-1">
-                            Faça seu registro.
+                            Make your registration.
                         </a>
                         </span>
                     </div>

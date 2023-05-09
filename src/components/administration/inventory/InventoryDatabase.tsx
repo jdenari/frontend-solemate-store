@@ -151,7 +151,7 @@ const InventoryDatabase = () => {
                 setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
             }
         } catch (error) {
-            const messageText = 'Erro ao atualizar o produto e estoque: ' + error;
+            const messageText = 'Error updating product and stock:' + error;
             dispatch(SET_MESSAGE({ text: messageText, variant: 'danger'}));
             setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
         }
@@ -187,7 +187,7 @@ const InventoryDatabase = () => {
     
     return (
         <div>
-            <h2 className='m-3 p-3 text-center'>Controle de Estoque</h2>
+            <h2 className='m-3 p-3 text-center'>Inventory Control</h2>
             {photo && (
                 <div className='border w-50 p-3 m-auto border shadow-sm bg-body-tertiary text-center'>
                     <div className='d-flex align-items-center cropper-container p-3'> 
@@ -195,12 +195,12 @@ const InventoryDatabase = () => {
                     </div>
                     <div className='d-flex flex-row-reverse p-3'>
                         <SolemateButton 
-                            buttonText="Definir" 
+                            buttonText="Cut Image" 
                             variant='purple'
                             onClick={handleCropImage}
                         />
                         <SolemateButton 
-                            buttonText="Limpar"
+                            buttonText="Clean"
                             variant='light'
                         />
                     </div>
@@ -214,15 +214,15 @@ const InventoryDatabase = () => {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Imagem</th>
-                            <th>Produto</th>
+                            <th>Image</th>
+                            <th>Product</th>
                             <th>Status</th>
-                            <th>Classe</th>
-                            <th>Descrição</th>
-                            <th>Preço</th>
-                            <th>Quantidade</th>
-                            <th>Tamanho</th>
-                            <th>Ação</th>
+                            <th>Class</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Size</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody className={`${styles.tableBody}`}>
@@ -244,7 +244,7 @@ const InventoryDatabase = () => {
                                     />
                                     <div className={`${styles.fileInputWrapper}`}>
                                         <label htmlFor={`formImage-${index}`} className={`${styles.fileInputLabel} ${styles.customFileUpload} ${styles.imageTable} align-items-center border m-2 shadow-sm p-1 bg-body-tertiary rounded`}>
-                                            Trocar arquivo
+                                            Change File
                                         </label>
                                         <input
                                             type="file"
@@ -310,7 +310,7 @@ const InventoryDatabase = () => {
                                     onClick={() => updateProduct(product)}
                                     disabled={!changedRows.has(index)}
                                 >
-                                    Atualizar
+                                    Update
                                 </button>
                             </td>
                         </tr>

@@ -41,7 +41,7 @@ const FormNewProduct: React.FC = () => {
         price: 0,
         quantity: 0,
         size: '',
-        statusProduct: 'ATIVO',
+        statusProduct: 'ACTIVE',
     });
     
     const classOptions = ['Blusas', 'Calças', 'Sapatos'];
@@ -98,7 +98,7 @@ const FormNewProduct: React.FC = () => {
             dispatch(SET_MESSAGE({ text: productResponse.data, variant: 'success' }));
             setTimeout(() => { dispatch(CLEAR_MESSAGE()); window.location.reload(); }, 3000);
         } catch (error) {
-            dispatch(SET_MESSAGE({ text: 'Erro ao adicionar o produto!', variant: 'danger' }));
+            dispatch(SET_MESSAGE({ text: 'Error adding product!', variant: 'danger' }));
             setTimeout(() => { dispatch(CLEAR_MESSAGE()); }, 3000);
         }
     };
@@ -124,7 +124,7 @@ const FormNewProduct: React.FC = () => {
             setCroppedImage(null);
             return response;
         } catch (error) {
-            dispatch(SET_MESSAGE({ text: 'Erro ao submeter o produto e a foto!', variant: 'danger' }));
+            dispatch(SET_MESSAGE({ text: 'Error submitting product and photo!', variant: 'danger' }));
             setTimeout(() => { dispatch(CLEAR_MESSAGE()); }, 3000);
             throw error;
         }
@@ -162,9 +162,9 @@ const FormNewProduct: React.FC = () => {
         <>
             <div>
                 <Form onSubmit={handleAddProduct} className="w-50 m-auto border shadow-sm my-5 px-3 py-4 mb-5 bg-body-tertiary rounded">
-                    <h2 className="text-center mb-5">Adicionar Produto</h2>
+                    <h2 className="text-center mb-5">Register Product</h2>
                     <Form.Group controlId="formProductName" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Nome do Produto</Form.Label>
+                        <Form.Label className='col-3 text-end px-2 m-0'>Name Product</Form.Label>
                         <Form.Control
                             type="text"
                             name="productName"
@@ -174,7 +174,7 @@ const FormNewProduct: React.FC = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="formClass" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Classe</Form.Label>
+                        <Form.Label className='col-3 text-end px-2 m-0'>Class</Form.Label>
                         <Form.Select
                             name="productClass"
                             value={selectedClass}
@@ -188,17 +188,17 @@ const FormNewProduct: React.FC = () => {
                         </Form.Select>
                     </Form.Group>
                     <Form.Group controlId="formDescription" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2  m-0'>Descrição</Form.Label>
+                        <Form.Label className='col-3 text-end px-2  m-0'>Description</Form.Label>
                         <Form.Control
                             as="textarea"
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
-                            placeholder="Tênis confortável para a prática de basquete..."
+                            placeholder="Comfortable shoes for basketball practice..."
                         />
                     </Form.Group>
                     <Form.Group controlId="formPrice" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Preço</Form.Label>
+                        <Form.Label className='col-3 text-end px-2 m-0'>Price</Form.Label>
                         <Form.Control
                             type="number"
                             step="0.01"
@@ -209,7 +209,7 @@ const FormNewProduct: React.FC = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="formStockSize" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Tamanho</Form.Label>
+                        <Form.Label className='col-3 text-end px-2 m-0'>Size</Form.Label>
                         <Form.Control
                             type="text"
                             name="size"
@@ -219,7 +219,7 @@ const FormNewProduct: React.FC = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="formQuantity" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Quantidade</Form.Label>
+                        <Form.Label className='col-3 text-end px-2 m-0'>Quantity</Form.Label>
                         <Form.Control
                             type="text"
                             name="quantity"
@@ -228,7 +228,7 @@ const FormNewProduct: React.FC = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="formImage" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Imagem</Form.Label>
+                        <Form.Label className='col-3 text-end px-2 m-0'>Image</Form.Label>
                         <Form.Control
                             type="file"
                             name="image"
@@ -238,18 +238,18 @@ const FormNewProduct: React.FC = () => {
                     </Form.Group>
                     {photo && (
                         <div className='d-flex my-2 align-items-center'>
-                            <Form.Label className='col-3 text-end px-2 m-0'>Imagem selecionada:</Form.Label>
+                            <Form.Label className='col-3 text-end px-2 m-0'>Selected image:</Form.Label>
                             <img ref={imgRef} src={URL.createObjectURL(photo)} alt={imageName} className="col-3"/>
                         </div>
                     )}
                     <div className='d-flex flex-row-reverse my-3'>
                         <SolemateButton 
-                            buttonText="Adicionar" 
+                            buttonText="Add" 
                             onSubmit={handleAddProduct} 
                             variant='purple'
                         />
                         <SolemateButton 
-                            buttonText="Cortar" 
+                            buttonText="Cut image" 
                             onSubmit={handleCropImage} 
                             variant='light'
                         />

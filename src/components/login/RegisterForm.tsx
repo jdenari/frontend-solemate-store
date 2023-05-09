@@ -47,45 +47,45 @@ const RegisterForm = () => {
     return (
         <div>
             <div className={`${styles.containerForm} m-auto my-5 w-50 border p-3`}>
-                <h2 className="text-center mb-5">Criar conta</h2>
+                <h2 className="text-center mb-5">Create an account</h2>
                 <form className='text-end'>
                     <div className="mb-1 d-flex align-items-center">
                         <label htmlFor="firstName" className="form-label col-3 m-1">
-                            Primeiro Nome
+                            First Name
                         </label>
                         <input
                             type="text"
                             className="form-control m-1"
                             id="firstName"
-                            placeholder="Seu primeiro nome"
+                            placeholder="Your first name"
                         />
                     </div>
                     <div className="mb-1 d-flex align-items-center">
                         <label htmlFor="lastName" className="form-label col-3 m-1">
-                            Último Nome
+                            Last Name
                         </label>
                         <input
                             type="text"
                             className="form-control m-1"
                             id="lastName"
-                            placeholder="Seu último nome"
+                            placeholder="Your last name"
                         />
                     </div>
                     <div className="mb-1 d-flex align-items-center">
                         <label htmlFor="email" className="form-label col-3 m-1">
-                            E-mail
+                            Email
                         </label>
                         <input
                             type="email"
                             className="form-control m-1"
                             id="email"
                             aria-describedby="emailHelp"
-                            placeholder="seunome@email.com"
+                            placeholder="yourname@email.com"
                         />
                     </div>
                     <div className="mb-1 d-flex align-items-center">
                         <label htmlFor="password" className="form-label col-3 m-1">
-                            Senha
+                            Password
                         </label>
                         <input
                             type="password"
@@ -96,7 +96,7 @@ const RegisterForm = () => {
                     </div>
                     <div className="mb-3 d-flex align-items-center">
                         <label htmlFor="confirmPassword" className="form-label col-3 m-1">
-                            Confirmar senha
+                            Confirm Password
                         </label>
                         <input
                             type="password"
@@ -107,15 +107,15 @@ const RegisterForm = () => {
                     </div>
                     <div className="d-md-flex justify-content-md-end">
                         <SolemateButton 
-                            buttonText="Registrar" 
+                            buttonText="Register" 
                             onClick={makeRegister} 
                             variant='purple'
                         />
                     </div>
                     <div className="text-center mt-3">
-                        <span className="mx-1">Já possui uma conta?</span>
+                        <span className="mx-1">Already have an account?</span>
                         <a href="/cliente/login" className="mx-1">
-                            Faça login.
+                            Log in.
                         </a>
                     </div>
                     <div className='m-3 mt-5'>

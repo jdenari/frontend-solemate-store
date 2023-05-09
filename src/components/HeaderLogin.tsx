@@ -82,8 +82,8 @@ const HeaderLogin = () => {
             show={showModal}
             handleYes={handleLogout}
             handleClose={handleCloseModal}
-            text="Você tem certeza que quer sair da sua conta?"
-            title="Sair da Conta"
+            text="Are you sure you want to log out of your account?"
+            title="Log Out"
         />
         </>
     );

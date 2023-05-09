@@ -27,11 +27,11 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav" className='ms-5'>
                     <Nav className="me-auto">
                         <Nav.Link href="/" className='mx-5'>Home</Nav.Link>
-                        <Nav.Link href="/cliente/meuspedidos" className='mx-5'>Meus Pedidos</Nav.Link>
-                        <Nav.Link href="/cliente/meucarrinho" className='mx-5'>Meu Carrinho</Nav.Link>
+                        <Nav.Link href="/cliente/meuspedidos" className='mx-5'>Orders</Nav.Link>
+                        <Nav.Link href="/cliente/meucarrinho" className='mx-5'>Cart</Nav.Link>
                         <Nav.Link href="/cliente/solemate" className='mx-5'>Solemate</Nav.Link>
-                        <Nav.Link href="/administracao/novosprodutos" className='mx-5'>Administração</Nav.Link>
-                        <Nav.Link href="/administracao/controledeestoque" className='mx-5'>Controle de Estoque</Nav.Link>
+                        <Nav.Link href="/administracao/novosprodutos" className='mx-5'>Add Product</Nav.Link>
+                        <Nav.Link href="/administracao/controledeestoque" className='mx-5'>Inventory</Nav.Link>
                     </Nav>
                     <div className='d-block'>
                         {authenticated ? (

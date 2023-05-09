@@ -31,10 +31,10 @@ const Home: React.FC = () => {
                 <div className="bg-light-white">
                     <div className="container d-flex">
                         <div className="row">
-                            <div className="col-8">
+                            <div className="col-7">
                                 <MainSection />
                             </div>
-                            <div className="col-4 bg-medium-gray px-0">
+                            <div className="col-5 bg-medium-gray px-0">
                                 <SecondarySection />
                             </div>
                         </div>

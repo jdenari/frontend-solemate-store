@@ -47,7 +47,7 @@ const HorizontalCard: React.FC<CardProps> = ({imgSrc, imgAlt, title, description
                         <p className="card-text my-1 fs-5">R$ {formattedPrice}</p>
                         {onDelete && (
                             <button className="btn btn-link p-0 text-dark" onClick={onDelete}>
-                                Excluir
+                                Remove
                             </button>
                         )}
                         {onDelivery && (

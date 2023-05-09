@@ -10,7 +10,7 @@ const Footer = () => {
                 <div className="d-flex justify-content-between w-100">
                     <ul className="navbar-nav">
                         <li className={`nav-item text-left mx-5`}>
-                            <a className={`${styles.title} font-weight-bold nav-link`} href="#">Categorias</a>
+                            <a className={`${styles.title} font-weight-bold nav-link`} href="#">Categories</a>
                             <a href="#" className={`${styles.row} nav-link`}>Botas</a>
                             <a href="#" className={`${styles.row} nav-link`}>Sapatos</a>
                             <a href="#" className={`${styles.row} nav-link`}>Tênis</a>
@@ -18,12 +18,12 @@ const Footer = () => {
                             <a href="#" className={`${styles.row} nav-link`}>Sapatos Casuais</a>
                         </li>
                         <li className={`nav-item ${styles.footerNavItem} text-left mx-5`}>
-                            <a className={`${styles.title} font-weight-bold nav-link`} href="/cliente/meuspedidos">Cliente</a>
-                            <a href="/cliente/meuspedidos" className={`${styles.row} nav-link`}>Meus Pedidos</a>
-                            <a href="/cliente/meucarrinho" className={`${styles.row} nav-link`}>Meu Carrinho</a>
+                            <a className={`${styles.title} font-weight-bold nav-link`} href="/cliente/meuspedidos">Client</a>
+                            <a href="/cliente/meuspedidos" className={`${styles.row} nav-link`}>Orders</a>
+                            <a href="/cliente/meucarrinho" className={`${styles.row} nav-link`}>Cart</a>
                         </li>
                         <li className={`nav-item text-left mx-5`}>
-                            <a className={`${styles.title} font-weight-bold nav-link`} href="/cliente/solemate">Sobre</a>
+                            <a className={`${styles.title} font-weight-bold nav-link`} href="/cliente/solemate">About</a>
                             <a href="/cliente/solemate" className={`${styles.row} nav-link`}>Solemate Store</a>
                         </li>
                     </ul>

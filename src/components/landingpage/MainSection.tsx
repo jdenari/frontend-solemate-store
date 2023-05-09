@@ -46,7 +46,7 @@ const MainSection = () => {
 
     return (
         <div className='p-3'>
-            <SearchBar placeholder='O que você está procurando?' />
+            <SearchBar placeholder='What are you looking for?' />
             <div className='d-flex'>
                 <div className='col-12'>
                     <h2 className={`${styles.titleProduct} p-1 m-0`}>{product ? product.productName : ''}</h2>
@@ -55,19 +55,21 @@ const MainSection = () => {
             </div>
             <div className={`col-12 d-flex flex-column`}>
                 <div className='d-flex'>
-                    <div className='d-flex my-3 col-9'>
-                        <SolemateButton buttonText="Clean" 
-                            imageUrl='./icons/eraser.png'
-                            onClick={handleOpenModal}
-                            variant='light'
-                        />
-                        <SolemateButton buttonText={`Add (${count})`}
-                            imageUrl='./icons/cart.png' 
-                            onClick={handleAddProductToCart}
-                            variant='purple'
-                        />
+                    <div className='d-flex flex-row mb-4 my-3 col-9'>
+                        <div className='d-flex'>
+                            <SolemateButton buttonText="Clean" 
+                                imageUrl='./icons/eraser.png'
+                                onClick={handleOpenModal}
+                                variant='light'
+                            />
+                            <SolemateButton buttonText={`Add (${count})`}
+                                imageUrl='./icons/cart.png' 
+                                onClick={handleAddProductToCart}
+                                variant='purple'
+                            />
+                        </div>
                     </div>
-                    <div className='col-3 px-5'>
+                    <div className='col-3 px-4'>
                         <div className='d-flex flex-row-reverse align-items-center col-12'>
                             <p className={`${styles.price} m-1 mb-0`}>{product ? product.price.toFixed(2) : 0}</p>
                             <p className={`${styles.currency} m-1 mb-0`}>R$</p>
@@ -77,20 +79,20 @@ const MainSection = () => {
                 </div>
             </div>
             <div className='col-12 d-flex'>
-                <div className='position-relative col-8 my-3'>
+                <div className='position-relative col-9 my-3'>
                     <img src={`http://localhost:5000/api/photos/${product ? product.id : ''}/photo`} alt="" className={`${styles.mainPhoto} text-center shadow p-3 bg-body-tertiary rounded w-100`}/>
                     <Counter className={styles.counter} />
                     <div className={`${styles.arrow} d-flex position-absolute`}>
-                            <SolemateButton
-                                imageUrl='./icons/arrow-left-short.svg'
-                                onClick={() => dispatch(DECREMENT_PRODUCT_SHOW(1))}
-                                variant='light'
-                            />
-                            <SolemateButton
-                                imageUrl='./icons/arrow-right-short.svg'
-                                onClick={() => dispatch(INCREMENT_PRODUCT_SHOW(products.length))}
-                                variant='light'
-                            />
+                        <SolemateButton
+                            imageUrl='./icons/arrow-left-short.svg'
+                            onClick={() => dispatch(DECREMENT_PRODUCT_SHOW(1))}
+                            variant='light'
+                        />
+                        <SolemateButton
+                            imageUrl='./icons/arrow-right-short.svg'
+                            onClick={() => dispatch(INCREMENT_PRODUCT_SHOW(products.length))}
+                            variant='light'
+                        />
                     </div>
                 </div>
             </div>
@@ -101,8 +103,8 @@ const MainSection = () => {
                 show={showModal} 
                 handleClose={handleCloseModal} 
                 handleYes={handleCleanCart}
-                text='Você tem certeza que quer limpar seu carrinho?'
-                title='Limpar Carrinho'
+                text='Are you sure you want to clear your cart?'
+                title='Clear Cart'
             />
         </div>
     );

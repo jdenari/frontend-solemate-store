@@ -19,8 +19,8 @@ const SolemateButton: React.FC<SolemateButtonProps> = ({ buttonText, imageUrl, h
     };
 
     const buttonClassName = variant === 'purple'
-        ? `ms-auto ${styles.purpleButton} px-3 p-2 shadow-sm bg-body-tertiary rounded-4 d-flex justify-content-center align-items-center`
-        : `ms-auto px-3 p-2 shadow-sm bg-body-tertiary rounded-4 d-flex justify-content-center align-items-center`;
+        ? `ms-2 ${styles.purpleButton} px-3 p-2 shadow-sm bg-body-tertiary rounded-4 d-flex justify-content-center align-items-center`
+        : `ms-2 px-3 p-2 shadow-sm bg-body-tertiary rounded-4 d-flex justify-content-center align-items-center`;
 
     return (
         <Button
@@ -31,7 +31,7 @@ const SolemateButton: React.FC<SolemateButtonProps> = ({ buttonText, imageUrl, h
             onClick={handleClick}
             disabled={disabled}
         >
-            {imageUrl && <img src={imageUrl} alt="Button Icon" className="me-3" />}
+            {imageUrl && <img src={imageUrl} alt="Button Icon" className="me-2" />}
             {buttonText}
         </Button>
     );
