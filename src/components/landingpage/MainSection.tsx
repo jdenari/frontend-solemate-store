@@ -6,10 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 // child components imports
 import SearchBar from './SearchBar';
 import Counter from '../Counter';
-import CustomModal from '../CustomModal';
-import MainButton from '../MainButton';
+import SolemateModal from '../SolemateModal';
+import SolemateButton from '../SolemateButton';
 import MessageReturn from '../MessageReturn';
-import SecondaryButton from '../SecondaryButton';
 
 // actions imports
 import { RootState } from '../../store/types';
@@ -57,13 +56,15 @@ const MainSection = () => {
             <div className={`col-12 d-flex flex-column`}>
                 <div className='d-flex'>
                     <div className='d-flex my-3 col-9'>
-                        <SecondaryButton buttonText="Clean" 
+                        <SolemateButton buttonText="Clean" 
                             imageUrl='./icons/eraser.png'
                             onClick={handleOpenModal}
+                            variant='light'
                         />
-                        <MainButton buttonText={`Add (${count})`}
+                        <SolemateButton buttonText={`Add (${count})`}
                             imageUrl='./icons/cart.png' 
                             onClick={handleAddProductToCart}
+                            variant='purple'
                         />
                     </div>
                     <div className='col-3 px-5'>
@@ -80,13 +81,15 @@ const MainSection = () => {
                     <img src={`http://localhost:5000/api/photos/${product ? product.id : ''}/photo`} alt="" className={`${styles.mainPhoto} text-center shadow p-3 bg-body-tertiary rounded w-100`}/>
                     <Counter className={styles.counter} />
                     <div className={`${styles.arrow} d-flex position-absolute`}>
-                            <SecondaryButton
+                            <SolemateButton
                                 imageUrl='./icons/arrow-left-short.svg'
                                 onClick={() => dispatch(DECREMENT_PRODUCT_SHOW(1))}
+                                variant='light'
                             />
-                            <SecondaryButton
+                            <SolemateButton
                                 imageUrl='./icons/arrow-right-short.svg'
                                 onClick={() => dispatch(INCREMENT_PRODUCT_SHOW(products.length))}
+                                variant='light'
                             />
                     </div>
                 </div>
@@ -94,7 +97,7 @@ const MainSection = () => {
             <div className='m-3 mt-5'>
                 {message.message && <MessageReturn text={message.message.text} variant={message.message.variant} />}
             </div>
-            <CustomModal 
+            <SolemateModal 
                 show={showModal} 
                 handleClose={handleCloseModal} 
                 handleYes={handleCleanCart}

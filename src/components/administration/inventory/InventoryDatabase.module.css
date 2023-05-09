@@ -49,6 +49,14 @@
     margin-bottom: 5px;
 }
 
+.columnTable{
+    max-width: 300px;
+}
+
+.cropper-container {
+    width: 300px; /* Ajuste o valor de acordo com suas necessidades */
+    height: 500px; /* Ajuste o valor de acordo com suas necessidades */
+  }
 
 
 

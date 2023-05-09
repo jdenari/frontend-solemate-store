@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './LoginForm.module.css';
 
 // child components imports
-import MainButton from '../MainButton';
+import SolemateButton from '../SolemateButton';
 import MessageReturn from '../../components/MessageReturn';
 
 // actions imports
@@ -62,7 +62,11 @@ const LoginForm = () => {
                         <input type="password" className="form-control" id="password" placeholder="**********" />
                     </div>
                     <div className="d-md-flex justify-content-md-end">
-                        <MainButton buttonText="Acessar" onClick={makeLogin} />
+                        <SolemateButton 
+                            buttonText="Acessar" 
+                            onClick={makeLogin} 
+                            variant='purple'
+                        />
                     </div>
                     <div className="text-center mt-3">
                         <span className="mx-1">

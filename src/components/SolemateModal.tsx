@@ -9,7 +9,7 @@ type ModalProps = {
     text: string;
 };
 
-const CustomModal = ({ show, handleClose, handleYes, title, text }: ModalProps) => {
+const SolemateModal = ({ show, handleClose, handleYes, title, text }: ModalProps) => {
 
     return (
         <Modal show={show} onHide={handleClose}>
@@ -29,4 +29,4 @@ const CustomModal = ({ show, handleClose, handleYes, title, text }: ModalProps) 
     );
 };
 
-export default CustomModal;
+export default SolemateModal;

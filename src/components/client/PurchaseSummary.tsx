@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import styles from './PurchaseSummary.module.css';
 
 // child components
-import MainButton from '../MainButton'
-import CustomModal from '../CustomModal';
+import SolemateButton from '../SolemateButton'
+import SolemateModal from '../SolemateModal';
 
 // props
 type PurchaseSummaryProps = {
@@ -49,13 +49,14 @@ const PurchaseSummary: React.FC<PurchaseSummaryProps> = ({ title, items, prices,
             </div>
             <div className="col-6 m-auto px-5 pb-5 d-flex flex-row-reverse">
                 <div className='d-flex align-items-end'>
-                    <MainButton 
+                    <SolemateButton 
                         buttonText="Finalizar Compra" 
                         onClick={handleOpenModal}
+                        variant='purple'
                     />
                 </div>
             </div>
-            <CustomModal
+            <SolemateModal
                 show={showModal}
                 handleYes={handleBuyProduct}
                 handleClose={handleCloseModal}

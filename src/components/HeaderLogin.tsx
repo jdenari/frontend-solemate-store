@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MainButton from './MainButton';
-import CustomModal from './CustomModal';
+import SolemateButton from './SolemateButton';
+import SolemateModal from './SolemateModal';
 import styles from './HeaderLogin.module.css';
 import { RootState } from '../store/types';
 import { DEAUTHENTICATE } from '../store/actions';
@@ -26,10 +26,11 @@ const HeaderLogin = () => {
     return (
         <>
         <div className={styles.headerList}>
-            <MainButton
+            <SolemateButton
                 buttonText={authenticated.user?.firstName ?? 'Usuário'}
                 imageUrl={authenticated.user?.access === 'client' ? '/icons/person-circle-white.png' : '/icons/briefcase-white.png'}
                 onClick={handleDropdown}
+                variant='purple'
             />
             {showDropdown ? (
             <div
@@ -77,7 +78,7 @@ const HeaderLogin = () => {
             </div>
             ) : null}
         </div>
-        <CustomModal
+        <SolemateModal
             show={showModal}
             handleYes={handleLogout}
             handleClose={handleCloseModal}

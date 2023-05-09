@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 // child components imports
 import HorizontalCard from '../HorizontalCard';
-import MainButton from '@/components/MainButton';
+import SolemateButton from '@/components/SolemateButton';
 
 // actions imports
 import { selectDistinctDates } from '../../../store/reducers/orderReducer';
@@ -25,7 +25,7 @@ const OrderItems = () => {
         <div className={`${styles.bgLightWhite} container p-5 rounded my-3 text-center`}>
             <h4>Você não possui nenhum histórico de compras!</h4>
             <div className='col-3 m-auto p-3 mt-5'>
-                <MainButton buttonText="Verifique nossas ofertas" href="/"/>
+                <SolemateButton buttonText="Verifique nossas ofertas" href="/"/>
             </div>
         </div>
         )

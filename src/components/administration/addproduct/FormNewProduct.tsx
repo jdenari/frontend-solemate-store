@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
 
 // child components imports
-import MainButton from '../../MainButton';
+import SolemateButton from '../../SolemateButton';
 import MessageReturn from '../../MessageReturn';
 
 // actions import 
@@ -243,10 +243,17 @@ const FormNewProduct: React.FC = () => {
                         </div>
                     )}
                     <div className='d-flex flex-row-reverse my-3'>
-                        <MainButton buttonText="Adicionar" onSubmit={handleAddProduct} />
-                        <button type="button" className="btn btn-secondary" onClick={handleCropImage}>
-                            Cortar Imagem
-                        </button>
+                        <SolemateButton 
+                            buttonText="Adicionar" 
+                            onSubmit={handleAddProduct} 
+                            variant='purple'
+                        />
+                        <SolemateButton 
+                            buttonText="Cortar" 
+                            onSubmit={handleCropImage} 
+                            variant='light'
+                        />
+
                     </div>
                         {messageReturn.message && <MessageReturn text={messageReturn.message.text} variant={messageReturn.message.variant} />}
                 </Form>

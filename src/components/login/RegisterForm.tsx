@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './RegisterForm.module.css';
 
 // child components imports
-import MainButton from '../MainButton';
+import SolemateButton from '../SolemateButton';
 import MessageReturn from '../../components/MessageReturn';
 
 // actions imports
@@ -106,7 +106,11 @@ const RegisterForm = () => {
                         />
                     </div>
                     <div className="d-md-flex justify-content-md-end">
-                        <MainButton buttonText="Registrar" onClick={makeRegister} />
+                        <SolemateButton 
+                            buttonText="Registrar" 
+                            onClick={makeRegister} 
+                            variant='purple'
+                        />
                     </div>
                     <div className="text-center mt-3">
                         <span className="mx-1">Já possui uma conta?</span>

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Navbar, Nav } from 'react-bootstrap';
 
 // child components imports
-import MainButton from './MainButton';
+import SolemateButton from './SolemateButton';
 import HeaderList from './HeaderLogin';
 
 // actions function
@@ -14,8 +14,6 @@ const Header = () => {
 
     // dropdown
     const [showDropdown, setShowDropdown] = useState(false);
-    const handleDropdown = () => {setShowDropdown(!showDropdown);};
-    const handleCloseDropdown = () => {setShowDropdown(false);};
 
     const authenticated = useSelector((state: RootState) => state.authenticated.authenticated);
 
@@ -39,7 +37,11 @@ const Header = () => {
                         {authenticated ? (
                             <HeaderList />
                         ) : (
-                            <MainButton buttonText="Login" href="/cliente/login"/>
+                            <SolemateButton 
+                                buttonText="Login" 
+                                href="/cliente/login"
+                                variant='purple'
+                            />
                         )}
                     </div>
                 </Navbar.Collapse>
