@@ -8,6 +8,7 @@ import MainSection from '../components/landingpage/MainSection';
 import SecondarySection from '../components/landingpage/SecondarySection';
 import Footer from '@/components/Footer';
 import store  from '../store/store';
+import withAuth from '@/components/middleware/withAuth'
 
 const Home: React.FC = () => {
     const dispatch = useDispatch<any>();
@@ -46,5 +47,5 @@ const Home: React.FC = () => {
     );
 };
 
-export default Home;
+export default withAuth(Home, { accessLevel: 'any' });
 

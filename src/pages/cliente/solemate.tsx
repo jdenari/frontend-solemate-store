@@ -4,6 +4,7 @@ import SectionAbout from '@/components/about/SectionAbout'
 import Footer from '@/components/Footer'
 import { Provider } from 'react-redux'
 import store from '../../store/store'
+import withAuth from '@/components/middleware/withAuth'
 
 const solemate = () => {
   return (
@@ -17,4 +18,4 @@ const solemate = () => {
 );
 }
 
-export default solemate
+export default withAuth(solemate, { accessLevel: 'any' });

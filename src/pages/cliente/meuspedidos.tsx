@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import { getOrder } from '../../store/actions/orderAction';
 import { Provider } from 'react-redux'
 import store from '../../store/store'
+import withAuth from '@/components/middleware/withAuth'
 
 const meuspedidos = () => {
     const dispatch = useDispatch<any>();
@@ -24,4 +25,4 @@ const meuspedidos = () => {
     );
 }
 
-export default meuspedidos
+export default withAuth(meuspedidos, { accessLevel: 'any' });

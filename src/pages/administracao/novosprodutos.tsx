@@ -4,6 +4,7 @@ import FormNewProduct from '@/components/administration/addproduct/FormNewProduc
 import Footer from '@/components/Footer'
 import { Provider } from 'react-redux'
 import store from '../../store/store'
+import withAuth from '@/components/middleware/withAuth'
 
 const novosprodutos: React.FC = () => {
   
@@ -20,4 +21,4 @@ const novosprodutos: React.FC = () => {
     );
 };
 
-export default novosprodutos;
+export default withAuth(novosprodutos, { accessLevel: 'any' });

@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import { useSelector } from 'react-redux'
 import store from '../../store/store' // ou o caminho para o arquivo que cria e exporta a store
 import { RootState } from '../../store/types'
+import withAuth from '@/components/middleware/withAuth'
 
 const MeuCarrinho: React.FC = () => {
     const cart = useSelector((state: RootState) => state.cart);
@@ -33,6 +34,6 @@ const MeuCarrinho: React.FC = () => {
     );
 };
 
-export default MeuCarrinho;
+export default withAuth(MeuCarrinho, { accessLevel: 'any' });
 
 

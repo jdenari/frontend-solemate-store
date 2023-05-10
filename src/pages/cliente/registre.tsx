@@ -4,6 +4,7 @@ import RegisterForm from '@/components/login/RegisterForm'
 import Footer from '@/components/Footer'
 import { Provider } from 'react-redux'
 import store from '../../store/store'
+import withAuth from '@/components/middleware/withAuth'
 
 const login: React.FC = () => {
   
@@ -20,4 +21,4 @@ const login: React.FC = () => {
     );
 };
 
-export default login;
+export default withAuth(login, { accessLevel: 'any' });

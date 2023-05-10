@@ -4,8 +4,9 @@ import InventoryDatabase from '@/components/administration/inventory/InventoryDa
 import Footer from '@/components/Footer'
 import { Provider } from 'react-redux'
 import store from '../../store/store'
+import withAuth from '@/components/middleware/withAuth'
 
-const novosprodutos: React.FC = () => {
+const controledeestoque: React.FC = () => {
   
     return (
         <Provider store={store}>
@@ -20,4 +21,4 @@ const novosprodutos: React.FC = () => {
     );
 };
 
-export default novosprodutos;
+export default withAuth(controledeestoque, { accessLevel: 'any' });
