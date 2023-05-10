@@ -90,6 +90,17 @@ export interface returnMessageState {
     message: { text: string; variant: string } | null;
 }
 
+export interface CategoryState {
+    categories: Category[];
+    loading: boolean;
+    error: string | null;
+}
+
+export interface Category {
+    id: number;
+    classProduct: string;
+}
+
 export interface RootState {
     counter: CounterState;
     product: ProductState;
@@ -99,17 +110,7 @@ export interface RootState {
     auth: AuthState;
     returnMessage: returnMessageState;
     stock: StockState;
-}
-
-export interface ClassProductState {
-    classProducts: ClassProduct[];
-    loading: boolean;
-    error: string | null;
-}
-
-export interface ClassProduct {
-    id: number;
-    classProduct: string;
+    category: CategoryState;
 }
     
   

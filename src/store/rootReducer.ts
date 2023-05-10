@@ -8,7 +8,7 @@ import productReducer from './reducers/productReducer';
 import orderReducer from './reducers/orderReducer';
 import returnMessageReducer from './reducers/returnMessageReducer';
 import stockReducer from './reducers/stockReducer';
-import classProductReducer from './reducers/classProductReducer';
+import categoryReducer from './reducers/categoryReducer';
 
 const rootReducer = combineReducers({
     counter: counterReducer,
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     cart: cartReducer,
     returnMessage: returnMessageReducer,
     stock: stockReducer,
-    classProduct: classProductReducer,
+    category: categoryReducer
 });
 
 export default rootReducer;

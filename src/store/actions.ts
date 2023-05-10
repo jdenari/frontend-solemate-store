@@ -5,7 +5,7 @@ import { AUTHENTICATE, DEAUTHENTICATE } from './actions/authAction';
 import { ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART, CLEAN_CART, INCREMENT_PRODUCT_IN_CART, DECREMENT_PRODUCT_IN_CART } from './actions/cartAction';
 import { SET_MESSAGE, CLEAR_MESSAGE } from './actions/returnMessageAction'
 import { GET_STOCK_FAILURE, GET_STOCK_START, GET_STOCK_SUCCESS, getStock } from './actions/stockAction';
-import { getClassProduct, GET_CLASS_PRODUCT_START, GET_CLASS_PRODUCT_SUCCESS, GET_CLASS_PRODUCT_FAILURE } from './actions/classProductAction';
+import { GET_CATEGORY_FAILURE, GET_CATEGORY_START, GET_CATEGORY_SUCCESS, getCategory } from './actions/categoryAction';
 
 // product reducers
 export { getProduct };
@@ -48,11 +48,11 @@ export { GET_STOCK_START };
 export { GET_STOCK_SUCCESS };
 export { GET_STOCK_FAILURE  };
 
-// class products reducers
-export { getClassProduct };
-export { GET_CLASS_PRODUCT_START };
-export { GET_CLASS_PRODUCT_SUCCESS };
-export { GET_CLASS_PRODUCT_FAILURE  };
+// stock reducers
+export { getCategory };
+export { GET_CATEGORY_START };
+export { GET_CATEGORY_SUCCESS };
+export { GET_CATEGORY_FAILURE  };
 
 
 

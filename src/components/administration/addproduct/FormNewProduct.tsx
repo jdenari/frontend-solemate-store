@@ -5,6 +5,7 @@ import { Form } from 'react-bootstrap';
 // child components imports
 import SolemateButton from '../../SolemateButton';
 import MessageReturn from '../../MessageReturn';
+import ImageCropper from './ImageCropper';
 
 // actions import 
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +14,6 @@ import { RootState } from '../../../store/types';
 
 // external imports
 import axios from 'axios';
-import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.min.css';
 
 // props
@@ -31,6 +31,7 @@ const FormNewProduct: React.FC = () => {
 
     const dispatch = useDispatch();
     const messageReturn = useSelector((state: RootState) => state.returnMessage);
+    const categories = useSelector((state: RootState) => state.category.categories);
     
     // data constants
         // form variables
@@ -43,17 +44,16 @@ const FormNewProduct: React.FC = () => {
         size: '',
         statusProduct: 'ACTIVE',
     });
+
+    const getClassOptions = () => {return categories.map((category) => category.classProduct);};
     
-    const classOptions = ['Blusas', 'Calças', 'Sapatos'];
+    const classOptions = getClassOptions();
     const [selectedClass, setSelectedClass] = useState(classOptions[0]);
 
         // form image
     const [photo, setPhoto] = useState<File | null>(null);
     const [imageName, setImageName] = useState<string>('');
-    const imgRef = useRef<any>(null);
 
-        // cropper image
-    const [cropper, setCropper] = useState<Cropper | null>(null);
     const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
 
     // update the text input to variables
@@ -78,20 +78,11 @@ const FormNewProduct: React.FC = () => {
     };
 
     // update the image
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {const selectedFile = e.target.files![0];setPhoto(selectedFile);}
-
-    // cuts the image using Cropper.js library and sets the cropped image as state
-    const handleCropImage = () => {
-        const cropper = imgRef.current?.cropper;
-        if (cropper) {
-            cropper.getCroppedCanvas().toBlob((blob: Blob | null) => {
-            if (blob) {setCroppedImage(blob);}
-        }, "image/jpeg");
-        }
-    };
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {const selectedFile = e.target.files![0];setCroppedImage(null);setImageName('');setPhoto(null);setPhoto(selectedFile);}
         
     // handles the form submission to add a product
     const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
+        
         e.preventDefault();
         try {
             const productResponse = await submitProductAndPhoto();
@@ -129,39 +120,19 @@ const FormNewProduct: React.FC = () => {
             throw error;
         }
     };    
-        
-    // initializes Cropper.js on the photo once it is loaded
-    useEffect(() => {
-        if (photo && imgRef.current) {
-            if (cropper) {
-                cropper.destroy();
-            }
-            const newCropper = new Cropper(imgRef.current, {
-                aspectRatio: 1,
-                viewMode: 1,
-                dragMode: 'move',
-                autoCropArea: 1,
-                cropBoxResizable: false,
-                cropBoxMovable: false,
-                minCropBoxWidth: 202,
-                minCropBoxHeight: 202,
-                ready: function() {
-                newCropper.setCropBoxData({
-                    width: 202,
-                    height: 202,
-                    left: (newCropper.getContainerData().width - 202) / 2,
-                    top: (newCropper.getContainerData().height - 202) / 2
-                });
-            }
-        });
-        setCropper(newCropper);
-        }
-    }, [photo]);
 
     return (
         <>
-            <div>
-                <Form onSubmit={handleAddProduct} className="w-50 m-auto border shadow-sm my-5 px-3 py-4 mb-5 bg-body-tertiary rounded">
+            <div className='d-flex'>
+                <div className='w-50 m-auto border shadow-sm my-5 px-3 py-4 mx-3 bg-body-tertiary rounded'>
+                    <h2 className="text-center mb-5">Image</h2>
+                    {photo && (
+                        <div className='d-flex p-3 my-2 align-items-center m-auto'>
+                            <ImageCropper photo={photo} imageName={imageName} setCroppedImage={setCroppedImage} />
+                        </div>
+                    )}
+                </div>
+                <Form onSubmit={handleAddProduct} className="w-50 m-auto border shadow-sm my-5 px-3 py-4 mx-3 mb-5 bg-body-tertiary rounded">
                     <h2 className="text-center mb-5">Register Product</h2>
                     <Form.Group controlId="formProductName" className='d-flex my-2 align-items-center'>
                         <Form.Label className='col-3 text-end px-2 m-0'>Name Product</Form.Label>
@@ -236,26 +207,15 @@ const FormNewProduct: React.FC = () => {
                             accept="image/*"
                         />
                     </Form.Group>
-                    {photo && (
-                        <div className='d-flex my-2 align-items-center'>
-                            <Form.Label className='col-3 text-end px-2 m-0'>Selected image:</Form.Label>
-                            <img ref={imgRef} src={URL.createObjectURL(photo)} alt={imageName} className="col-3"/>
-                        </div>
-                    )}
                     <div className='d-flex flex-row-reverse my-3'>
                         <SolemateButton 
-                            buttonText="Add" 
+                            buttonText="Register" 
                             onSubmit={handleAddProduct} 
                             variant='purple'
                         />
-                        <SolemateButton 
-                            buttonText="Cut image" 
-                            onSubmit={handleCropImage} 
-                            variant='light'
-                        />
 
                     </div>
-                        {messageReturn.message && <MessageReturn text={messageReturn.message.text} variant={messageReturn.message.variant} />}
+                    {messageReturn.message && <MessageReturn text={messageReturn.message.text} variant={messageReturn.message.variant} />}
                 </Form>
             </div>
         </>
