@@ -78,7 +78,12 @@ const FormNewProduct: React.FC = () => {
     };
 
     // update the image
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {const selectedFile = e.target.files![0];setCroppedImage(null);setImageName('');setPhoto(null);setPhoto(selectedFile);}
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        await resetForm();
+        const selectedFile = e.target.files![0];
+        setPhoto(selectedFile);
+    };
+    
         
     // handles the form submission to add a product
     const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -93,12 +98,28 @@ const FormNewProduct: React.FC = () => {
             setTimeout(() => { dispatch(CLEAR_MESSAGE()); }, 3000);
         }
     };
+
+    const resetForm = () => {
+        return new Promise((resolve) => {
+            setFormData({
+                productClass: '',
+                productName: '',
+                description: '',
+                price: 0,
+                quantity: 0,
+                size: '',
+                statusProduct: 'ACTIVE',
+            });
+            setSelectedClass(classOptions[0]);
+            setPhoto(null);
+            setImageName('');
+            setCroppedImage(null);
+            resolve(true);
+        });
+    };
     
     const submitProductAndPhoto = async () => {
-        if (!croppedImage) {
-            console.error("Image not cropped!");
-            throw new Error("Image not cropped!");
-        }
+        if (!croppedImage) {throw new Error("Image not cropped!");}
         const formDataToSend = new FormData();
         formDataToSend.append('file', croppedImage);
         formDataToSend.append('name', imageName);
@@ -123,100 +144,108 @@ const FormNewProduct: React.FC = () => {
 
     return (
         <>
-            <div className='d-flex'>
-                <div className='w-50 m-auto border shadow-sm my-5 px-3 py-4 mx-3 bg-body-tertiary rounded'>
-                    <h2 className="text-center mb-5">Image</h2>
-                    {photo && (
-                        <div className='d-flex p-3 my-2 align-items-center m-auto'>
-                            <ImageCropper photo={photo} imageName={imageName} setCroppedImage={setCroppedImage} />
-                        </div>
-                    )}
-                </div>
-                <Form onSubmit={handleAddProduct} className="w-50 m-auto border shadow-sm my-5 px-3 py-4 mx-3 mb-5 bg-body-tertiary rounded">
-                    <h2 className="text-center mb-5">Register Product</h2>
-                    <Form.Group controlId="formProductName" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Name Product</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="productName"
-                            value={formData.productName}
-                            onChange={handleChange}
-                            placeholder="Tênis Air Jordan I"
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="formClass" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Class</Form.Label>
-                        <Form.Select
-                            name="productClass"
-                            value={selectedClass}
-                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedClass(e.target.value)}
-                        >
-                            {classOptions.map((option, index) => (
-                                <option key={index} value={option}>
-                                    {option}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </Form.Group>
-                    <Form.Group controlId="formDescription" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2  m-0'>Description</Form.Label>
-                        <Form.Control
-                            as="textarea"
-                            name="description"
-                            value={formData.description}
-                            onChange={handleChange}
-                            placeholder="Comfortable shoes for basketball practice..."
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="formPrice" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Price</Form.Label>
-                        <Form.Control
-                            type="number"
-                            step="0.01"
-                            min="0"
-                            name="price"
-                            value={formData.price}
-                            onChange={handlePriceChange}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="formStockSize" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Size</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="size"
-                            value={formData.size}
-                            onChange={handleChange}
-                            placeholder="P, M, G, GG, XG..."
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="formQuantity" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Quantity</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="quantity"
-                            value={formData.quantity}
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="formImage" className='d-flex my-2 align-items-center'>
-                        <Form.Label className='col-3 text-end px-2 m-0'>Image</Form.Label>
-                        <Form.Control
-                            type="file"
-                            name="image"
-                            onChange={handleFileChange}
-                            accept="image/*"
-                        />
-                    </Form.Group>
-                    <div className='d-flex flex-row-reverse my-3'>
-                        <SolemateButton 
-                            buttonText="Register" 
-                            onSubmit={handleAddProduct} 
-                            variant='purple'
-                        />
-
+            <div>
+                <div className='d-flex'>
+                    <div className='w-50 m-auto border shadow-sm my-5 px-3 py-4 mx-3 bg-body-tertiary rounded'>
+                        <h2 className="text-center mb-5">Image</h2>
+                        {photo ? (
+                            <div className='d-flex p-3 my-2 align-items-center m-auto'>
+                                <ImageCropper photo={photo} imageName={imageName} setCroppedImage={setCroppedImage} resetForm={resetForm} />
+                            </div>
+                        ) : (
+                            <div className='text-center'>
+                                <p className='lead'>No image selected</p>
+                            </div>
+                        )}
                     </div>
+                    <Form onSubmit={handleAddProduct} className="w-50 m-auto border shadow-sm my-5 px-3 py-4 mx-3 mb-5 bg-body-tertiary rounded">
+                        <h2 className="text-center mb-5">Register Product</h2>
+                        <Form.Group controlId="formProductName" className='d-flex my-2 align-items-center'>
+                            <Form.Label className='col-3 text-end px-2 m-0'>Name Product</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="productName"
+                                value={formData.productName}
+                                onChange={handleChange}
+                                placeholder="Tênis Air Jordan I"
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formClass" className='d-flex my-2 align-items-center'>
+                            <Form.Label className='col-3 text-end px-2 m-0'>Class</Form.Label>
+                            <Form.Select
+                                name="productClass"
+                                value={selectedClass}
+                                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedClass(e.target.value)}
+                            >
+                                {classOptions.map((option, index) => (
+                                    <option key={index} value={option}>
+                                        {option}
+                                    </option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
+                        <Form.Group controlId="formDescription" className='d-flex my-2 align-items-center'>
+                            <Form.Label className='col-3 text-end px-2  m-0'>Description</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                                placeholder="Comfortable shoes for basketball practice..."
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formPrice" className='d-flex my-2 align-items-center'>
+                            <Form.Label className='col-3 text-end px-2 m-0'>Price</Form.Label>
+                            <Form.Control
+                                type="number"
+                                step="0.01"
+                                min="0"
+                                name="price"
+                                value={formData.price}
+                                onChange={handlePriceChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formStockSize" className='d-flex my-2 align-items-center'>
+                            <Form.Label className='col-3 text-end px-2 m-0'>Size</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="size"
+                                value={formData.size}
+                                onChange={handleChange}
+                                placeholder="P, M, G, GG, XG..."
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formQuantity" className='d-flex my-2 align-items-center'>
+                            <Form.Label className='col-3 text-end px-2 m-0'>Quantity</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="quantity"
+                                value={formData.quantity}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formImage" className='d-flex my-2 align-items-center'>
+                            <Form.Label className='col-3 text-end px-2 m-0'>Image</Form.Label>
+                            <Form.Control
+                                type="file"
+                                name="image"
+                                onChange={handleFileChange}
+                                accept="image/*"
+                            />
+                        </Form.Group>
+                        <div className='d-flex flex-row-reverse my-3'>
+                            <SolemateButton 
+                                buttonText="Register" 
+                                onSubmit={handleAddProduct} 
+                                variant='purple'
+                            />
+
+                        </div>
+                    </Form>
+                </div>
+                <div className='px-3'>
                     {messageReturn.message && <MessageReturn text={messageReturn.message.text} variant={messageReturn.message.variant} />}
-                </Form>
+                </div>
             </div>
         </>
     );

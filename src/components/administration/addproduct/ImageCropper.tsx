@@ -6,9 +6,10 @@ interface ImageCropperProps {
     photo: File | null;
     imageName: string;
     setCroppedImage: React.Dispatch<React.SetStateAction<Blob | null>>;
+    resetForm: () => void;
 }
 
-const ImageCropper: React.FC<ImageCropperProps> = ({ photo, imageName, setCroppedImage }) => {
+const ImageCropper: React.FC<ImageCropperProps> = ({ photo, imageName, setCroppedImage, resetForm }) => {
     const imgRef = useRef<any>(null);
     const [cropper, setCropper] = useState<Cropper | null>(null);
 
@@ -22,7 +23,15 @@ const ImageCropper: React.FC<ImageCropperProps> = ({ photo, imageName, setCroppe
             }, "image/jpeg");
         }
     };
-    
+
+    const handleErase = () => {
+        if (cropper) {
+            cropper.destroy();
+            setCropper(null);
+        }
+        setCroppedImage(null);
+        resetForm();
+    };
 
     useEffect(() => {
         if (photo && imgRef.current) {
@@ -40,10 +49,10 @@ const ImageCropper: React.FC<ImageCropperProps> = ({ photo, imageName, setCroppe
                 minCropBoxHeight: 602,
                 ready: function() {
                     newCropper.setCropBoxData({
-                        width: 202,
-                        height: 202,
-                        left: (newCropper.getContainerData().width - 402) / 2,
-                        top: (newCropper.getContainerData().height - 402) / 2
+                        width: 802,
+                        height: 802,
+                        left: (newCropper.getContainerData().width - 1402) / 2,
+                        top: (newCropper.getContainerData().height - 1402) / 2
                     });
                 }
             });
@@ -51,18 +60,19 @@ const ImageCropper: React.FC<ImageCropperProps> = ({ photo, imageName, setCroppe
         } 
     }, [photo]);
 
-    
-
     return (
         <>
             {photo && (
                 <div className="my-2">
-                    <img ref={imgRef} src={URL.createObjectURL(photo)} alt={imageName} className="col-3" />
-                    <button onClick={handleCropImage}>Cut image</button>
+                    <img ref={imgRef} src={URL.createObjectURL(photo)} alt={imageName} className="col-3 p-5 m-5" />
+                    <div className="d-flex flex-row-reverse p-3 ">
+                        <button onClick={handleCropImage} className='p-2 mx-1 shadow-sm bg-body-tertiary rounded-4 d-flex align-items-center'>Cut image</button>
+                        <button onClick={handleErase} className='p-2 mx-1 shadow-sm bg-body-tertiary rounded-4 d-flex align-items-center'>Erase</button>
+                    </div>
                 </div>
             )}
         </>
-    );
+    );    
 };
 
 export default ImageCropper;
