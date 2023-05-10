@@ -316,8 +316,10 @@ const InventoryDatabase = () => {
                                 <EditableCell
                                     value={product.description}
                                     onUpdate={(newValue) => handleUpdate(index, 'description', newValue)}
+                                    inputStyle={{ height: '90px', width: '90%' }}
                                 />
                             </td>
+
                             <td className={`${styles.columnTable} align-middle text-center`}>
                                 <EditableCell
                                     value={product.price}

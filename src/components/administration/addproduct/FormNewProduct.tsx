@@ -34,7 +34,6 @@ const FormNewProduct: React.FC = () => {
     const categories = useSelector((state: RootState) => state.category.categories);
     
     // data constants
-        // form variables
     const [formData, setFormData] = useState<IFormData>({
         productClass: '',
         productName: '',
@@ -101,15 +100,6 @@ const FormNewProduct: React.FC = () => {
 
     const resetForm = () => {
         return new Promise((resolve) => {
-            setFormData({
-                productClass: '',
-                productName: '',
-                description: '',
-                price: 0,
-                quantity: 0,
-                size: '',
-                statusProduct: 'ACTIVE',
-            });
             setSelectedClass(classOptions[0]);
             setPhoto(null);
             setImageName('');
