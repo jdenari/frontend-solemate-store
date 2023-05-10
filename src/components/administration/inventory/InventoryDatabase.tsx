@@ -15,6 +15,7 @@ import MessageReturn from '../../MessageReturn';
 import SolemateButton from '@/components/SolemateButton';
 import EditableCell from './EditableCell';
 import SelectCell from './SelectCell'; 
+import SolemateModal from '@/components/SolemateModal';
 
 // cropper imports
 import Cropper from 'cropperjs';
@@ -48,6 +49,17 @@ const InventoryDatabase = () => {
     const [cropper, setCropper] = useState<Cropper | null>(null);
     const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
     const [showCropper, setShowCropper] = useState(false);
+
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [productIdToDelete, setProductIdToDelete] = useState<number | null>(null);
+    const handleDeleteModal = (productId: number) => {
+        // Salve o productId do produto a ser excluído no estado
+        setProductIdToDelete(productId);
+    
+        // Mostre o modal de exclusão
+        setShowDeleteModal(true);
+    };
+    
 
     // function to cut the imagem from the cropper.js
     const handleCropImage = () => {
@@ -156,6 +168,29 @@ const InventoryDatabase = () => {
             setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
         }
     };
+
+    const deleteProduct = async (productId: number) => {
+        try {
+            const response = await axios.delete(`http://localhost:5000/api/product/delete-product/${productId}`);
+            const messageText = response.data;
+
+            if (response.status === 200) {
+                setUpdatedProducts(updatedProducts.filter(product => product.id !== productId));
+                setUpdatedStocks(updatedStocks.filter(stock => stock.productId !== productId));
+    
+                dispatch(SET_MESSAGE({ text: messageText, variant: 'success'}));
+                setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
+            } else {
+                dispatch(SET_MESSAGE({ text: messageText, variant: 'danger'}));
+                setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
+            }
+        } catch (error) {
+            const messageText = 'Error updating product and stock:' + error;
+            dispatch(SET_MESSAGE({ text: messageText, variant: 'danger'}));
+            setTimeout(() => { dispatch(CLEAR_MESSAGE());}, 3000);
+        }
+    };
+    
     
     // initializes cropper.js on the photo once it is loaded
     useEffect(() => {
@@ -304,20 +339,40 @@ const InventoryDatabase = () => {
                                 />
                             </td>
 
-                            <td className="align-middle px-4"> 
-                                <button
-                                    className={`${styles.buttonQuantity} m-auto px-2 p-2 shadow-sm bg-body-tertiary rounded-4 d-flex justify-content-center align-items-center`}
-                                    onClick={() => updateProduct(product)}
-                                    disabled={!changedRows.has(index)}
-                                >
-                                    Update
-                                </button>
+                            <td className={`${styles.columnTable} align-middle text-center`}>
+                                <div className='d-flex justify-content-center align-items-center'>
+                                    <button
+                                        className={`${styles.buttonQuantity} p-2 mx-2 shadow-sm bg-body-tertiary rounded-4 d-flex justify-content-center align-items-center`}
+                                        onClick={() => updateProduct(product)}
+                                        disabled={!changedRows.has(index)}
+                                    >
+                                        Update
+                                    </button>
+                                    <button
+                                        className={`btn btn-close ms-4`}
+                                        onClick={() => handleDeleteModal(product.id)}
+                                        type="button"
+                                    >
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     ))}
                     </tbody>
                 </Table>
             </div>
+            <SolemateModal
+                show={showDeleteModal}
+                handleClose={() => setShowDeleteModal(false)}
+                handleYes={() => {
+                    if (productIdToDelete !== null) {
+                        deleteProduct(productIdToDelete);
+                    }
+                    setShowDeleteModal(false);
+                }}
+                title="Excluir produto"
+                text="Tem certeza de que deseja excluir este produto? Esta ação não pode ser desfeita."
+            />
         </div>
     );
 };
