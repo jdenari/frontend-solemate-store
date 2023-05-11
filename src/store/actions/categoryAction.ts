@@ -6,7 +6,7 @@ import { Category } from '../types';
 export const getCategory = () => async (dispatch: Dispatch) => {
     dispatch(GET_CATEGORY_START());
     try {
-        const response = await fetch('http://localhost:5000/api/classProduct');
+        const response = await fetch('http://localhost:5000/api/category/');
         const data = await response.json();
         dispatch(GET_CATEGORY_SUCCESS(data));
     } catch (error: any) {

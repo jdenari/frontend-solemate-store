@@ -34,6 +34,20 @@ const InventoryDatabase = () => {
 
     // variables to message return
     const message = useSelector((state: RootState) => state.returnMessage);
+    const categories = useSelector((state: RootState) => state.category.categories);
+
+    const categoryOptions = categories.map((category) => category.category);
+    const categoryIdMap = categories.reduce((acc, category) => {
+        acc[category.category] = category.id;
+        return acc;
+    }, {} as { [key: string]: number });
+
+    const categoryNameMap = categories.reduce((acc, category) => {
+        acc[category.id] = category.category;
+        return acc;
+    }, {} as { [key: number]: string });
+    
+
 
     // images variables
     const imgRef = useRef<any>(null);
@@ -252,7 +266,7 @@ const InventoryDatabase = () => {
                             <th>Image</th>
                             <th>Product</th>
                             <th>Status</th>
-                            <th>Class</th>
+                            <th>Category</th>
                             <th>Description</th>
                             <th>Price</th>
                             <th>Quantity</th>
@@ -307,9 +321,11 @@ const InventoryDatabase = () => {
                             </td>
                             <td className={`${styles.columnTable} align-middle text-center`}>
                                 <SelectCell
-                                    value={product.productClass}
-                                    options={['Corrida', 'Casual', 'Futebol', 'Skate', 'Treinamento']}
-                                    onUpdate={(newValue) => handleUpdate(index, 'productClass', newValue)}
+                                    value={categoryNameMap[Number(product.categoryId)]}
+                                    options={categoryOptions}
+                                    onUpdate={(newValue) =>
+                                        handleUpdate(index, 'categoryId', categoryIdMap[newValue as string])
+                                    }
                                 />
                             </td>
                             <td className={`${styles.columnTable} align-middle text-center`}>

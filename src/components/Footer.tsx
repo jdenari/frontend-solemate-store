@@ -1,8 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import styles from './Footer.module.css';
+import { RootState } from '@/store/rootReducer';
 
 const Footer = () => {
+    const categories = useSelector((state: RootState) => state.category.categories);
     return (
         <div>
             <hr className="w-100 border-top border-secondary my-3 container" />
@@ -11,11 +14,17 @@ const Footer = () => {
                     <ul className="navbar-nav">
                         <li className={`nav-item text-left mx-5`}>
                             <a className={`${styles.title} font-weight-bold nav-link`} href="#">Categories</a>
-                            <a href="#" className={`${styles.row} nav-link`}>Botas</a>
-                            <a href="#" className={`${styles.row} nav-link`}>Sapatos</a>
-                            <a href="#" className={`${styles.row} nav-link`}>Tênis</a>
-                            <a href="#" className={`${styles.row} nav-link`}>Botinas</a>
-                            <a href="#" className={`${styles.row} nav-link`}>Sapatos Casuais</a>
+                            {
+                                categories.map((category) => (
+                                    <a
+                                    key={category.id}
+                                    href="#"
+                                    className={`${styles.row} nav-link`}
+                                    >
+                                    {category.category}
+                                    </a>
+                                ))
+                            }
                         </li>
                         <li className={`nav-item ${styles.footerNavItem} text-left mx-5`}>
                             <a className={`${styles.title} font-weight-bold nav-link`} href="/cliente/meuspedidos">Client</a>

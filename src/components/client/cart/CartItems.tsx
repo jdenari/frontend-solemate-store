@@ -45,7 +45,7 @@ const CartItems = () => {
     // return the html if the cart is empty
     if (carts.length === 0) {
         return (
-        <div className={`${styles.bgLightWhite} container p-5 rounded my-3 text-center`}>
+        <div className={`${styles.bgLightWhite} container ${styles.containerOrder} p-5 rounded my-3 text-center`}>
             <h4>You don't have any products in your cart!</h4>
             <div className='col-3 m-auto p-3 mt-5'>
                 <SolemateButton 
@@ -60,7 +60,7 @@ const CartItems = () => {
 
     // return the html if the cart is not empty
     return (
-        <div className={`${styles.bgLightWhite} container ${styles.containerOrder} p-3 rounded my-3 d-flex`}>
+        <div className={`${styles.bgLightWhite} container ${styles.containerOrder} p-3 rounded my-3`}>
             <div className="row my-1 d-flex col-11 m-auto">
                 <h2 className="mb-3 m-0">Cart</h2>
                 <div className="w-100 mb-3 d-flex justify-content-between align-items-center">

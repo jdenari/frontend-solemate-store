@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface SelectCellProps {
-  value: string;
+  value: string | number;
   options: string[];
   onUpdate: (newValue: string) => void;
 }

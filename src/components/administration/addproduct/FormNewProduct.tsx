@@ -18,7 +18,7 @@ import 'cropperjs/dist/cropper.min.css';
 
 // props
 interface IFormData {
-    productClass: string;
+    categoryId: string;
     productName: string;
     description: string;
     price: number;
@@ -35,7 +35,7 @@ const FormNewProduct: React.FC = () => {
     
     // data constants
     const [formData, setFormData] = useState<IFormData>({
-        productClass: '',
+        categoryId: '',
         productName: '',
         description: '',
         price: 0,
@@ -44,10 +44,10 @@ const FormNewProduct: React.FC = () => {
         statusProduct: 'ACTIVE',
     });
 
-    const getClassOptions = () => {return categories.map((category) => category.classProduct);};
+    const getCategoryOptions = () => {return categories.map((category) => ({ label: category.category, id: category.id }));};
     
-    const classOptions = getClassOptions();
-    const [selectedClass, setSelectedClass] = useState(classOptions[0]);
+    const categoryOptions = getCategoryOptions();
+    const [selectedCategory, setselectedCategory] = useState<number>(categoryOptions[0].id);
 
         // form image
     const [photo, setPhoto] = useState<File | null>(null);
@@ -86,7 +86,6 @@ const FormNewProduct: React.FC = () => {
         
     // handles the form submission to add a product
     const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
-        
         e.preventDefault();
         try {
             const productResponse = await submitProductAndPhoto();
@@ -100,7 +99,6 @@ const FormNewProduct: React.FC = () => {
 
     const resetForm = () => {
         return new Promise((resolve) => {
-            setSelectedClass(classOptions[0]);
             setPhoto(null);
             setImageName('');
             setCroppedImage(null);
@@ -115,8 +113,11 @@ const FormNewProduct: React.FC = () => {
         formDataToSend.append('name', imageName);
         formDataToSend.append('src', JSON.stringify({
             ...formData,
-            productClass: selectedClass,
+            categoryId: selectedCategory,
         }));
+
+        console.log('FormData content:', Array.from(formDataToSend.entries()));
+
         try {
             const response = await axios.post('http://localhost:5000/api/product/add-product', formDataToSend, {
                 headers: { 'Content-Type': 'multipart/form-data' }
@@ -130,7 +131,7 @@ const FormNewProduct: React.FC = () => {
             setTimeout(() => { dispatch(CLEAR_MESSAGE()); }, 3000);
             throw error;
         }
-    };    
+    }; 
 
     return (
         <>
@@ -161,19 +162,19 @@ const FormNewProduct: React.FC = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formClass" className='d-flex my-2 align-items-center'>
-                            <Form.Label className='col-3 text-end px-2 m-0'>Class</Form.Label>
-                            <Form.Select
-                                name="productClass"
-                                value={selectedClass}
-                                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedClass(e.target.value)}
-                            >
-                                {classOptions.map((option, index) => (
-                                    <option key={index} value={option}>
-                                        {option}
-                                    </option>
-                                ))}
-                            </Form.Select>
-                        </Form.Group>
+                                <Form.Label className='col-3 text-end px-2 m-0'>Category</Form.Label>
+                                <Form.Select
+                                    name="categoryId"
+                                    value={selectedCategory}
+                                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setselectedCategory(Number(e.target.value))}
+                                >
+                                    {categoryOptions.map((option, index) => (
+                                        <option key={index} value={option.id}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
                         <Form.Group controlId="formDescription" className='d-flex my-2 align-items-center'>
                             <Form.Label className='col-3 text-end px-2  m-0'>Description</Form.Label>
                             <Form.Control

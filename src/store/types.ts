@@ -6,7 +6,7 @@ export interface CounterState {
 export interface Product {
     id: number;
     productName: string;
-    productClass: string;
+    categoryId: string;
     description: string;
     price: number;
     statusProduct: string;
@@ -98,7 +98,7 @@ export interface CategoryState {
 
 export interface Category {
     id: number;
-    classProduct: string;
+    category: string;
 }
 
 export interface RootState {
