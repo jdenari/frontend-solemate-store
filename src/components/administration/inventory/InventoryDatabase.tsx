@@ -293,7 +293,7 @@ const InventoryDatabase = () => {
                                     />
                                     <div className={`${styles.fileInputWrapper}`}>
                                         <label htmlFor={`formImage-${index}`} className={`${styles.fileInputLabel} ${styles.customFileUpload} ${styles.imageTable} align-items-center border m-2 shadow-sm p-1 bg-body-tertiary rounded`}>
-                                            Change File
+                                            Change Image
                                         </label>
                                         <input
                                             type="file"
@@ -315,7 +315,7 @@ const InventoryDatabase = () => {
                             <td className={`${styles.columnTable} align-middle text-center`}>
                                 <SelectCell
                                     value={product.statusProduct}
-                                    options={['ATIVO', 'DESATIVADO']}
+                                    options={['ACTIVE', 'DEACTIVE']}
                                     onUpdate={(newValue) => handleUpdate(index, 'statusProduct', newValue)}
                                 />
                             </td>

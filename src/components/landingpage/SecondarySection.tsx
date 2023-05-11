@@ -9,7 +9,9 @@ const SecondarySection: React.FC = () => {
     const products = useSelector((state: RootState) => state.product.products);
 
     const renderProducts = () => {
-        return products.map((product, index) => (
+        const activeProducts = products.filter(product => product.statusProduct === 'ACTIVE');
+        
+        return activeProducts.map((product, index) => (
             <CardVertical
                 key={index}
                 imgSrc={`http://localhost:5000/api/photos/${product.id}/photo`}
@@ -31,3 +33,4 @@ const SecondarySection: React.FC = () => {
 };
 
 export default SecondarySection;
+

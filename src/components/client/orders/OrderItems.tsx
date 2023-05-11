@@ -23,13 +23,15 @@ const OrderItems = () => {
     if (orders.length === 0) {
         return (
         <div className={`${styles.bgLightWhite} container p-5 rounded my-3 text-center`}>
-            <h4>You have no purchase history!</h4>
-            <div className='col-3 m-auto p-3 mt-5'>
-                <SolemateButton 
-                    buttonText="Check our offers" 
-                    href="/"
-                    variant='purple'
-                />
+            <div className='p-3 bg-white col-8 m-auto shadow-sm p-3 py-5 bg-body-tertiary rounded'>
+                <h4>You have no purchase history!</h4>
+                <div className='col-3 m-auto p-3 mt-5'>
+                    <SolemateButton 
+                        buttonText="Check our offers" 
+                        href="/"
+                        variant='purple'
+                    />
+                </div>
             </div>
         </div>
         )

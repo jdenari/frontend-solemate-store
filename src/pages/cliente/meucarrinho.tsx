@@ -22,7 +22,7 @@ const MeuCarrinho: React.FC = () => {
                 <CartItems />
                 {items.length > 0 && (
                     <PurchaseSummary
-                        title="Resumo de Compras"
+                        title="Your Purchases"
                         items={items}
                         prices={prices}
                         total={total}

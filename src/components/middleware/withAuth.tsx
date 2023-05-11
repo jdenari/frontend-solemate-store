@@ -1,8 +1,8 @@
-// src/withAuth.tsx
-
 import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { CLEAR_MESSAGE } from '../../store/actions'; // ajuste o caminho para o arquivo de ação, se necessário
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
 
@@ -13,6 +13,7 @@ interface Props {
 const withAuth = (WrappedComponent: NextPage, { accessLevel }: Props) => {
     const Wrapper: NextPage = (props) => {
         const router = useRouter();
+        const dispatch = useDispatch();
         const authState = useSelector((state: RootState) => state.authenticated);
 
         useEffect(() => {
@@ -33,6 +34,8 @@ const withAuth = (WrappedComponent: NextPage, { accessLevel }: Props) => {
 
         return <WrappedComponent {...props} />;
     };
+
+    
 
     Wrapper.getInitialProps = async (ctx: NextPageContext) => {
         if (WrappedComponent.getInitialProps) {

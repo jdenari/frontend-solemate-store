@@ -9,7 +9,7 @@ import ImageCropper from './ImageCropper';
 
 // actions import 
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_MESSAGE, CLEAR_MESSAGE } from '../../../store/actions';
+import { SET_MESSAGE, CLEAR_MESSAGE, getProduct } from '../../../store/actions';
 import { RootState } from '../../../store/types';
 
 // external imports
@@ -29,7 +29,7 @@ interface IFormData {
 
 const FormNewProduct: React.FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
     const messageReturn = useSelector((state: RootState) => state.returnMessage);
     const categories = useSelector((state: RootState) => state.category.categories);
     
@@ -49,7 +49,7 @@ const FormNewProduct: React.FC = () => {
     const categoryOptions = getCategoryOptions();
     const [selectedCategory, setselectedCategory] = useState<number>(categoryOptions[0].id);
 
-        // form image
+    // form image
     const [photo, setPhoto] = useState<File | null>(null);
     const [imageName, setImageName] = useState<string>('');
 
@@ -116,8 +116,6 @@ const FormNewProduct: React.FC = () => {
             categoryId: selectedCategory,
         }));
 
-        console.log('FormData content:', Array.from(formDataToSend.entries()));
-
         try {
             const response = await axios.post('http://localhost:5000/api/product/add-product', formDataToSend, {
                 headers: { 'Content-Type': 'multipart/form-data' }
@@ -125,6 +123,7 @@ const FormNewProduct: React.FC = () => {
             setPhoto(null);
             setImageName('');
             setCroppedImage(null);
+            await dispatch(getProduct());
             return response;
         } catch (error) {
             dispatch(SET_MESSAGE({ text: 'Error submitting product and photo!', variant: 'danger' }));
@@ -182,7 +181,8 @@ const FormNewProduct: React.FC = () => {
                                 name="description"
                                 value={formData.description}
                                 onChange={handleChange}
-                                placeholder="Comfortable shoes for basketball practice..."
+                                placeholder="Write a description here..."
+                                style={{ maxHeight: '150px' }}
                             />
                         </Form.Group>
                         <Form.Group controlId="formPrice" className='d-flex my-2 align-items-center'>
