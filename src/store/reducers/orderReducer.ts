@@ -29,10 +29,14 @@ const orderReducer = createReducer(initialOrderState, {
 export const selectOrders = (state: RootState) => state.order.orders;
 
 export const selectDistinctDates = createSelector(
-    [selectOrders],
-    (orders) => {
-        const groupedOrders = _.groupBy(orders, (order) => order.dateOrder.split('T')[0]);
-        return Object.keys(groupedOrders);
+    [selectOrders, (state: RootState) => state.authenticated.user],
+    (orders, authenticated) => {
+        if (authenticated) {
+            const filteredOrders = orders.filter(order => order.userId === authenticated.id);
+            const groupedOrders = _.groupBy(filteredOrders, (order) => order.dateOrder.split('T')[0]);
+            return Object.keys(groupedOrders);
+        }
+        return [];
     }
 );
 

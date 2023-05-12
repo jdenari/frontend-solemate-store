@@ -27,7 +27,7 @@ const HeaderLogin = () => {
         <>
         <div className={styles.headerList}>
             <SolemateButton
-                buttonText={authenticated.user?.firstName ?? 'Usuário'}
+                buttonText={authenticated.user?.firstName ?? 'User'}
                 imageUrl={authenticated.user?.access === 'client' ? '/icons/person-circle-white.png' : '/icons/briefcase-white.png'}
                 onClick={handleDropdown}
                 variant='purple'
@@ -49,7 +49,7 @@ const HeaderLogin = () => {
                     className={`${styles.dropdownItem} my-1`}
                     href="/cliente/meuspedidos"
                     >
-                    Meus Pedidos
+                    Orders
                     </a>
                 </li>
                 <li>
@@ -57,12 +57,12 @@ const HeaderLogin = () => {
                     className={`${styles.dropdownItem} my-1`}
                     href="/cliente/meucarrinho"
                     >
-                    Meu Carrinho
+                    Cart
                     </a>
                 </li>
                 <li>
                     <a className={`${styles.dropdownItem} my-1`} href="#">
-                    Perfil
+                    Profile
                     </a>
                 </li>
                 <li>
@@ -71,7 +71,7 @@ const HeaderLogin = () => {
                     href="#"
                     onClick={handleOpenModal}
                     >
-                    Sair
+                    Log out
                     </a>
                 </li>
                 </ul>

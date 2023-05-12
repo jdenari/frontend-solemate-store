@@ -15,7 +15,8 @@ const OrderItems = () => {
     
     // data constants
     const distinctDates = useSelector(selectDistinctDates);
-    const orders = useSelector((state: RootState) => state.order.orders);
+    const authenticated = useSelector((state: RootState) => state.authenticated.user);
+    const orders = useSelector((state: RootState) => authenticated ? state.order.orders.filter(order => order.userId === authenticated.id) : []);
 
     const products = useSelector((state: RootState) => state.product.products);
 
