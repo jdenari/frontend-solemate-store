@@ -105,7 +105,7 @@ const RegisterForm = () => {
                             placeholder="**********"
                         />
                     </div>
-                    <div className="d-md-flex justify-content-md-end">
+                    <div className="d-flex justify-content-end">
                         <SolemateButton 
                             buttonText="Register" 
                             onClick={makeRegister} 

@@ -40,8 +40,8 @@ const LoginForm = () => {
 
     return (
         <div>
-            <div className={`${styles.containerForm} m-auto my-5 w-50 border p-3`}>
-                <h2 className="text-center mb-5">Begin Session</h2>
+            <div className={`${styles.containerForm} m-auto my-5 w-50 border px-5 py-3`}>
+                <h2 className="text-center mb-5">Session</h2>
                 <form>
                     <div className="mb-3">
                         <label htmlFor="email" className="form-label">
@@ -61,7 +61,7 @@ const LoginForm = () => {
                         </label>
                         <input type="password" className="form-control" id="password" placeholder="**********" />
                     </div>
-                    <div className="d-md-flex justify-content-md-end">
+                    <div className="d-flex justify-content-end">
                         <SolemateButton 
                             buttonText="Access" 
                             onClick={makeLogin} 

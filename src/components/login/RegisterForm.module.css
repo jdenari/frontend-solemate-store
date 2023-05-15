@@ -1,1 +1,26 @@
 .containerForm{margin: 100px auto !important; width:600px !important}
+
+/*------------------------------------1600px----------------------------------------------*/ 
+@media screen and (max-width: 1600px) {
+
+}
+/*-----------------------------------1400px-xxl------------------------------------------*/ 
+@media screen and (max-width: 1400px) {
+
+}
+/*-----------------------------------1200px-xl-------------------------------------------*/ 
+@media screen and (max-width: 1200px) {
+    .containerForm{width:550px !important}
+}
+/*------------------------------------992px-lg-------------------------------------------*/ 
+@media screen and (max-width: 992px) {
+
+}
+/*------------------------------------768px-md-------------------------------------------*/
+@media screen and (max-width: 768px) {
+    .containerForm{width:500px !important}
+}
+/*------------------------------------576px-sm-------------------------------------------*/
+@media screen and (max-width: 576px) {
+    .containerForm{width:400px !important}
+}

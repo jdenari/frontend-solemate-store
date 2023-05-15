@@ -27,12 +27,12 @@ const Footer = () => {
                             }
                         </li>
                         <li className={`nav-item ${styles.footerNavItem} text-left mx-5`}>
-                            <a className={`${styles.title} font-weight-bold nav-link`} href="/cliente/meuspedidos">Client</a>
+                            <a className={`${styles.title} font-weight-bold nav-link mt-lg-0 mt-3`} href="/cliente/meuspedidos">Client</a>
                             <a href="/cliente/meuspedidos" className={`${styles.row} nav-link`}>Orders</a>
                             <a href="/cliente/meucarrinho" className={`${styles.row} nav-link`}>Cart</a>
                         </li>
                         <li className={`nav-item text-left mx-5`}>
-                            <a className={`${styles.title} font-weight-bold nav-link`} href="/cliente/solemate">About</a>
+                            <a className={`${styles.title} font-weight-bold nav-link mt-lg-0 mt-3`} href="/cliente/solemate">About</a>
                             <a href="/cliente/solemate" className={`${styles.row} nav-link`}>Solemate Store</a>
                         </li>
                     </ul>
