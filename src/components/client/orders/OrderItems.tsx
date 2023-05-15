@@ -42,7 +42,7 @@ const OrderItems = () => {
     return (
         <div className={`${styles.bgLightWhite} container ${styles.containerOrder} p-3 rounded my-3`}>
             <div className="row my-1 d-flex col-11 m-auto">
-                <h2 className="mb-3 m-0">Orders</h2>
+                <h2 className="mb-3">Orders</h2>
                 {distinctDates.map((date) => (
                     <div key={date}>
                         <p className='m-0'>{new Date(date).toLocaleDateString('pt-BR', {
@@ -54,7 +54,7 @@ const OrderItems = () => {
                         {orders
                             .filter((order) => order.dateOrder.split('T')[0] === date)
                             .map((order) => {
-                                const product = products.find((prod) => prod.id === order.id);
+                                const product = products.find((prod) => prod.id === order.productId);
                                 
                                 return (
                                     <HorizontalCard

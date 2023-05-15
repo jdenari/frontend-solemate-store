@@ -84,7 +84,7 @@ const PurchaseSummary: React.FC<PurchaseSummaryProps> = ({ title, items, prices,
     
     return (
         <div className={`${styles.bgLightWhite} container justify-content-center m-auto w-100`}>
-            <div className="col-6 p-5 m-auto">
+            <div className="col-lg-6 col-10 p-5 m-auto">
                 <h5>{title}</h5>
                 <hr />
                 {items.map((item, index) => (
@@ -99,7 +99,7 @@ const PurchaseSummary: React.FC<PurchaseSummaryProps> = ({ title, items, prices,
                     <span>{total.toFixed(2)}</span>
                 </div>
             </div>
-            <div className="col-6 m-auto px-5 pb-5 d-flex flex-row-reverse">
+            <div className="col-10 col-lg-9 pb-5 d-flex flex-row-reverse">
                 <div className='d-flex align-items-end'>
                     <SolemateButton 
                         buttonText="Checkout" 
