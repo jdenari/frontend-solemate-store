@@ -46,9 +46,9 @@ const CartItems = () => {
     if (carts.length === 0) {
         return (
         <div className={`${styles.bgLightWhite} container ${styles.containerOrder} p-5 rounded my-3 text-center d-flex align-items-center`}>
-            <div className='p-3 bg-white col-8 m-auto shadow-sm p-3 py-5 bg-body-tertiary rounded'>
+            <div className='p-3 bg-white col-lg-8 col-10 m-auto shadow-sm p-3 py-5 bg-body-tertiary rounded'>
                 <h4>You don't have any products in your cart!</h4>
-                <div className='col-3 m-auto p-3 mt-5'>
+                <div className='m-auto p-3 mt-5 col-lg-4 col-sm-6 col-8'>
                     <SolemateButton 
                         buttonText="Check our offers" 
                         href="/"

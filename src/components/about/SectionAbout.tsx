@@ -3,7 +3,7 @@ import React from 'react'
 const SectionAbout = () => {
 return (
     <div className='container p-3 my-3'>
-        <div className='m-auto col-8 lead p-3'>
+        <div className='m-auto col-lg-8 col-10 lead p-3'>
             <h2>About Company</h2>
             <p className='mt-4'>Aqui na ABC Company, estamos comprometidos em fornecer aos nossos clientes os melhores produtos e serviços possíveis. Fundada em 1995, a nossa empresa cresceu e evoluiu ao longo dos anos, mas o nosso compromisso com a qualidade nunca mudou.</p>
             <p>Oferecemos uma ampla variedade de produtos de alta qualidade, desde eletrônicos a móveis, e estamos sempre procurando novas maneiras de melhorar a nossa seleção. Além disso, também oferecemos serviços de manutenção e reparo para garantir que seus produtos estejam sempre em perfeitas condições de funcionamento.</p>

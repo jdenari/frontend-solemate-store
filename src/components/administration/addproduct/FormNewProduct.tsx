@@ -135,8 +135,8 @@ const FormNewProduct: React.FC = () => {
     return (
         <>
             <div>
-                <div className='d-flex'>
-                    <div className='w-50 m-auto border shadow-sm my-5 px-3 py-4 mx-3 bg-body-tertiary rounded'>
+                <div className='d-lg-flex '>
+                    <div className='col-lg-6 m-auto border shadow-sm my-lg-5 my-3 px-3 py-4 mx-3 bg-body-tertiary rounded'>
                         <h2 className="text-center mb-5">Image</h2>
                         {photo ? (
                             <div className='d-flex p-3 my-2 align-items-center m-auto'>
@@ -148,7 +148,7 @@ const FormNewProduct: React.FC = () => {
                             </div>
                         )}
                     </div>
-                    <Form onSubmit={handleAddProduct} className="w-50 m-auto border shadow-sm my-5 px-3 py-4 mx-3 mb-5 bg-body-tertiary rounded">
+                    <Form onSubmit={handleAddProduct} className="col-lg-6 m-auto border shadow-sm my-lg-5 my-3 px-3 py-4 mx-3 mb-lg-5 mb-3 bg-body-tertiary rounded">
                         <h2 className="text-center mb-5">Register Product</h2>
                         <Form.Group controlId="formProductName" className='d-flex my-2 align-items-center'>
                             <Form.Label className='col-3 text-end px-2 m-0'>Name Product</Form.Label>
