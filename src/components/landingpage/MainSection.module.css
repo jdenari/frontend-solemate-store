@@ -9,7 +9,7 @@
 .counter {
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: 5px;
     z-index: 1;
     max-width: 100%;
     width: 50%;
@@ -41,6 +41,79 @@
     max-width: 100%;
     width: 50%;
     transform: translate(40%, 100%);
+}
+
+/*------------------------------------1600px----------------------------------------------*/ 
+@media screen and (max-width: 1600px) {
+}
+/*-----------------------------------1400px-xxl------------------------------------------*/ 
+@media screen and (max-width: 1400px) {
+    .counter {
+        position: absolute;
+        bottom: 5px !important;
+        right: 60px !important;
+        z-index: 1;
+        max-width: 100%;
+        width: 50%;
+        transform: translate(45%, -25%);
+    }
+}
+/*-----------------------------------1200px-xl-------------------------------------------*/ 
+@media screen and (max-width: 1200px) {
+    .arrow{
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        max-width: 100%;
+        width: 70%;
+        transform: translate(40%, 100%);
+    }
+    .counter {
+        position: absolute;
+        bottom: 5px !important;
+        right: 80px !important;
+        z-index: 1;
+        max-width: 100%;
+        width: 50%;
+        transform: translate(45%, -25%);
+    }
+}
+/*------------------------------------992px-lg-------------------------------------------*/ 
+@media screen and (max-width: 992px) {
+    .arrow{
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        max-width: 100%;
+        width: 90%;
+        transform: translate(40%, 100%);
+    }
+}
+/*------------------------------------768px-md-------------------------------------------*/
+@media screen and (max-width: 768px) {
+    .arrow{
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        max-width: 100%;
+        width: 70%;
+        transform: translate(40%, 100%);
+    }
+    .counter {
+        position: absolute;
+        bottom: 5px !important;
+        right: 70px !important;
+        z-index: 1;
+        max-width: 100%;
+        width: 50%;
+        transform: translate(45%, -25%);
+    }
+}
+/*------------------------------------576px-sm-------------------------------------------*/
+@media screen and (max-width: 576px) {
 }
   
   

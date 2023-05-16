@@ -79,7 +79,7 @@ const MainSection = () => {
                 </div>
             </div>
             <div className='col-12 d-flex'>
-                <div className='position-relative col-9 my-3'>
+                <div className='position-relative col-9 my-3 mx-auto mx-md-0'>
                     <img src={`http://localhost:5000/api/photos/${product ? product.id : ''}/photo`} alt="" className={`${styles.mainPhoto} text-center shadow p-3 bg-body-tertiary rounded w-100`}/>
                     <Counter className={styles.counter} />
                     <div className={`${styles.arrow} d-flex position-absolute`}>

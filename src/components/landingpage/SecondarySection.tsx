@@ -24,7 +24,7 @@ const SecondarySection: React.FC = () => {
     };
 
     return (
-        <div className="container vh-100 overflow-auto">
+        <div className="container col-sm-12 overflow-auto">
             <div className="row my-1">
                 {renderProducts()}
             </div>

@@ -1,3 +1,2 @@
-.cardBody{height: 90px;}
+.cardBody{max-height: 90px !important; }
 .cardContainer {cursor: pointer;}
-  
