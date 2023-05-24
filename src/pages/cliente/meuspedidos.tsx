@@ -8,12 +8,12 @@ import { Provider } from 'react-redux'
 import store from '../../store/store'
 import withAuth from '@/components/middleware/withAuth'
 
-const meuspedidos = () => {
+const MeusPedidos = () => {
     const dispatch = useDispatch<any>();
 
     useEffect(() => {
         dispatch(getOrder());
-    }, []);
+    }, [dispatch]);
     return (
         <Provider store={store}>
             <div>
@@ -25,4 +25,4 @@ const meuspedidos = () => {
     );
 }
 
-export default withAuth(meuspedidos, { accessLevel: 'any' });
+export default withAuth(MeusPedidos, { accessLevel: 'any' });

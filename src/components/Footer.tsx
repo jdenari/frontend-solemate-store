@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import styles from './Footer.module.css';
 import { RootState } from '@/store/rootReducer';
+import Link from 'next/link';
 
 const Footer = () => {
     const categories = useSelector((state: RootState) => state.category.categories);
@@ -13,39 +14,29 @@ const Footer = () => {
                 <div className="d-flex justify-content-between w-100">
                     <ul className="navbar-nav">
                         <li className={`nav-item text-left mx-5`}>
-                            <a className={`${styles.title} font-weight-bold nav-link`} href="#">Categories</a>
+                            <Link href="#" className={`${styles.title} font-weight-bold nav-link`}>Categories</Link>
                             {
                                 categories.map((category) => (
-                                    <a
-                                    key={category.id}
-                                    href="#"
-                                    className={`${styles.row} nav-link`}
-                                    >
-                                    {category.category}
-                                    </a>
+                                    <Link href="#" key={category.id} className={`${styles.row} nav-link`}>
+                                        {category.category}
+                                    </Link>
                                 ))
                             }
                         </li>
                         <li className={`nav-item ${styles.footerNavItem} text-left mx-5`}>
-                            <a className={`${styles.title} font-weight-bold nav-link mt-lg-0 mt-3`} href="/cliente/meuspedidos">Client</a>
-                            <a href="/cliente/meuspedidos" className={`${styles.row} nav-link`}>Orders</a>
-                            <a href="/cliente/meucarrinho" className={`${styles.row} nav-link`}>Cart</a>
+                            <Link href="/cliente/meuspedidos" className={`${styles.title} font-weight-bold nav-link mt-lg-0 mt-3`}>Client</Link>
+                            <Link href="/cliente/meuspedidos" className={`${styles.row} nav-link`}>Orders</Link>
+                            <Link href="/cliente/meucarrinho" className={`${styles.row} nav-link`}>Cart</Link>
                         </li>
                         <li className={`nav-item text-left mx-5`}>
-                            <a className={`${styles.title} font-weight-bold nav-link mt-lg-0 mt-3`} href="/cliente/solemate">About</a>
-                            <a href="/cliente/solemate" className={`${styles.row} nav-link`}>Solemate Store</a>
+                            <Link href="/cliente/solemate" className={`${styles.title} font-weight-bold nav-link mt-lg-0 mt-3`}>About</Link>
+                            <Link href="/cliente/solemate" className={`${styles.row} nav-link`}>Solemate Store</Link>
                         </li>
                     </ul>
                     <div className="d-flex">
-                        <a href="#">
-                            <FaFacebookF size={20} className="text-secondary mx-2" />
-                        </a>
-                        <a href="#">
-                            <FaTwitter size={20} className="text-secondary mx-2" />
-                        </a>
-                        <a href="#">
-                            <FaInstagram size={20} className="text-secondary mx-2" />
-                        </a>
+                        <Link href="#"><FaFacebookF size={20} className="text-secondary mx-2" /></Link>
+                        <Link href="#"><FaTwitter size={20} className="text-secondary mx-2" /></Link>
+                        <Link href="#"><FaInstagram size={20} className="text-secondary mx-2" /></Link>
                     </div>
                 </div>
             </nav>
@@ -54,5 +45,6 @@ const Footer = () => {
 };
 
 export default Footer;
+
 
 

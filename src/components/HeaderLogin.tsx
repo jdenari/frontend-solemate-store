@@ -5,6 +5,7 @@ import SolemateModal from './SolemateModal';
 import styles from './HeaderLogin.module.css';
 import { RootState } from '../store/types';
 import { DEAUTHENTICATE } from '../store/actions';
+import Link from 'next/link';
 
 const HeaderLogin = () => {
     const dispatch = useDispatch();
@@ -40,39 +41,25 @@ const HeaderLogin = () => {
             >
                 <ul className={`list-unstyled ${styles.dropdownMenu}`}>
                 <li>
-                    <a className={`${styles.dropdownItem} my-1`} href="/">
-                    Home
-                    </a>
+                    <Link href="/" className={`${styles.dropdownItem} my-1`}>Home</Link>
                 </li>
                 <li>
-                    <a
-                    className={`${styles.dropdownItem} my-1`}
-                    href="/cliente/meuspedidos"
-                    >
-                    Orders
-                    </a>
+                    <Link href="/cliente/meuspedidos" className={`${styles.dropdownItem} my-1`}>Orders</Link>
                 </li>
                 <li>
-                    <a
-                    className={`${styles.dropdownItem} my-1`}
-                    href="/cliente/meucarrinho"
-                    >
-                    Cart
-                    </a>
+                    <Link href="/cliente/meucarrinho" className={`${styles.dropdownItem} my-1`}>Cart</Link>
                 </li>
                 <li>
-                    <a className={`${styles.dropdownItem} my-1`} href="#">
-                    Profile
-                    </a>
+                    <Link href="#" className={`${styles.dropdownItem} my-1`}>Profile</Link>
                 </li>
                 <li>
-                    <a
+                    <Link
                     className={`${styles.dropdownItem} my-1`}
                     href="#"
                     onClick={handleOpenModal}
                     >
                     Log out
-                    </a>
+                    </Link>
                 </li>
                 </ul>
             </div>
@@ -90,6 +77,7 @@ const HeaderLogin = () => {
 };
 
 export default HeaderLogin;
+
 
 
 

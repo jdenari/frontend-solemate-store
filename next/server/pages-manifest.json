@@ -1,0 +1,10 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/": "pages/index.js",
+  "/cliente/solemate": "pages/cliente/solemate.js",
+  "/cliente/meucarrinho": "pages/cliente/meucarrinho.js",
+  "/administracao/controledeestoque": "pages/administracao/controledeestoque.js",
+  "/cliente/meuspedidos": "pages/cliente/meuspedidos.js"
+}

@@ -1,6 +1,7 @@
 // patterns imports
 import React, { useState, useEffect } from 'react';
 import styles from './RegisterForm.module.css';
+import Link from 'next/link';
 
 // child components imports
 import SolemateButton from '../SolemateButton';
@@ -114,9 +115,9 @@ const RegisterForm = () => {
                     </div>
                     <div className="text-center mt-3">
                         <span className="mx-1">Already have an account?</span>
-                        <a href="/cliente/login" className="mx-1">
+                        <Link href="/cliente/login" className="mx-1">
                             Log in.
-                        </a>
+                        </Link>
                     </div>
                     <div className='m-3 mt-5'>
                         {message.message && <MessageReturn text={message.message.text} variant={message.message.variant} />}

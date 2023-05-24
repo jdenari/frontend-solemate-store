@@ -1,6 +1,7 @@
 // patterns imports
 import React from 'react';
 import styles from './LoginForm.module.css';
+import Link from 'next/link';
 
 // child components imports
 import SolemateButton from '../SolemateButton';
@@ -70,10 +71,10 @@ const LoginForm = () => {
                     </div>
                     <div className="text-center mt-3">
                         <span className="mx-1">
-                            Don't have an account?
-                        <a href="/cliente/registre" className="mx-1">
+                            Don&apos;t have an account?
+                        <Link href="/cliente/registre" className="mx-1">
                             Make your registration.
-                        </a>
+                        </Link>
                         </span>
                     </div>
                     <div className='m-3 mt-5'>
